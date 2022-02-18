@@ -5,7 +5,7 @@ export default {
   state: () => ({
     allProductsList: [],
     allProductsObj: {},
-    thisProduct: {}
+    // thisProduct: {}
     // allImagesList: [],
     // allImagesObj: {},
     // updateProductError: null,
@@ -18,10 +18,12 @@ export default {
       context.commit(Mutations.SET_PRODUCTS, res);
     },
     
+    /*
     async [Actions.GET_PRODUCT](context,productId) {
       const res = await API.getSingleProduct(productId)
       console.log(res)
     }
+    */
     
   },
   mutations: {
