@@ -159,8 +159,12 @@ export const deleteProduct = async (productId) => {
 // response will be according to user status
 // admin -> get all orders
 // user -> get all his/her orders
-export const getAllOrders = async () => {
-  return orders;
+export const getAllOrders = async (user) => {
+  if (user.admin) {
+    return orders;
+  } else {
+    return orders.filter((order) => order.userId == user.id);
+  }
 };
 
 export const getSingleOrder = async (orderId) => {
@@ -186,7 +190,7 @@ export const updateOrderStatus = async (orderId, orderStatus) => {
   orders.splice(index, 1, order);
 };
 
-export const updateInloggedUserProfile = async (userData) => {
+export const updateUserProfile = async (userData) => {
   let user = users.find((user) => user.id == userData.id);
   let index = users.findIndex((user) => user.id == userData.id);
   users.splice(index, 1, { ...user, ...userData });
