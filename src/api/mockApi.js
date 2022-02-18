@@ -7,7 +7,7 @@ export function getAllProducts() {
       specialEdition: true,
       shortDesc: "Unisex",
       longDesc: "Skate ipsum dolor sit amet...",
-      imgFile: "skateboard-greta.png",
+      imgFile: "skateboard-greta.jpg",
     },
     {
       id: 2,
