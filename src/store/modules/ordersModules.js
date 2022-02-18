@@ -3,14 +3,14 @@ export default {
     // allOrdersList: [],
     // allOrdersObj: {},
     // updateOrderStatusError: null
-      thisOrderList: []
+      cart: []
   }),
   actions: {
   },
   mutations: {
     addToCart(state, product){
-      state.thisOrderList.push(product)
-      console.log(state.thisOrderList)
+      state.cart.push(product)
+      console.log(state.cart)
     }
   },
   getters: {},
