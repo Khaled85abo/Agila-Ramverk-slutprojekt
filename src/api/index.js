@@ -12,7 +12,8 @@ export function saveToken(token) {
  *
  */
 // credentials = {"email": "...", "password" : "..."}
-export const login = async (credentials) => await axios.post("/auth", data);
+export const login = async (credentials) =>
+  await axios.post("/auth", credentials);
 
 // userData = {
 //   "email": 'greta.thunberg@example.se',
@@ -48,7 +49,7 @@ export const createNewProduct = async (productData) =>
 export const updateProduct = async (productId, productData) =>
   await axios.patch(`/items/${productId}`, productData);
 
-export const updateProduct = async (productId) =>
+export const deleteProduct = async (productId) =>
   await axios.delete(`/items/${productId}`);
 
 // response will be according to user status
