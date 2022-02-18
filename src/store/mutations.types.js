@@ -1,3 +1,3 @@
 const SET_PRODUCTS = "SET_PRODUCTS";
-
-export default { SET_PRODUCTS };
+const ADD_PRODUCT = "ADD_PRODUCT";
+export default { SET_PRODUCTS, ADD_PRODUCT };
