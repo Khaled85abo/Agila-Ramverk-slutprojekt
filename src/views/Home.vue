@@ -1,8 +1,9 @@
 <template>
   <div class="home">
-    this is Home
+    This is Home
     <ul>
-      <li v-for="pro of products" :key="pro.id">{{ pro.title }}</li>
+      <li v-for="pro of products" :key="pro.id"
+      @click="toProduct(pro.id)">{{ pro.title }}</li>
     </ul>
   </div>
 </template>
@@ -12,6 +13,11 @@
 
 export default {
   name: "Home",
+  methods: {
+    toProduct(prodId){
+      this.$router.push('/product/' + prodId)
+    }
+  },
   computed: {
     products() {
       return this.$store.state.productsModule.allProductsList;
