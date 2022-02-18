@@ -10,9 +10,12 @@
 <script>
 import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
-
+import Actions from "./store/actions.types";
 export default {
   components: { Header, Footer },
+  mounted() {
+    this.$store.dispatch(Actions.GET_ALL_PRODUCTS);
+  },
 };
 </script>
 
