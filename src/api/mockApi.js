@@ -179,8 +179,15 @@ export const getSingleOrder = async (orderId) => {
 //   "longDesc": 'Skate ipsum dolor sit amet...',
 //   "imgFile": 'skateboard-greta.png'
 // }
-export const createNewOrder = async (orderData) => {
-  orders.push({ ...orderData, id: Math.ceil(Math.random() * 500) });
+export const registerOrder = async (orderData, userId) => {
+  orders.push({
+    ...orderData,
+    userId,
+    id: Math.ceil(Math.random() * 500),
+    createdAt: new Date.now(),
+    updatedAt: null,
+    status: "inProgress",
+  });
 };
 // orderStatus = {status: ...}
 export const updateOrderStatus = async (orderId, orderStatus) => {
