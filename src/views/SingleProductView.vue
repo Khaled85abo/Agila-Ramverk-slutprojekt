@@ -3,7 +3,7 @@
     <h1>This is single product view</h1>
     {{ prod }}
     <img :src="require('@/assets/' + prod.imgFile)">
-    <button>Add to cart</button>
+    <button @click="addToCart">Add to cart</button>
   </div>
 </template>
 
@@ -12,6 +12,11 @@ export default {
   data(){return{
       //imgFile: require("@/assets/skateboard-greta.jpg")
     }},
+    methods: {
+      addToCart(){
+        this.$store.commit('addToCart', this.prod)
+      }
+    },
   computed: {
     prod() {
       return this.$store.state.productsModule.allProductsList.find(
