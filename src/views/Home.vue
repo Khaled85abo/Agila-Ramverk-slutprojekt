@@ -61,7 +61,7 @@ export default {
       */
 
      return this.$store.state.productsModule.allProductsList.filter(
-        prod => prod.shortDesc == this.categories)
+        prod => this.categories.includes(prod.shortDesc))
     }
   },
 };
