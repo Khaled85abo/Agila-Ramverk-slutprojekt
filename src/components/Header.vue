@@ -2,6 +2,7 @@
   <header>
     <nav id="nav">
       <div><router-link to="/">Home</router-link></div>
+      <div><router-link to="/profile">Profile</router-link></div>
       <div>
         <router-link to="/about">About</router-link>
       </div>
