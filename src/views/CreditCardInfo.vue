@@ -1,9 +1,13 @@
 <template>
-  <div></div>
+  <div>
+  <h1>Choose payment</h1>
+  </div>
 </template>
 
 <script>
 export default {};
 </script>
 
-<style></style>
+<style lang="scss">
+
+</style>
