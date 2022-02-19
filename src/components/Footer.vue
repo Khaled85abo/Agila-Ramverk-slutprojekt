@@ -44,25 +44,20 @@ export default {};
 </script>
 
 <style lang="scss">
-@mixin flexCenter($direction){
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: $direction;
-}
+@import '@/styles/_functions.scss';
+
 .footer{
 
-   @include flexCenter(column);
+   @include flexCenter(column , 1440px );
    background-color: $interfaceBlack;
-   width: 1440px;
    height: 242px;
    .wrapper{
      background-color: $pureWhite;
-     width: 1059px;
+     width: 1060px;
      height: 225px;
      border-radius: 16px;
      article{ 
-       @include flexCenter(row);
+       @include flexCenter(row, auto);
        gap: 52px;
        margin-top: 1rem;
      }
