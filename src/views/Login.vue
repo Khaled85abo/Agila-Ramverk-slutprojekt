@@ -1,9 +1,28 @@
 <template>
   <div class="wrapper">
+    <transition name="toast">
+      <Snackbar
+        v-if="loginError"
+        type="error"
+        :message="loginError"
+        @resetError="resetError"
+      />
+      <Snackbar
+        v-if="signupError"
+        type="error"
+        :message="signupError"
+        @resetError="resetError"
+      />
+      <Snackbar
+        v-if="localError"
+        type="error"
+        :message="localError"
+        @resetError="resetError"
+      />
+    </transition>
     <transition name="form" mode="out-in">
       <form v-if="show" @submit.prevent="signup">
         <h3>Create an account</h3>
-        <p v-if="signupError">{{ signupError }}</p>
         <label for="name">Name</label>
         <input
           type="text"
@@ -36,7 +55,6 @@
       </form>
       <form v-else @submit.prevent="login">
         <h3>Login</h3>
-        <p v-if="loginError">{{ loginError }}</p>
         <label for="email">E-mail</label>
         <input
           type="email"
@@ -68,7 +86,9 @@
 
 <script>
 import Actions from "../store/actions.types";
+import Snackbar from "../components/SnackBar.vue";
 export default {
+  components: { Snackbar },
   data() {
     return {
       show: true,
@@ -78,6 +98,7 @@ export default {
         email: "",
         confirmPassword: "",
       },
+      localError: null,
     };
   },
   computed: {
@@ -89,6 +110,11 @@ export default {
     },
   },
   methods: {
+    resetError() {
+      this.localError = null;
+      this.$store.dispatch(Actions.RESET_LOGIN_ERROR);
+      this.$store.dispatch(Actions.RESET_REGISTER_ERROR);
+    },
     login(e) {
       console.log("event: ", e);
       console.log(this.user.email, this.user.password);
@@ -98,7 +124,12 @@ export default {
       });
     },
     signup() {
-      console.log(this.user);
+      if (this.user.password !== this.user.confirmPassword) {
+        this.localError = "passwords don't match";
+        return;
+      }
+      console.log("user to register: ", this.user);
+      this.$store.dispatch(Actions.REGISTER_USER, this.user);
     },
   },
 };
@@ -109,7 +140,7 @@ export default {
   max-width: 500px;
   margin: auto;
   form {
-    margin-top: 1rem;
+    margin: 1rem 0.5rem;
     h3 {
       text-align: center;
     }
@@ -128,7 +159,7 @@ export default {
     display: flex;
     justify-content: space-between;
     color: $link;
-    margin: 1rem 0;
+    margin: 1rem 0.5rem;
     span {
       cursor: pointer;
       &:hover {
@@ -137,10 +168,67 @@ export default {
     }
   }
 }
+/* .snackbar-enter-active,
+.snackbar-enter-active {
+  transition: all 1s ease;
+}
+.snackbar-enter,
+.snackbar-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.snackbar-enter-to,
+.snackbar-leave {
+  opacity: 1;
+  transform: translateY(0);
+} */
+
+/* .toast-enter-active {
+  animation: bounce 0.5s;
+} */
+@keyframes bounce {
+  0% {
+    transform: translateY(-10%);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  60% {
+    transform: translateX(-1%);
+  }
+  70% {
+    transform: translateX(1%);
+  }
+  80% {
+    transform: translateX(-1%);
+  }
+  90% {
+    transform: translateX(1%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+.toast-enter-to,
+.toast-leave {
+  opacity: 1;
+}
+.toast-enter,
+.toast-leave-to {
+  opacity: 0;
+  /* transform: translateY(-10%); */
+}
+.toast-enter-active,
+.toast-leave-active {
+  transition: all 0.5s ease;
+}
 
 .form-enter-active {
   animation: fade 1s;
 }
+
 .form-leave-active {
   animation: fade 1s reverse;
 }

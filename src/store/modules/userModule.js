@@ -31,10 +31,12 @@ export default {
     // data ={name: '', email: '', password: ''}
     [Actions.REGISTER_USER]({ commit }, data) {
       const res = API.registerUser(data);
-      if (res?.response === "error") {
+      console.log("register user response: ", res);
+      if (res.response === "error") {
         commit(Mutations.SET_REGISTER_ERROR, res.error);
       } else {
         commit(Mutations.SET_USER, res);
+        router.push("/");
       }
     },
     // data = {id: , name: ''} || {id: ,email: ''} || {id: ,name: '', email: '', password: ''}
@@ -51,6 +53,7 @@ export default {
   },
   mutations: {
     [Mutations.SET_USER](state, user) {
+      console.log("commit set user: ", user);
       state.user = user;
     },
     [Mutations.SET_LOGIN_ERROR](state, error) {

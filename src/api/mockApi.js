@@ -224,9 +224,24 @@ export const login = (data) => {
   }
   return { id: user.id, email: user.email, admin: user.admin, name: user.name };
 };
+
+// data ={name: '', email: '', password: ''}
 export const registerUser = (userData) => {
+  const error = {
+    response: "error",
+    status: 404,
+    error: "Password must be at least 6 characters",
+  };
+
+  if (userData.password.length < 6) {
+    return error;
+  }
+  const existingUser = users.find((user) => user.email == userData.email);
+  if (existingUser) {
+    return { ...error, error: "Email already exists" };
+  }
   users.push({ ...userData, admin: false, id: Math.ceil(Math.random() * 500) });
-  const user = login({ email: user.email, password: user.password });
+  const user = login({ email: userData.email, password: userData.password });
   return user;
 };
 
