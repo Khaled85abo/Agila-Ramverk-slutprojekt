@@ -7,6 +7,7 @@ import Delivery from "../views/Delivery.vue";
 import ChoosePayment from "../views/ChoosePayment.vue";
 import CreditCardInfo from "../views/CreditCardInfo.vue";
 import Profile from "../views/Profile";
+import Login from "../views/Login";
 Vue.use(VueRouter);
 
 const routes = [
@@ -19,6 +20,11 @@ const routes = [
     name: "Profile",
     path: "/profile",
     component: Profile,
+  },
+  {
+    name: "Login",
+    path: "/login",
+    component: Login,
   },
   {
     name: "Cart",

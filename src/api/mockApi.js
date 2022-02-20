@@ -120,13 +120,15 @@ const orders = [
     ],
   },
 ];
+
+/**
+ *
+ * PRODUCTS
+ *
+ */
 export function getAllProducts() {
   return products;
 }
-
-export const registerUser = async (userData) => {
-  users.push({ ...userData, id: Math.ceil(Math.random() * 500) });
-};
 
 export const getSingleProduct = (productId) => {
   return products.find((pro) => pro.id == productId);
@@ -140,7 +142,7 @@ export const getSingleProduct = (productId) => {
 //   "longDesc": 'Skate ipsum dolor sit amet...',
 //   "imgFile": 'skateboard-greta.png'
 // }
-export const createNewProduct = async (productData) => {
+export const createNewProduct = (productData) => {
   const product = { ...productData, id: Math.ceil(Math.random() * 500) };
   products.push(product);
 };
@@ -152,14 +154,22 @@ export const updateProduct = (productId, productData) => {
   products.splice(index, 1, pro);
 };
 
-export const deleteProduct = async (productId) => {
+export const deleteProduct = (productId) => {
   const index = products.findIndex((pro) => pro.id == productId);
   products.splice(index, 1);
+
+  //  products = products.filter(pro => pro.id != productId)
 };
+
+/**
+ *
+ * ORDERS
+ *
+ */
 // response will be according to user status
 // admin -> get all orders
 // user -> get all his/her orders
-export const getAllOrders = async (user) => {
+export const getAllOrders = (user) => {
   if (user.admin) {
     return orders;
   } else {
@@ -167,7 +177,7 @@ export const getAllOrders = async (user) => {
   }
 };
 
-export const getSingleOrder = async (orderId) => {
+export const getSingleOrder = (orderId) => {
   return orders.find((order) => order.id == orderId);
 };
 
@@ -179,7 +189,7 @@ export const getSingleOrder = async (orderId) => {
 //   "longDesc": 'Skate ipsum dolor sit amet...',
 //   "imgFile": 'skateboard-greta.png'
 // }
-export const registerOrder = async (orderData, userId) => {
+export const registerOrder = (orderData, userId) => {
   orders.push({
     ...orderData,
     userId,
@@ -190,15 +200,41 @@ export const registerOrder = async (orderData, userId) => {
   });
 };
 // orderStatus = {status: ...}
-export const updateOrderStatus = async (orderId, orderStatus) => {
+export const updateOrderStatus = (orderId, orderStatus) => {
   let order = orders.find((order) => order.id == orderId);
   const index = orders.findIndex((order) => order.id == orderId);
   order = { ...order, status: orderStatus };
   orders.splice(index, 1, order);
 };
 
-export const updateUserProfile = async (userData) => {
+/**
+ *
+ * USER
+ *
+ */
+
+export const login = (data) => {
+  const error = { response: "error", status: 404, error: "Wrong credentials" };
+  const user = users.find((user) => user.email == data.email);
+  if (!user) {
+    return error;
+  }
+  if (user.password !== data.password) {
+    return error;
+  }
+  return { id: user.id, email: user.email, admin: user.admin, name: user.name };
+};
+export const registerUser = (userData) => {
+  users.push({ ...userData, admin: false, id: Math.ceil(Math.random() * 500) });
+  const user = login({ email: user.email, password: user.password });
+  return user;
+};
+
+export const updateUserProfile = (userData) => {
   let user = users.find((user) => user.id == userData.id);
   let index = users.findIndex((user) => user.id == userData.id);
-  users.splice(index, 1, { ...user, ...userData });
+  const newUser = { ...user, ...userData };
+  users.splice(index, 1, newUser);
+
+  return { newUser };
 };

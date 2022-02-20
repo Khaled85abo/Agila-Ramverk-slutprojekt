@@ -1,5 +1,7 @@
 import Actions from "../actions.types";
-import * as API from "../../api";
+import router from "../../router";
+import Mutations from "../mutations.types";
+import * as API from "../../api/mockApi";
 export default {
   state: () => ({
     // userId: null,
@@ -7,25 +9,62 @@ export default {
     // userToken: null,
     // loginError: null,
     // updateUserInfoError: null,
-    currentUserEmail: "johan@live.se",
-    user: {
-      id: 3,
-      admin: false,
-      name: "Johan",
-      email: "johan.se@live.se",
-      address: {
-        street: "Tokitokvägen 3",
-        zip: "123 45",
-        city: "Tokberga",
-      },
-    },
+    currentUserEmail: null,
+    user: null,
+    address: null,
+    loginError: null,
+    signupError: null,
   }),
   actions: {
-    async [Actions.LOGIN](context, data) {
-      const res = await API.login(data);
-      console.log(res);
+    //data ={email: '', password: ''}
+    [Actions.LOGIN]({ commit }, data) {
+      console.log(data);
+      const res = API.login(data);
+      console.log("response: ", res);
+      if (res.response === "error") {
+        commit(Mutations.SET_LOGIN_ERROR, res.error);
+      } else {
+        commit(Mutations.SET_USER, res);
+        router.push("/");
+      }
+    },
+    // data ={name: '', email: '', password: ''}
+    [Actions.REGISTER_USER]({ commit }, data) {
+      const res = API.registerUser(data);
+      if (res?.response === "error") {
+        commit(Mutations.SET_REGISTER_ERROR, res.error);
+      } else {
+        commit(Mutations.SET_USER, res);
+      }
+    },
+    // data = {id: , name: ''} || {id: ,email: ''} || {id: ,name: '', email: '', password: ''}
+    [Actions.UPDATE_USER]({ commit }, data) {
+      const newUser = API.updateUserProfile(data);
+      commit(Mutations.SET_USER, newUser);
+    },
+    [Actions.RESET_LOGIN_ERROR]({ commit }) {
+      commit(Mutations.RESET_LOGIN_ERROR);
+    },
+    [Actions.RESET_REGISTER_ERROR]({ commit }) {
+      commit(Mutations.RESET_REGISTER_ERROR);
     },
   },
-  mutations: {},
+  mutations: {
+    [Mutations.SET_USER](state, user) {
+      state.user = user;
+    },
+    [Mutations.SET_LOGIN_ERROR](state, error) {
+      state.loginError = error;
+    },
+    [Mutations.RESET_LOGIN_ERROR](state) {
+      state.loginError = null;
+    },
+    [Mutations.SET_REGISTER_ERROR](state, error) {
+      state.signupError = error;
+    },
+    [Mutations.RESET_REGISTER_ERROR](state) {
+      state.signupError = null;
+    },
+  },
   getters: {},
 };
