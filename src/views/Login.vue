@@ -91,7 +91,7 @@ export default {
   components: { Snackbar },
   data() {
     return {
-      show: true,
+      show: false,
       user: {
         name: "",
         password: "",
@@ -116,6 +116,7 @@ export default {
       this.$store.dispatch(Actions.RESET_REGISTER_ERROR);
     },
     login(e) {
+      if (this.user.password == "" || this.user.email == "") return;
       console.log("event: ", e);
       console.log(this.user.email, this.user.password);
       this.$store.dispatch(Actions.LOGIN, {
@@ -124,6 +125,12 @@ export default {
       });
     },
     signup() {
+      if (
+        this.user.name == "" ||
+        this.user.password == "" ||
+        this.user.email == ""
+      )
+        return;
       if (this.user.password !== this.user.confirmPassword) {
         this.localError = "passwords don't match";
         return;
