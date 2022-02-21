@@ -11,7 +11,7 @@
           <router-link to="/">Accessories</router-link>
         </div>
         <div class="search">
-          <input type="text" />
+          <input type="text" v-model="searchKeyword" @keyup="test"/>
           <img src="../assets/icons/search.svg" alt="" />
         </div>
       </div>
@@ -48,11 +48,33 @@
         </div>
       </div>
     </nav>
+    <div class="For test">
+      <h1>For test</h1>
+        <ul>
+          <li v-for="t in test" :key="t.id">
+            {{ t.title }}
+          </li>
+        </ul>
+     
+    </div>
   </header>
 </template>
 
 <script>
 export default {
+  data(){return{
+    searchKeyword: ''
+  }},
+  methods: {
+    //Om jag kör test funktionen som computed blir det errors i loggen
+    /*
+    test(){
+      console.log(this.searchKeyword)
+      return this.$store.state.productsModule.allProductsList
+      .filter(str => str.title.includes(this.searchKeyword))
+    }
+    */
+  },
   computed: {
     cartItems() {
       return this.$store.state.ordersModules.cart.length;
@@ -60,6 +82,13 @@ export default {
     user() {
       return this.$store.state.userModule.user;
     },
+    
+    test(){
+      console.log(this.searchKeyword)
+      return this.$store.state.productsModule.allProductsList
+      .filter(str => str.title.includes(this.searchKeyword))
+    }
+    
   },
 };
 </script>
