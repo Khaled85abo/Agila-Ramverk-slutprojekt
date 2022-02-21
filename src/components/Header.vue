@@ -49,7 +49,7 @@
       </div>
     </nav>
     <div class="for-test">
-      <h1>For test</h1>
+      <h1>For test - searchList</h1>
         <ul class="hiddenSearchList">
           <li v-for="t in test" :key="t.id"
           @click="toProduct(t.id)">
@@ -75,8 +75,6 @@ export default {
     }
     */
    toProduct(id){
-     //const product = this.$store.state.productsModule.allProductsList.find(t => t.title == title)
-      console.log("Id is: " + id)
       this.$router.push('/product/' + id)
    }
   },
@@ -93,7 +91,7 @@ export default {
 
       if(this.searchKeyword.length > 0){
         return this.$store.state.productsModule.allProductsList
-        .filter(str => str.title.toLowerCase().includes(this.searchKeyword)) 
+        .filter(str => str.title.toLowerCase().includes(this.searchKeyword.toLowerCase())) 
       }
        return null
     }
@@ -189,7 +187,7 @@ header {
         font-weight: bold;
       }
     }
-    /* Behöver kolla detta, jag vill dölja listan, om det behövs */
+    /* Behöver kolla detta, jag vill dölja listan, OM det behövs */
     .hiddenSearchList {
       display: none;
     }
