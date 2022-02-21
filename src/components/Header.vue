@@ -48,14 +48,13 @@
         </div>
       </div>
     </nav>
-    <div class="For test">
+    <div class="for-test">
       <h1>For test</h1>
-        <ul>
+        <ul class="hiddenSearchList">
           <li v-for="t in test" :key="t.id">
             {{ t.title }}
           </li>
         </ul>
-     
     </div>
   </header>
 </template>
@@ -85,8 +84,12 @@ export default {
     
     test(){
       console.log(this.searchKeyword)
-      return this.$store.state.productsModule.allProductsList
-      .filter(str => str.title.includes(this.searchKeyword))
+
+      if(this.searchKeyword.length > 0){
+        return this.$store.state.productsModule.allProductsList
+        .filter(str => str.title.toLowerCase().includes(this.searchKeyword)) 
+      }
+       return null
     }
     
   },
@@ -179,6 +182,13 @@ header {
         text-transform: uppercase;
         font-weight: bold;
       }
+    }
+    /* Behöver kolla detta, jag vill dölja listan */
+    .hiddenSearchList {
+      display: none;
+    }
+    .for-test{
+      display: none;
     }
   }
 }
