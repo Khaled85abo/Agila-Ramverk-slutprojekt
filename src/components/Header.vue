@@ -52,7 +52,7 @@
       <h1>For test</h1>
         <ul class="hiddenSearchList">
           <li v-for="t in test" :key="t.id"
-          @click="toProduct(t.title)">
+          @click="toProduct(t.id)">
             {{ t.title }}
           </li>
         </ul>
@@ -74,11 +74,10 @@ export default {
       .filter(str => str.title.includes(this.searchKeyword))
     }
     */
-   toProduct(title){
-     const product = this.$store.state.productsModule.allProductsList.find(t => t.title == title)
-      console.log(product)
-      console.log("Id is: " + product.id)
-      this.$router.push('/product/' + product.id)
+   toProduct(id){
+     //const product = this.$store.state.productsModule.allProductsList.find(t => t.title == title)
+      console.log("Id is: " + id)
+      this.$router.push('/product/' + id)
    }
   },
   computed: {
@@ -190,7 +189,7 @@ header {
         font-weight: bold;
       }
     }
-    /* Behöver kolla detta, jag vill dölja listan */
+    /* Behöver kolla detta, jag vill dölja listan, om det behövs */
     .hiddenSearchList {
       display: none;
     }
