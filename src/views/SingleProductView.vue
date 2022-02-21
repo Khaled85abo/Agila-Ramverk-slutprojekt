@@ -68,7 +68,7 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@/styles/_functions.scss";
 .single-product {
   @include flexCenter(column);

@@ -80,7 +80,7 @@
 export default {};
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 article {
   margin-top: 10px;
   margin: 20px;
