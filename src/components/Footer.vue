@@ -4,31 +4,31 @@
       <article>
         <section>
           <p>Social Media</p>
-          <hr>
+          <hr />
           <label>Twitter</label>
           <label>Facebook</label>
           <label>Instagram</label>
           <label>YouTube</label>
         </section>
         <section>
-           <p>About Us</p>
-           <hr>
+          <p>About Us</p>
+          <hr />
           <label>Our About Page</label>
           <label>Our Developers</label>
         </section>
         <section>
-           <p>Find US</p>
-           <hr>
+          <p>Find US</p>
+          <hr />
           <p>
-            Cool Street 7th <br>
-            Radville <br>
-            12741 <br>
+            Cool Street 7th <br />
+            Radville <br />
+            12741 <br />
             Sweden
           </p>
         </section>
         <section>
-           <p>Work With US</p>
-           <hr>
+          <p>Work With US</p>
+          <hr />
           <p>Send Application at:</p>
           <label>jobs.sinus@sinus.se</label>
           <p>For Information:</p>
@@ -44,43 +44,41 @@ export default {};
 </script>
 
 <style lang="scss">
-@import '@/styles/_functions.scss';
+@import "@/styles/_functions.scss";
 
-.footer{
-
-   @include flexCenter(column , 1440px );
-   background-color: $interfaceBlack;
-   height: 242px;
-   .wrapper{
-     background-color: $pureWhite;
-     width: 1060px;
-     height: 225px;
-     border-radius: 16px;
-     article{ 
-       @include flexCenter(row, auto);
-       gap: 52px;
-       margin-top: 1rem;
-     }
-     section{
-       text-align: center;
-      p{
+.footer {
+  @include flexCenter(column, 1440px);
+  background-color: $interfaceBlack;
+  height: 242px;
+  .wrapper {
+    background-color: $pureWhite;
+    width: 1060px;
+    height: 225px;
+    border-radius: 16px;
+    article {
+      @include flexCenter(row, auto);
+      gap: 52px;
+      margin-top: 1rem;
+    }
+    section {
+      text-align: center;
+      p {
         font-size: 16px;
         font-weight: bold;
         margin-top: 10px;
       }
-       width: 147px;
-       height: 177px;
-       hr{
-         size: 5px;
-         margin-top: 5px;
-       }
-       label{
-         margin-top: 10px;
-         display: block;
-         color: $monsterGreen
-       }
-     }
-   }
+      width: 147px;
+      height: 177px;
+      hr {
+        size: 5px;
+        margin-top: 5px;
+      }
+      label {
+        margin-top: 10px;
+        display: block;
+        color: $monsterGreen;
+      }
+    }
+  }
 }
-
 </style>

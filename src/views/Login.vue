@@ -51,6 +51,28 @@
           placeholder="Confirm your password"
           v-model="user.confirmPassword"
         />
+        <h4>Address</h4>
+        <label for="street">Street</label>
+        <input
+          type="text"
+          id="street"
+          placeholder="Street"
+          v-model="user.address.street"
+        />
+        <label for="city">City</label>
+        <input
+          type="text"
+          id="city"
+          placeholder="City"
+          v-model="user.address.city"
+        />
+        <label for="zip">Zip</label>
+        <input
+          type="text"
+          id="zip"
+          placeholder="Zip Code"
+          v-model="user.address.Zip"
+        />
         <input type="submit" />
       </form>
       <form v-else @submit.prevent="login">
@@ -93,10 +115,15 @@ export default {
     return {
       show: false,
       user: {
-        name: "",
-        password: "",
-        email: "",
-        confirmPassword: "",
+        name: "khaled",
+        password: "12345",
+        email: "khaled@test.se",
+        confirmPassword: "12345",
+        address: {
+          street: "",
+          city: "",
+          zip: "",
+        },
       },
       localError: null,
     };
@@ -115,27 +142,24 @@ export default {
       this.$store.dispatch(Actions.RESET_LOGIN_ERROR);
       this.$store.dispatch(Actions.RESET_REGISTER_ERROR);
     },
-    login(e) {
+    login() {
       if (this.user.password == "" || this.user.email == "") return;
-      console.log("event: ", e);
-      console.log(this.user.email, this.user.password);
       this.$store.dispatch(Actions.LOGIN, {
         email: this.user.email,
         password: this.user.password,
       });
     },
     signup() {
-      if (
-        this.user.name == "" ||
-        this.user.password == "" ||
-        this.user.email == ""
-      )
-        return;
+      // if (
+      //   this.user.name == "" ||
+      //   this.user.password == "" ||
+      //   this.user.email == ""
+      // )
+      //   return;
       if (this.user.password !== this.user.confirmPassword) {
         this.localError = "passwords don't match";
         return;
       }
-      console.log("user to register: ", this.user);
       this.$store.dispatch(Actions.REGISTER_USER, this.user);
     },
   },
@@ -150,6 +174,9 @@ export default {
     margin: 1rem 0.5rem;
     h3 {
       text-align: center;
+    }
+    h4 {
+      margin: 0.5rem 0;
     }
     input {
       display: block;

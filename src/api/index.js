@@ -1,9 +1,9 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "http://localhost:8000";
+axios.defaults.baseURL = "http://localhost:5000/api";
 
 export function saveToken(token) {
-  axios.defaults.headers.common["Authorizatioin"] = token;
+  axios.defaults.headers.common["Authorization"] = token;
 }
 
 /**
@@ -19,7 +19,6 @@ export const login = async (credentials) =>
 //   "email": 'greta.thunberg@example.se',
 //   "password": 'grillkorv123',
 //   "name": 'Johan Kivi',
-
 //   "address": {
 //     "street": 'Tokitokvägen 3',
 //     "zip": '123 45',
@@ -29,8 +28,20 @@ export const login = async (credentials) =>
 export const registerUser = async (userData) =>
   await axios.post("/register/", userData);
 
+export const getUserInfo = async () => await axios.get("/me");
+
+export const updateProfile = async (userData) =>
+  await axios.patch("/me", userData);
+
 export const getAllProducts = async (category, page, pageSize) =>
-  await axios.get("/items/", null, { params: { category, page, pageSize } });
+  await axios.get(
+    `/items?category=${category}&page=${page}&pageSize=${pageSize}`
+  );
+
+// export const getAllProducts = async (category, page, pageSize) =>
+//   await axios.get(`/items?category=${category}&page=${page}&pageSize=${pageSize}`, null, {
+//     params: { category, page, pageSize },
+//   });
 
 export const getSingleProduct = async (productId) =>
   await axios.get(`/items/${productId}`);
@@ -43,7 +54,7 @@ export const getSingleProduct = async (productId) =>
 //   "longDesc": 'Skate ipsum dolor sit amet...',
 //   "imgFile": 'skateboard-greta.png'
 // }
-export const createNewProduct = async (productData) =>
+export const addProduct = async (productData) =>
   await axios.post("/items/", productData);
 
 export const updateProduct = async (productId, productData) =>
@@ -74,11 +85,6 @@ export const createNewOrder = async (orderData) =>
 // orderStatus = {status: ...}
 export const updateOrderStatus = async (orderId, orderStatus) =>
   await axios.patch(`/orders/${orderId}`, orderStatus);
-
-export const getInloggedUserInfo = async () => await axios.get("/me");
-
-export const updateInloggedUserProfile = async (userData) =>
-  await axios.patch("/me", userData);
 
 export const getAllImages = async () => await axios.get("/images");
 

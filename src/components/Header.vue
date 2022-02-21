@@ -11,7 +11,7 @@
           <router-link to="/">Accessories</router-link>
         </div>
         <div class="search">
-          <input type="text" v-model="searchKeyword" @keyup="test"/>
+          <input type="text" v-model="searchKeyword" />
           <img src="../assets/icons/search.svg" alt="" />
         </div>
       </div>
@@ -33,7 +33,7 @@
           </div>
           <div v-else>
             <img
-              @click="$router.push('/profile')"
+              @click="redirect"
               src="../assets/icons/profile.svg"
               alt=""
               height="20"
@@ -50,21 +50,22 @@
     </nav>
     <div class="for-test">
       <h1>For test - searchList</h1>
-        <ul class="hiddenSearchList">
-          <li v-for="t in test" :key="t.id"
-          @click="toProduct(t.id)">
-            {{ t.title }}
-          </li>
-        </ul>
+      <ul class="hiddenSearchList">
+        <li v-for="t in test" :key="t.id" @click="toProduct(t.id)">
+          {{ t.title }}
+        </li>
+      </ul>
     </div>
   </header>
 </template>
 
 <script>
 export default {
-  data(){return{
-    searchKeyword: ''
-  }},
+  data() {
+    return {
+      searchKeyword: "",
+    };
+  },
   methods: {
     //Om jag kör test funktionen som computed blir det errors i loggen
     /*
@@ -74,9 +75,17 @@ export default {
       .filter(str => str.title.includes(this.searchKeyword))
     }
     */
-   toProduct(id){
-      this.$router.push('/product/' + id)
-   }
+    toProduct(id) {
+      this.$router.push("/product/" + id);
+    },
+    redirect() {
+      console.log("clicked");
+      if (this.$store.state.userModule.user.role === "admin") {
+        this.$router.push("/admin");
+      } else {
+        this.$router.push("/profile");
+      }
+    },
   },
   computed: {
     cartItems() {
@@ -85,17 +94,17 @@ export default {
     user() {
       return this.$store.state.userModule.user;
     },
-    
-    test(){
-      console.log(this.searchKeyword)
 
-      if(this.searchKeyword.length > 0){
-        return this.$store.state.productsModule.allProductsList
-        .filter(str => str.title.toLowerCase().includes(this.searchKeyword.toLowerCase())) 
+    test() {
+      console.log(this.searchKeyword);
+
+      if (this.searchKeyword.length > 0) {
+        return this.$store.state.productsModule.allProductsList.filter((str) =>
+          str.title.toLowerCase().includes(this.searchKeyword.toLowerCase())
+        );
       }
-       return null
-    }
-    
+      return null;
+    },
   },
 };
 </script>
@@ -191,7 +200,7 @@ header {
     .hiddenSearchList {
       display: none;
     }
-    .for-test{
+    .for-test {
       display: none;
     }
   }
