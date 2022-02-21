@@ -52,7 +52,7 @@
       <h1>For test - searchList</h1>
         <ul class="hiddenSearchList">
           <li v-for="item in items" :key="item.id"
-          @click="toProduct(pro.id)">
+          @click="toProduct(item.id)">
             {{ item.title }}
           </li>
         </ul>
