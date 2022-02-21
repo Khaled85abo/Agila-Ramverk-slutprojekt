@@ -11,7 +11,7 @@
           <router-link to="/">Accessories</router-link>
         </div>
         <div class="search">
-          <input type="text" v-model="searchKeyword" @keyup="items" />
+          <input type="text" v-model="searchKeyword" />
           <img src="../assets/icons/search.svg" alt="" />
         </div>
       </div>
@@ -67,14 +67,6 @@ export default {
     };
   },
   methods: {
-    //Om jag kör test funktionen som computed blir det errors i loggen
-    /*
-    test(){
-      console.log(this.searchKeyword)
-      return this.$store.state.productsModule.allProductsList
-      .filter(str => str.title.includes(this.searchKeyword))
-    }
-    */
     toProduct(id) {
       this.$router.push("/product/" + id);
     },
