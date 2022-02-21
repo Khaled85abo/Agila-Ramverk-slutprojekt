@@ -67,11 +67,11 @@ export default {
 <style lang="scss">
 @import "@/styles/_functions.scss";
 .single-product {
-  @include flexCenter(column, 1440px);
+  @include flexCenter(column, );
   background-color: $bgBlack;
 
   .wrapper {
-    @include flexCenter(row, 1060px);
+    @include flexCenter(row,);
     gap: 28px;
     .image {
       @include twoColumnView($pureWhite, row);

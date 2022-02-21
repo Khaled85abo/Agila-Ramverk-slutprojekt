@@ -1,9 +1,9 @@
-@mixin flexCenter($direction ,$width){
+@mixin flexCenter($direction ){
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: $direction;
-    width: $width
+    flex-wrap:wrap;
 }
 @mixin twoColumnView($color, $direction){
    display: flex;

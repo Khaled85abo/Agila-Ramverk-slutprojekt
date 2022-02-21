@@ -1,40 +1,51 @@
 <template>
   <div class="footer">
     <div class="wrapper">
-      <article>
         <section>
-          <p>Social Media</p>
+         <h4>Social Media</h4>
           <hr>
-          <label>Twitter</label>
-          <label>Facebook</label>
-          <label>Instagram</label>
-          <label>YouTube</label>
+          <div class="social-media">
+          <img src="@/assets/icons/socialMedia/twitter.svg" alt="Icon"> 
+          <a href="https://twitter.com/">Twitter
+          </a>
+          </div>
+          <div class="social-media">
+          <img src="@/assets/icons/socialMedia/facebook.svg" alt="Icon">
+          <a href="https://facebook.com/">Facebook
+          </a>
+          </div>
+          <div class="social-media">
+          <img src="@/assets/icons/socialMedia/instagram.svg" alt="Icon">
+          <a href="https://instagram.com/">Instagram
+          </a></div>
+          <div class="social-media">
+          <img src="@/assets/icons/socialMedia/youtube.svg" alt="Icon">
+          <a href="https://youtube.com/">YouTube
+          </a> 
+          </div>
         </section>
         <section>
-           <p>About Us</p>
+           <h4>About Us</h4>
            <hr>
-          <label>Our About Page</label>
-          <label>Our Developers</label>
+           <label>Our About Page</label>
+           <label>Our Developers</label> 
         </section>
         <section>
-           <p>Find US</p>
+           <h4>Find US</h4>
            <hr>
+           <plaintext></plaintext>
           <p>
-            Cool Street 7th <br>
-            Radville <br>
-            12741 <br>
-            Sweden
+            Cool Street 7th Radville 12741 Sweden
           </p>
         </section>
         <section>
-           <p>Work With US</p>
+           <h4>Work With US</h4>
            <hr>
-          <p>Send Application at:</p>
-          <label>jobs.sinus@sinus.se</label>
+          <p>Send Application:</p>
+          <label>jobs.sinus@sinus.se</label> 
           <p>For Information:</p>
-          <label>info.sinus@sinus.se</label>
+         <label>info.sinus@sinus.se</label>
         </section>
-      </article>
     </div>
   </div>
 </template>
@@ -47,40 +58,52 @@ export default {};
 @import '@/styles/_functions.scss';
 
 .footer{
-
-   @include flexCenter(column , 1440px );
+   @include flexCenter(column );
    background-color: $interfaceBlack;
-   height: 242px;
+   min-height: 242px;
    .wrapper{
+     @include flexCenter(row );
      background-color: $pureWhite;
-     width: 1060px;
-     height: 225px;
+     column-gap: 7%;
+     width: 68.334%;
      border-radius: 16px;
-     article{ 
-       @include flexCenter(row, auto);
-       gap: 52px;
+      section{
+       max-width: 130px;
+       min-height: 200px;
+       justify-content: space-around;
        margin-top: 1rem;
-     }
-     section{
-       text-align: center;
-      p{
-        font-size: 16px;
-        font-weight: bold;
-        margin-top: 10px;
-      }
-       width: 147px;
-       height: 177px;
-       hr{
-         size: 5px;
-         margin-top: 5px;
+       h4{
+         display: flex;
+         justify-content: center;
+       }
+       .social-media{
+         display: flex;
+         align-items: center;
+         gap: 1rem;
+         padding-bottom: 0.777rem;
        }
        label{
-         margin-top: 10px;
+         padding-bottom: 0.5rem;
          display: block;
-         color: $monsterGreen
-       }
-     }
+         color: $monsterGreen;
+         font-size: 16px;
+         font-weight: bold;
+          }
+        p{
+        font-size: 16px;
+        font-weight: bold;
+        }
+        hr{
+         size: 5px;
+         margin-top: 5px;
+         margin-bottom: 10px;
+         }
+         a{
+         color: $monsterGreen;
+         font-size: 16px;
+         font-weight: bold;
+          }
+      }
    }
 }
-
 </style>
