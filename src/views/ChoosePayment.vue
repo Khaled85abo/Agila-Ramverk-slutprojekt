@@ -1,6 +1,7 @@
 <template>
   <div>
     <h2>Choose payment</h2>
+
     <br />
     <hr />
 

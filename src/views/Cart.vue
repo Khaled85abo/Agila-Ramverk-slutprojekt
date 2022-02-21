@@ -1,15 +1,11 @@
 <template>
   <div>
-    <h1>cart</h1>
+    <h1>Cart view fixed, Router leads to this page now</h1>
   </div>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
-<style>
-
-</style>
+<style></style>
