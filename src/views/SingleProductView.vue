@@ -16,20 +16,24 @@
             nisi minus ea sequi consequuntur eligendi esse nulla harum tenetur
             doloribus rem?
           </p>
-          <span>Color: Green/Black</span>
-          <span>Width: 8 Inches</span>
-          <span>Length: 32 Inches</span>
-          <h3>{{ prod.price }}</h3>
+          <h3>Color: Green/Black</h3>
+          <h3>Width: 8 Inches</h3>
+          <h3>Length: 32 Inches</h3>
+          <h3>{{ prod.price }}€/ {{ prod.price }} $/ {{ prod.price }} sek</h3>
         </div>
         <div class="add-card">
           <select name="" id="">
             <option value="">Chose Size</option>
+            <option value="">1</option>
             <option value="">2</option>
             <option value="">3</option>
+            <option value="">4</option>
           </select>
-          <div>
+          <div class="add-button">
             <button @click="addToCart">Add to cart</button>
-            <span>icon</span>
+            <div class="like">
+              <img src="@/assets/icons/heart.svg" alt="Icon">
+              </div>
           </div>
         </div>
         <div class="general-info">
@@ -84,13 +88,16 @@ export default {
         height: 308px;
         background-color: $pureWhite;
         border-radius: 16px;
-        margin: 5px;
-        h1 {
+        margin: 1rem;
+        padding: 1rem;
+        h1, h3 {
           color: $monsterGreenDark;
           justify-content: center;
         }
+        
       }
       .add-card {
+        margin: 1rem;
         display: flex;
         flex-direction: column;
         align-items: flex-end;
@@ -101,6 +108,11 @@ export default {
           width: 320px;
           height: 40px;
         }
+        .add-button{
+          width: 320px;
+          display: flex;
+          flex-direction: row;
+        }
         button {
           text-align: left;
           border-radius: 20px;
@@ -108,10 +120,28 @@ export default {
           height: 40px;
           background-color: $monsterGreenDark;
         }
+        .like{
+          display: flex;
+          width: 40px;
+          height: 40px;
+          background-color: $pureWhite;
+          border-radius: 50%;
+          align-items: center;
+          justify-content: center;
+        }
+        
       }
       .general-info {
+        display:flex;
+        flex-direction: column;
+        border-radius: 16px;
+        margin: 1rem;
         height: 122px;
         background-color: $pureWhite;
+        justify-content: center;
+        color:$monsterGreen;
+        padding: 1rem;
+        
       }
     }
   }
