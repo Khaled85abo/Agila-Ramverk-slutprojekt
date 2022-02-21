@@ -11,7 +11,7 @@
           <router-link to="/">Accessories</router-link>
         </div>
         <div class="search">
-          <input type="text" v-model="searchKeyword" @keyup="test"/>
+          <input type="text" v-model="searchKeyword" @keyup="items"/>
           <img src="../assets/icons/search.svg" alt="" />
         </div>
       </div>
@@ -51,9 +51,9 @@
     <div class="for-test">
       <h1>For test - searchList</h1>
         <ul class="hiddenSearchList">
-          <li v-for="t in test" :key="t.id"
-          @click="toProduct(t.id)">
-            {{ t.title }}
+          <li v-for="item in items" :key="item.id"
+          @click="toProduct(pro.id)">
+            {{ item.title }}
           </li>
         </ul>
     </div>
@@ -86,9 +86,7 @@ export default {
       return this.$store.state.userModule.user;
     },
     
-    test(){
-      console.log(this.searchKeyword)
-
+    items(){
       if(this.searchKeyword.length > 0){
         return this.$store.state.productsModule.allProductsList
         .filter(str => str.title.toLowerCase().includes(this.searchKeyword.toLowerCase())) 
