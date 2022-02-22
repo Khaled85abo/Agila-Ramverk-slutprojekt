@@ -21,60 +21,7 @@
       />
     </transition>
     <transition name="form" mode="out-in">
-      <form v-if="show" @submit.prevent="signup">
-        <h3>Create an account</h3>
-        <label for="name">Name</label>
-        <input
-          type="text"
-          id="name"
-          placeholder="Your name"
-          v-model="user.name"
-        />
-        <label for="email">E-mail</label>
-        <input
-          type="email"
-          id="email"
-          placeholder="Your E-mail"
-          v-model="user.email"
-        />
-        <label for="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          placeholder="Your password"
-          v-model="user.password"
-        />
-        <label for="confirm-password">Confirm Password</label>
-        <input
-          type="password"
-          id="confirm-password"
-          placeholder="Confirm your password"
-          v-model="user.confirmPassword"
-        />
-        <h4>Address</h4>
-        <label for="street">Street</label>
-        <input
-          type="text"
-          id="street"
-          placeholder="Street"
-          v-model="user.address.street"
-        />
-        <label for="city">City</label>
-        <input
-          type="text"
-          id="city"
-          placeholder="City"
-          v-model="user.address.city"
-        />
-        <label for="zip">Zip</label>
-        <input
-          type="text"
-          id="zip"
-          placeholder="Zip Code"
-          v-model="user.address.Zip"
-        />
-        <input type="submit" />
-      </form>
+      <Signup v-if="show" @submitted="signup" @error="setLocalError" />
       <form v-else @submit.prevent="login">
         <h3>Login</h3>
         <label for="email">E-mail</label>
@@ -109,14 +56,15 @@
 <script>
 import Actions from "../store/actions.types";
 import Snackbar from "../components/SnackBar.vue";
+import Signup from "../components/SignupForm.vue";
 export default {
-  components: { Snackbar },
+  components: { Snackbar, Signup },
   data() {
     return {
       show: false,
       user: {
         name: "khaled",
-        password: "12345",
+        password: "123",
         email: "khaled@test.se",
         confirmPassword: "12345",
         address: {
@@ -143,24 +91,24 @@ export default {
       this.$store.dispatch(Actions.RESET_REGISTER_ERROR);
     },
     login() {
-      if (this.user.password == "" || this.user.email == "") return;
       this.$store.dispatch(Actions.LOGIN, {
         email: this.user.email,
         password: this.user.password,
       });
     },
-    signup() {
+    setLocalError(error) {
+      console.log(error);
+      this.localError = error;
+    },
+    signup(user) {
       // if (
       //   this.user.name == "" ||
       //   this.user.password == "" ||
       //   this.user.email == ""
       // )
       //   return;
-      if (this.user.password !== this.user.confirmPassword) {
-        this.localError = "passwords don't match";
-        return;
-      }
-      this.$store.dispatch(Actions.REGISTER_USER, this.user);
+
+      this.$store.dispatch(Actions.REGISTER_USER, user);
     },
   },
 };
@@ -260,11 +208,24 @@ export default {
 }
 
 .form-enter-active {
-  animation: fade 1s;
+  // animation: fade 1s;
+  transition: all 1s ease;
+}
+.form-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+// .form-enter-to
+// .form-leave
+
+.form-leave-to {
+  opacity: 0;
+  transform: translateX(-10px);
 }
 
 .form-leave-active {
-  animation: fade 1s reverse;
+  // animation: fade 1s reverse;
+  transition: all 1s ease;
 }
 
 @keyframes fade {

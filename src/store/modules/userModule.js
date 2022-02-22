@@ -11,9 +11,10 @@ export default {
     // updateUserInfoError: null,
     currentUserEmail: null,
     user: null,
-    address: null,
+    unloggedUserAddress: null,
     loginError: null,
     signupError: null,
+    updateRes: null,
   }),
   actions: {
     async [Actions.GET_USER]({ commit }) {
@@ -22,7 +23,7 @@ export default {
         console.log("get user info res: ", res);
         if (!res.error) {
           commit(Mutations.SET_USER, res.data);
-          router.push("/");
+          router.push("/profile");
         } else {
           throw new Error(res.error);
         }
@@ -44,6 +45,9 @@ export default {
       } catch (error) {
         commit(Mutations.SET_LOGIN_ERROR, error.response.data.error);
       }
+    },
+    [Actions.SIGN_OUT]({ commit }) {
+      commit(Mutations.SIGN_OUT);
     },
     // userData = {
     //   "email": 'greta.thunberg@example.se',
@@ -81,23 +85,33 @@ export default {
     async [Actions.UPDATE_USER]({ commit }, data) {
       try {
         const res = await API.updateProfile(data);
+        console.log("res from updating user: ", res.data);
         if (!res.error) {
           console.log("successful update: ", res);
+          commit(Mutations.UPDATE_RES, {
+            status: "success",
+            message: res.data.message,
+          });
         } else {
           throw new Error(res.error);
         }
       } catch (error) {
         console.log(error.response.data.error);
+        commit(Mutations.UPDATE_RES, {
+          status: "error",
+          message: error.response.data.error,
+        });
       }
-
-      commit(Mutations.SET_USER);
     },
 
-    async [Actions.RESET_LOGIN_ERROR]({ commit }) {
+    [Actions.RESET_LOGIN_ERROR]({ commit }) {
       commit(Mutations.RESET_LOGIN_ERROR);
     },
-    async [Actions.RESET_REGISTER_ERROR]({ commit }) {
+    [Actions.RESET_REGISTER_ERROR]({ commit }) {
       commit(Mutations.RESET_REGISTER_ERROR);
+    },
+    [Actions.RESET_RESPONSE]({ commit }) {
+      commit(Mutations.RESET_RESPONSE);
     },
   },
   mutations: {
@@ -116,6 +130,16 @@ export default {
     },
     [Mutations.RESET_REGISTER_ERROR](state) {
       state.signupError = null;
+    },
+    [Mutations.SIGN_OUT](state) {
+      state.user = null;
+      router.push("/");
+    },
+    [Mutations.UPDATE_RES](state, res) {
+      state.updateRes = res;
+    },
+    [Mutations.RESET_RESPONSE](state) {
+      state.updateRes = null;
     },
   },
   getters: {},
