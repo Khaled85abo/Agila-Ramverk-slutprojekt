@@ -24,7 +24,7 @@ export default {
         const res = await API.getAllProducts(category, page, pageSize);
         if (!res.error) {
           console.log("success: ", res.data);
-          commit(Mutations.SET_PRODUCTS, res.data.products);
+          commit(Mutations.SET_PRODUCTS, res.data);
         } else {
           throw new Error(res.error);
         }

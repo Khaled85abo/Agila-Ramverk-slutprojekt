@@ -11,7 +11,7 @@
         type="checkbox"
         id="Unisex"
         name="Unisex"
-        value="Unisex"
+        value="unisex"
         v-model="categories"
       />
       <label for="Unisex">Unisex</label>
@@ -20,7 +20,7 @@
         type="checkbox"
         id="Male"
         name="Male"
-        value="Male"
+        value="male"
         v-model="categories"
       />
       <label for="Male">Male</label>
@@ -29,7 +29,7 @@
         type="checkbox"
         id="Female"
         name="Female"
-        value="Female"
+        value="female"
         v-model="categories"
       />
       <label for="Female">Female</label>
