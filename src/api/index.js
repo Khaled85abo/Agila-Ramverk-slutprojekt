@@ -30,8 +30,9 @@ export const registerUser = async (userData) =>
 
 export const getUserInfo = async () => await axios.get("/me");
 
-export const updateProfile = async (userData) =>
-  await axios.patch("/me", userData);
+export const updateProfile = async (userData) => {
+  return await axios.patch("/me", userData);
+};
 
 export const getAllProducts = async (category, page, pageSize) =>
   await axios.get(
