@@ -1,6 +1,8 @@
 <template>
   <div class="wrapper">
-    <h1>Your profile</h1>
+    <hr />
+    <h1>{{ user.role === "admin" ? "Dashboard" : "Your Profile" }}</h1>
+    <hr />
     <Snackbar
       v-if="localError"
       :type="type"
@@ -107,23 +109,39 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.menu {
-  background: $bg;
-  padding: 1rem;
-  div {
-    max-width: 500px;
-    margin: auto;
-    display: flex;
-    justify-content: space-around;
-    span {
-      display: inline-block;
-      background: $monsterGreen;
-      padding: 1rem;
-      border-radius: 8px;
-    }
-    .signout {
-      background: $cartCount;
-      color: $pureWhite;
+.wrapper {
+  h1 {
+    padding: 1rem;
+    background: $bg;
+    text-align: center;
+    color: $pureWhite;
+  }
+  hr:last-of-type {
+    background: $bg;
+    border: 2px solid $monsterGreen;
+    border-radius: 999px;
+    margin: 0 0.3rem;
+    padding: 0.3rem;
+  }
+
+  .menu {
+    background: $bg;
+    padding: 1rem;
+    div {
+      max-width: 500px;
+      margin: auto;
+      display: flex;
+      justify-content: space-around;
+      span {
+        display: inline-block;
+        background: $monsterGreen;
+        padding: 1rem;
+        border-radius: 8px;
+      }
+      .signout {
+        background: $cartCount;
+        color: $pureWhite;
+      }
     }
   }
 }
