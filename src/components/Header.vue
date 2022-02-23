@@ -11,7 +11,7 @@
           <router-link to="/">Accessories</router-link>
         </div>
         <div class="search">
-          <input type="text" v-model="searchKeyword" @keydown="searchProduct"/>
+          <input type="text" v-model="searchKeyword" @keyup="searchProduct"/>
           <img src="../assets/icons/search.svg" alt="" />
         </div>
       </div>
