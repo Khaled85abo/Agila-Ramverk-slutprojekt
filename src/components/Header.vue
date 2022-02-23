@@ -3,7 +3,7 @@
     <nav id="nav">
       <div class="left"></div>
       <div class="middle">
-        <img @click="$router.push('/')" src="../assets/sinus-logo.png" alt="" />
+        <img @click="goToHome" src="../assets/sinus-logo.png" alt="" />
         <div class="links">
           <router-link to="/">Men</router-link>
           <router-link to="/">Women</router-link>
@@ -18,7 +18,7 @@
       <div class="right">
         <div class="cart">
           <img
-            @click="$router.push('/cart')"
+            @click="goToCart"
             src="../assets/icons/cart.svg"
             alt=""
             height="20"
@@ -77,6 +77,14 @@ export default {
       } else {
         this.$router.push("/profile");
       }
+    },
+    goToCart(){
+      const path = `/cart/`
+      if (this.$route.path !== path) this.$router.push(path)
+    },
+    goToHome(){
+      const path = `/`
+      if (this.$route.path !== path) this.$router.push(path)
     },
   },
   computed: {

@@ -22,7 +22,7 @@ export default {
   props: ["product"],
   data() {
     return {
-      path: "http://localhost:5000/images/",
+      path: "http://localhost:5001/images/",
     };
   },
 };

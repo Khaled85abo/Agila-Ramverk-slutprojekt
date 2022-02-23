@@ -16,6 +16,7 @@ const LOGIN = "LOGIN";
 const SIGNUP = "SIGNUP";
 const SIGN_OUT = "SIGN_OUT";
 const RESET_RESPONSE = "RESET_RESPONSE";
+const ADD_TO_CART = "ADD_TO_CART"
 
 export default {
   GET_ALL_ORDERS,
@@ -36,4 +37,5 @@ export default {
   SIGNUP,
   SIGN_OUT,
   RESET_RESPONSE,
+  ADD_TO_CART
 };

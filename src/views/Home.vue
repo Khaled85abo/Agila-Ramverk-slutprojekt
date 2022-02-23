@@ -46,6 +46,7 @@
 <script>
 // @ is an alias to /src
 import Product from "../components/SingleProduct.vue";
+import Actions from "../store/actions.types"
 export default {
   name: "Home",
   components: { Product },
@@ -60,6 +61,7 @@ export default {
     },
     addToCart(product) {
       console.log(product.id);
+      this.$store.dispatch(Actions.ADD_TO_CART, product)
     },
   },
   computed: {

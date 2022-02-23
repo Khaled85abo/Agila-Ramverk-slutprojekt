@@ -13,8 +13,8 @@ export default {
     paymentMethod: null,
   }),
   actions: {
-    async [Actions.ADD_PRODUCT](context, product) {
-      context.commit(Mutations.ADD_PRODUCT, product);
+    async [Actions.ADD_TO_CART](context, product) {
+      context.commit(Mutations.ADD_TO_CART, product);
     },
     async [Actions.ADD_SHIPPING]({ commit }, shippingInfo) {
       commit(Mutations.ADD_SHIPPING, shippingInfo);
@@ -48,9 +48,13 @@ export default {
     },
   },
   mutations: {
-    [Mutations.ADD_PRODUCT](state, product) {
-      state.cart.push(product);
-      console.log(state.cart);
+    [Mutations.ADD_TO_CART](state, product) {
+      if(!state.cart.some((productElement) => productElement.id == product.id )){
+        state.cart.push(product);
+        console.log(state.cart);
+      }else{
+        console.log('product already in cart');
+      }
     },
     [Mutations.ADD_SHIPPING](state, shippingInfo) {
       state.shippingInfo = shippingInfo;
