@@ -1,189 +1,93 @@
 <template>
-  <div>
-    <h2>Choose payment</h2>
-    <br />
-    <hr />
-
-    <article>
-      <section>
-        <label class="container"
-          >Credit card
-          <input type="radio" name="radio" />
-          <span class="checkmark"></span>
-        </label>
-        <label class="container"
-          >Invoice
-          <input type="radio" name="radio" />
-          <span class="checkmark"></span>
-        </label>
-        <label class="container"
-          >Bank transfer
-          <input type="radio" name="radio" />
-          <span class="checkmark"></span>
-        </label>
+  <div id="cart">
+    <div class="wrapper">
+      <section class="cart-upper-section">
+        <h4>Product</h4>
+        <h4>No. of items</h4>
+        <h4>Price</h4>
       </section>
-
-      <section class="inputs">
-        <form>
-          <div id="name">
-            <input type="text" name="name" placeholder="your name" />
-          </div>
-
-          <div id="email">
-            <input type="text" name="email" placeholder="your email" />
-          </div>
-
-          <div id="phoneNumber">
-            <input
-              type="number"
-              name="number"
-              placeholder="your phone number"
+      <main class="cart-main">
+        <section>
+          <article v-for="(product, index) in products" :key="product.id">
+            <div class="description">
+              <figure>
+                <img
+                  :src="path + product.imgFile"
+                  alt="productImage"
+                  height="150px"
+                />
+              </figure>
+              <p>{{ product.title }}</p>
+            </div>
+            <select name="quantity" @change="(e) => setCount(e, index)">
+              <option selected>{{ product.qty }}</option>
+              <option v-for="quantity in items" :key="quantity">
+                {{ quantity }}
+              </option>
+            </select>
+            <p>{{ product.price * product.qty }}</p>
+            <img
+              src="../assets/icons/Trashbin.svg"
+              alt="trash-bin"
+              @carticleck="removeItem(index)"
             />
-          </div>
-
-          <div id="adress">
-            <input type="text" name="adress" placeholder="your adress" />
-          </div>
-
-          <div id="postCode">
-            <input type="number" name="postCode" placeholder="your post code" />
-          </div>
-        </form>
+          </article>
+        </section>
+      </main>
+      <section class="cart-lower-section">
+        <h4>{{ totalPrice }}</h4>
+        <button>Back to shop</button>
+        <button>Next - Choose delivery</button>
       </section>
-    </article>
-    <br />
-
-    <hr />
-
-    <br />
-    <div class="total">
-      <div id="totalPrice">
-        <h3>Total:</h3>
-        <p>Down payment from only ? $/ month</p>
-      </div>
-      <br /><br />
-
-      <div id="confim-purchase">
-        <button>Next - confim-purchase</button>
-      </div>
-
-      <div id="back-delivery">
-        <button>Back to delivery</button>
-      </div>
     </div>
-    <hr />
   </div>
 </template>
 
 <script>
-export default {};
+import Actions from "../store/actions.types";
+export default {
+  name: "Cart",
+  data() {
+    return {
+      path: "http://localhost:5000/images/",
+      items: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      quantity: "",
+    };
+  },
+  computed: {
+    products() {
+      return this.$store.state.ordersModules.cart;
+    },
+    // totalPrice() {
+    //   const sum = this.products.map((product) => Number(product.price));
+    //   console.log(typeof sum[0]);
+    //   const initialValue = 0;
+    //   return sum.reduce(
+    //     (previousValue, currentValue) => previousValue + currentValue,
+    //     initialValue
+    //   );
+    // },
+    totalPrice() {
+      return this.$store.getters.totalPrice;
+    },
+  },
+  methods: {
+    setCount(e, index) {
+      console.log(e.target.value, index);
+      this.$store.dispatch(Actions.UPDATE_QUANTITY, {
+        qty: e.target.value,
+        index,
+      });
+    },
+    removeItem(index) {
+      this.$store.dispatch(Actions.REMOVE_FROM_CART, index);
+      // this.products.splice(index, 1);
+    },
+    changeItemQuantity() {
+      console.log(this.quantity);
+    },
+  },
+};
 </script>
 
-<style lang="scss" scoped>
-article {
-  margin-top: 10px;
-  margin: 20px;
-  display: flex;
-  justify-content: space-around;
-  flex-direction: row;
-
-  section {
-    margin-top: 30px;
-    margin-right: 30px;
-  }
-
-  .container {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    font-size: 22px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    margin-right: 30px;
-  }
-
-  .container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-  }
-
-  .checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 25px;
-    width: 25px;
-    background-color: #eee;
-    border-radius: 50%;
-  }
-
-  .container:hover input ~ .checkmark {
-    background-color: rgba(0, 0, 0, 0.65);
-  }
-
-  .container input:checked ~ .checkmark {
-    background-color: black;
-  }
-
-  .checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-  }
-
-  .container input:checked ~ .checkmark:after {
-    display: block;
-  }
-
-  .container .checkmark:after {
-    top: 9px;
-    left: 9px;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: white;
-  }
-
-  input {
-    border: solid 1px black;
-    border-radius: 20px;
-    width: 300px;
-    height: 30px;
-    font-size: 10px;
-    padding: 12px 20px;
-    margin: 8px 0;
-  }
-}
-
-hr {
-  display: block;
-  border-top: 2px solid black;
-}
-
-.total {
-  margin: 30px;
-  display: flex;
-  flex-direction: column;
-
-  #totalPrice {
-    align-self: flex-end;
-  }
-
-  #confim-purchase {
-    align-self: flex-end;
-  }
-
-  #back-delivery {
-    align-self: flex-start;
-  }
-
-  button {
-    border-radius: 20px;
-    background-color: $monsterGreen;
-  }
-}
-</style>
+<style lang="scss" scoped></style>
