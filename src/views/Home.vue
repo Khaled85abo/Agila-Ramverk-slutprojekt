@@ -5,6 +5,7 @@
         v-for="product in products"
         :key="product.id"
         :product="product"
+        @addToCart="addToCart"
       />
     </div>
     <div class="filter">
@@ -56,6 +57,9 @@ export default {
   methods: {
     toProduct(prodId) {
       this.$router.push("/product/" + prodId);
+    },
+    addToCart(product) {
+      console.log(product.id);
     },
   },
   computed: {

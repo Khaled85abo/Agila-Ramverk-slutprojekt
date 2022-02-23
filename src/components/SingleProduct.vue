@@ -13,7 +13,7 @@
       </div>
     </div>
     <h5>69$</h5>
-    <button>Add to Cart</button>
+    <button @click="$emit('addToCart', product)">Add to Cart</button>
   </article>
 </template>
 
