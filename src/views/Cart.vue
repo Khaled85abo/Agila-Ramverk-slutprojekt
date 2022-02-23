@@ -34,6 +34,24 @@
         />
       </div>
     </section>
+
+    <hr>
+    <div class="total">
+      <div id="totalPrice">
+        <h3>Total:</h3>
+        <p>Down payment from only ? $/ month</p>
+      </div>
+      <br /><br />
+
+      <div id="confim-purchase">
+        <button>Next - confim-purchase</button>
+      </div>
+
+      <div id="back-delivery">
+        <button>Back to delivery</button>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -76,4 +94,28 @@ section {
   display: flex;
   flex-direction: row;
 }
+
+.total {
+  margin: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+  #totalPrice {
+    align-self: flex-end;
+  }
+
+  #confim-purchase {
+    align-self: flex-end;
+  }
+
+  #back-delivery {
+    align-self: flex-start;
+  }
+
+  button {
+    border-radius: 20px;
+    background-color: #009229;
+  }
+
 </style>
