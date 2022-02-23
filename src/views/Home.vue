@@ -1,11 +1,12 @@
 <template>
   <div class="home">
-    This is Home
-    <ul>
-      <li v-for="pro of products" :key="pro.id" @click="toProduct(pro.id)">
-        {{ pro.title }}
-      </li>
-    </ul>
+    <div class="products">
+      <Product
+        v-for="product in products"
+        :key="product.id"
+        :product="product"
+      />
+    </div>
     <div class="filter">
       <input
         type="checkbox"
@@ -36,16 +37,17 @@
     </div>
     {{ categories }}
 
-    <h3>Filtreringens resultat</h3>
+    <h4>Filtreringens resultat</h4>
     <p>{{ productsByFilter }}</p>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-
+import Product from "../components/SingleProduct.vue";
 export default {
   name: "Home",
+  components: { Product },
   data() {
     return {
       categories: [],
@@ -82,5 +84,13 @@ export default {
 }
 label {
   margin-right: 20px;
+}
+
+.products {
+  margin: 2rem 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
 }
 </style>
