@@ -55,6 +55,12 @@
           {{ item.title }}
         </li>
       </ul>
+      <h1>Test for the new searchList</h1>
+      <ul>
+        <li v-for="result in searchProduct" :key="result.id">
+          {{ result.title }}
+        </li>
+      </ul>
     </div>
   </header>
 </template>
@@ -82,7 +88,6 @@ export default {
       console.log("Test")
       if(this.searchKeyword.length > 2){
         console.log("Keyword is: " + this.searchKeyword)
-        //console.log(Actions.GET_PRODUCT, this.searchKeyword)
         return this.$store.dispatch('searchProducts', this.searchKeyword)
       }
         return null
@@ -94,6 +99,9 @@ export default {
     },
     user() {
       return this.$store.state.userModule.user;
+    },
+    searchResult() {
+      return this.searchProduct()
     },
 
     items() {
