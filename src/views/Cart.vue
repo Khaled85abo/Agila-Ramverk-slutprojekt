@@ -19,8 +19,11 @@
               </figure>
               <p>{{ product.title }}</p>
             </div>
-            <select name="quantity" @change="(e) => setCount(e, index)">
-              <option selected>{{ product.qty }}</option>
+            <select
+              name="quantity"
+              @change="(e) => setCount(e, index)"
+              :value="product.qty"
+            >
               <option v-for="quantity in items" :key="quantity">
                 {{ quantity }}
               </option>
