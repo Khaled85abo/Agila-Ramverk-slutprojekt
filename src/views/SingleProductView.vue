@@ -3,7 +3,7 @@
     <h1>This is single product view</h1>
     <div class="wrapper">
       <section class="image">
-        <img :src="require('@/assets/' + prod.imgFile)" />
+        <img :src="'http://localhost:5000/images/' + prod.imgFile" />
       </section>
       <section class="product-info">
         <div class="product-discription">

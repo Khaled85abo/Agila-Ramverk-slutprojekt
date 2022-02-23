@@ -11,7 +11,7 @@
           <router-link to="/">Accessories</router-link>
         </div>
         <div class="search">
-          <input type="text" v-model="searchKeyword" />
+          <input type="text" v-model="searchKeyword" @keyup="searchProduct"/>
           <img src="../assets/icons/search.svg" alt="" />
         </div>
       </div>
@@ -55,6 +55,12 @@
           {{ item.title }}
         </li>
       </ul>
+      <h1>Test for the new searchList</h1>
+      <ul>
+        <li v-for="result in searchProduct" :key="result.id">
+          {{ result.title }}
+        </li>
+      </ul>
     </div>
   </header>
 </template>
@@ -78,6 +84,14 @@ export default {
         this.$router.push("/profile");
       }
     },
+    searchProduct(){
+      console.log("Test")
+      if(this.searchKeyword.length > 2){
+        console.log("Keyword is: " + this.searchKeyword)
+        return this.$store.dispatch('searchProducts', this.searchKeyword)
+      }
+        return null
+    },
   },
   computed: {
     cartItems() {
@@ -86,8 +100,14 @@ export default {
     user() {
       return this.$store.state.userModule.user;
     },
+    searchResult() {
+      return this.searchProduct()
+    },
 
     items() {
+      //Behövs bygga om
+      //Det ksa inte gå att söka på bara de första 10 resultaten
+      //Utan man ska söka igenom ALLA istället
       if (this.searchKeyword.length > 0) {
         return this.$store.state.productsModule.allProductsList.filter((str) =>
           str.title.toLowerCase().includes(this.searchKeyword.toLowerCase())

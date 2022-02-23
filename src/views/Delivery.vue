@@ -286,6 +286,12 @@ hr {
 export default {};
 </script>
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+<style scoped></style>
+=======
+=======
+>>>>>>> 756d448860547867f645f7a8dd1feed2bbbb5072
 <style lang="scss" scoped>
 
 .title{
