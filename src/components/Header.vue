@@ -3,7 +3,7 @@
     <nav id="nav">
       <div class="left"></div>
       <div class="middle">
-        <img @click="$router.push('/')" src="../assets/sinus-logo.png" alt="" />
+        <img @click="goToHome" src="../assets/sinus-logo.png" alt="" />
         <div class="links">
           <router-link to="/">Men</router-link>
           <router-link to="/">Women</router-link>
@@ -11,14 +11,14 @@
           <router-link to="/">Accessories</router-link>
         </div>
         <div class="search">
-          <input type="text" v-model="searchKeyword" />
+          <input type="text" v-model="searchKeyword" @keyup="searchProduct" />
           <img src="../assets/icons/search.svg" alt="" />
         </div>
       </div>
       <div class="right">
         <div class="cart">
           <img
-            @click="$router.push('/cart')"
+            @click="goToCart"
             src="../assets/icons/cart.svg"
             alt=""
             height="20"
@@ -55,6 +55,12 @@
           {{ item.title }}
         </li>
       </ul>
+      <h1>Test for the new searchList</h1>
+      <ul>
+        <li v-for="result in searchProduct" :key="result.id">
+          {{ result.title }}
+        </li>
+      </ul>
     </div>
   </header>
 </template>
@@ -78,16 +84,38 @@ export default {
         this.$router.push("/profile");
       }
     },
+    searchProduct() {
+      console.log("Test");
+      if (this.searchKeyword.length > 2) {
+        console.log("Keyword is: " + this.searchKeyword);
+        return this.$store.dispatch("searchProducts", this.searchKeyword);
+      }
+      return null;
+    },
+    goToCart() {
+      const path = `/cart/`;
+      if (this.$route.path !== path) this.$router.push(path);
+    },
+    goToHome() {
+      const path = `/`;
+      if (this.$route.path !== path) this.$router.push(path);
+    },
   },
   computed: {
     cartItems() {
-      return this.$store.state.ordersModules.cart.length;
+      return this.$store.getters.totalItemsCount;
     },
     user() {
       return this.$store.state.userModule.user;
     },
+    searchResult() {
+      return this.searchProduct();
+    },
 
     items() {
+      //Behövs bygga om
+      //Det ksa inte gå att söka på bara de första 10 resultaten
+      //Utan man ska söka igenom ALLA istället
       if (this.searchKeyword.length > 0) {
         return this.$store.state.productsModule.allProductsList.filter((str) =>
           str.title.toLowerCase().includes(this.searchKeyword.toLowerCase())

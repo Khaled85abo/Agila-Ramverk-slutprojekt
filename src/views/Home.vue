@@ -1,18 +1,19 @@
 <template>
   <div class="home">
-    This is Home
-    <ul>
-      <li v-for="pro of products" :key="pro.id" @click="toProduct(pro.id)">
-        {{ pro.title }}
-      </li>
-    </ul>
-    
+    <div class="products">
+      <Product
+        v-for="product in products"
+        :key="product.id"
+        :product="product"
+        @addToCart="addToCart"
+      />
+    </div>
     <div class="filter">
       <input
         type="checkbox"
         id="Unisex"
         name="Unisex"
-        value="unisex"
+        value="Unisex"
         v-model="categories"
       />
       <label for="Unisex">Unisex</label>
@@ -21,7 +22,7 @@
         type="checkbox"
         id="Male"
         name="Male"
-        value="male"
+        value="Male"
         v-model="categories"
       />
       <label for="Male">Male</label>
@@ -30,23 +31,25 @@
         type="checkbox"
         id="Female"
         name="Female"
-        value="female"
+        value="Female"
         v-model="categories"
       />
       <label for="Female">Female</label>
     </div>
     {{ categories }}
 
-    <h3>Filtreringens resultat</h3>
-    {{productsByFilter}}
+    <h4>Filtreringens resultat</h4>
+    <p>{{ productsByFilter }}</p>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-
+import Product from "../components/SingleProduct.vue";
+import Actions from "../store/actions.types"
 export default {
   name: "Home",
+  components: { Product },
   data() {
     return {
       categories: [],
@@ -55,6 +58,10 @@ export default {
   methods: {
     toProduct(prodId) {
       this.$router.push("/product/" + prodId);
+    },
+    addToCart(product) {
+      console.log(product.id);
+      this.$store.dispatch(Actions.ADD_TO_CART, product)
     },
   },
   computed: {
@@ -83,5 +90,13 @@ export default {
 }
 label {
   margin-right: 20px;
+}
+
+.products {
+  margin: 2rem 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
 }
 </style>
