@@ -32,7 +32,6 @@
           <input type="radio" name="radio" />
           <span class="checkmark"></span>
         </label>
-
       </section>
 
       <section class="prices">
