@@ -37,6 +37,7 @@ export const updateProfile = async (userData) => {
 export const getAllProducts = async (category, page, pageSize) =>
   await axios.get(
     `/items?category=${category}&page=${page}&pageSize=${pageSize}`
+    // `/items?category=tshirt&page=1&pageSize=3`
   );
 
 // export const getAllProducts = async (category, page, pageSize) =>
