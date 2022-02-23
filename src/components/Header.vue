@@ -55,19 +55,11 @@
           {{ item.title }}
         </li>
       </ul>
-      <h1>New searchfunction - results</h1>
-      <ul>
-        <li v-for="result in searchProducts" :key="result.id">
-          {{ result.title }}
-        </li>
-      </ul>
     </div>
   </header>
 </template>
 
 <script>
-import Actions from "@/store/actions.types";
-
 export default {
   data() {
     return {
@@ -96,10 +88,10 @@ export default {
     },
 
     searchProduct(){
-      if(this.searchKeyword.length > 0){
+      if(this.searchKeyword.length > 2){
         console.log("Keyword is: " + this.searchKeyword)
-        console.log(Actions.GET_PRODUCT, this.searchKeyword)
-        return this.$store.dispatch(Actions.GET_PRODUCT, this.searchKeyword)
+        //console.log(Actions.GET_PRODUCT, this.searchKeyword)
+        return this.$store.dispatch('searchProducts', this.searchKeyword)
       }
         return null
     },

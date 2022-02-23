@@ -46,6 +46,11 @@ export default {
         console.log(error);
       }
     },
+
+    async searchProducts(context, searchQuery){
+      const res = await API.searchProduct(searchQuery)
+      console.log(res)
+    },
     // ADD PRODUCT /Only admins
     //  newProduct =  {
     //   "title": "...",

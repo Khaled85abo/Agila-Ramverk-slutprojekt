@@ -1,7 +1,4 @@
 <template>
-<<<<<<< HEAD
-  <div></div>
-=======
   <div>
     <h2>Choose payment</h2>
     <br />
@@ -76,16 +73,11 @@
     </div>
     <hr />
   </div>
->>>>>>> c5aef1f8e22a897e73503a3d4c3f467f0a0ddc9a
 </template>
 
 <script>
 export default {};
 </script>
-<<<<<<< HEAD
-
-<style scoped></style>
-=======
 
 <style  lang="scss"  scoped >
 article {
@@ -195,4 +187,3 @@ hr {
   }
 }
 </style>
->>>>>>> c5aef1f8e22a897e73503a3d4c3f467f0a0ddc9a

@@ -1,15 +1,5 @@
 <template>
   <div>
-<<<<<<< HEAD
-    <section>
-      <h2>Delivery</h2>
-      <h2>Price</h2>
-    </section>
-
-    <div class="delivery-info"></div>
-
-    <div class="total"></div>
-=======
     <div class="title"> 
     <h2>Choose payment</h2>
     <h2>Price</h2>
@@ -301,7 +291,6 @@ hr {
       </div>
     </div>
     <hr />
->>>>>>> c5aef1f8e22a897e73503a3d4c3f467f0a0ddc9a
   </div>
 </template>
 

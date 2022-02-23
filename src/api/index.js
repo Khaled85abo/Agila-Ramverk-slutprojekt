@@ -65,6 +65,9 @@ export const updateProduct = async (productId, productData) =>
 export const deleteProduct = async (productId) =>
   await axios.delete(`/items/${productId}`);
 
+  export const searchProduct = async (searchQuery) =>
+    await axios.get(`/items?search=${searchQuery}`)
+
 // response will be according to user status
 // admin -> get all orders
 // user -> get all his/her orders

@@ -11,11 +11,7 @@
         type="checkbox"
         id="Unisex"
         name="Unisex"
-<<<<<<< HEAD
-        value="unisex"
-=======
         value="Unisex"
->>>>>>> c5aef1f8e22a897e73503a3d4c3f467f0a0ddc9a
         v-model="categories"
       />
       <label for="Unisex">Unisex</label>
@@ -24,11 +20,7 @@
         type="checkbox"
         id="Male"
         name="Male"
-<<<<<<< HEAD
-        value="male"
-=======
         value="Male"
->>>>>>> c5aef1f8e22a897e73503a3d4c3f467f0a0ddc9a
         v-model="categories"
       />
       <label for="Male">Male</label>
@@ -37,21 +29,12 @@
         type="checkbox"
         id="Female"
         name="Female"
-<<<<<<< HEAD
-        value="female"
-=======
         value="Female"
->>>>>>> c5aef1f8e22a897e73503a3d4c3f467f0a0ddc9a
         v-model="categories"
       />
       <label for="Female">Female</label>
     </div>
     {{ categories }}
-<<<<<<< HEAD
-
-    <h3>Filtreringens resultat</h3>
-    <p>{{ productsByFilter }}</p>
-=======
 
     <h4>Filtreringens resultat</h4>
     <p>{{ productsByFilter }}</p>
@@ -115,7 +98,6 @@
     </section>
 
     <br /><br /><br /><br />
->>>>>>> c5aef1f8e22a897e73503a3d4c3f467f0a0ddc9a
   </div>
 </template>
 
@@ -154,19 +136,13 @@ export default {
 };
 </script>
 
-<<<<<<< HEAD
-<style lang="scss" scoped>
-=======
 <style scoped="scss">
->>>>>>> c5aef1f8e22a897e73503a3d4c3f467f0a0ddc9a
 .filter {
   display: flex;
 }
 label {
   margin-right: 20px;
 }
-<<<<<<< HEAD
-=======
 
 .hero-products {
   background-color: gray;
@@ -206,5 +182,4 @@ h3 {
   width: 200px;
   height: 230px;
 }
->>>>>>> c5aef1f8e22a897e73503a3d4c3f467f0a0ddc9a
 </style>
