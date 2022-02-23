@@ -79,7 +79,7 @@
 export default {};
 </script>
 
-<style  lang="scss"  scoped >
+<style lang="scss" scoped>
 article {
   margin-top: 10px;
   margin: 20px;

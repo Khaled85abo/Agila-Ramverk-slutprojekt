@@ -1,56 +1,51 @@
 <template>
   <div>
-    <div class="title"> 
-    <h2>Choose payment</h2>
-    <h2>Price</h2>
+    <div class="title">
+      <h2>Choose payment</h2>
+      <h2>Price</h2>
     </div>
     <br />
     <hr />
 
     <article>
       <section>
-
         <label class="container"
           >Home delivery
-          <p>2-3 days or
-            Express within 24h
-          </p>
+          <p>2-3 days or Express within 24h</p>
           <input type="radio" name="radio" />
           <span class="checkmark"></span>
         </label>
-        <br>
+        <br />
         <label class="container"
           >Instabox
           <p>1-2 days</p>
           <input type="radio" name="radio" />
           <span class="checkmark"></span>
         </label>
-        <br>
+        <br />
         <label class="container"
           >Post Office (PostNord)
           <p>3-5 days</p>
           <input type="radio" name="radio" />
           <span class="checkmark"></span>
         </label>
-
       </section>
 
       <section class="prices">
+        <div id="home-price">
+          <h2>5 $</h2>
+        </div>
+        <br />
 
-          <div id="home-price">
-            <h2>5 $</h2>
-          </div>
-          <br>
+        <div id="instabox-price">
+          <h2>Free !</h2>
+        </div>
+        <br />
 
-          <div id="instabox-price">
-            <h2>Free !</h2>
-          </div>
-          <br>
-
-          <div id="postNord-price">
-            <h2>7 $</h2>
-          </div>
-          <br>
+        <div id="postNord-price">
+          <h2>7 $</h2>
+        </div>
+        <br />
       </section>
     </article>
     <br />
@@ -59,7 +54,6 @@
 
     <br />
     <div class="total">
-
       <div id="totalPrice">
         <h3>Total:</h3>
         <p>Down payment from only ? $/ month</p>
@@ -83,8 +77,7 @@ export default {};
 </script>
 
 <style lang="scss" scoped>
-
-.title{
+.title {
   margin-top: 10px;
   margin: 20px;
   display: flex;
@@ -161,24 +154,23 @@ article {
   }
 
   .prices {
-      display: flex ;
-      flex-direction: column;
-      justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
-  #home-price{
+  #home-price {
     font-weight: bold;
   }
 
-  #instabox-price{
+  #instabox-price {
     font-weight: bold;
-    color:red;
+    color: red;
   }
 
-  #postNord-price{
+  #postNord-price {
     font-weight: bold;
   }
-
 }
 
 hr {
@@ -209,10 +201,6 @@ hr {
   }
 }
 </style>
-
-
-
-
 
 <!--  ///////////////////// delivery #2
 <template>
@@ -299,8 +287,11 @@ export default {};
 </script>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 <style scoped></style>
 =======
+=======
+>>>>>>> 756d448860547867f645f7a8dd1feed2bbbb5072
 <style lang="scss" scoped>
 
 .title{
@@ -430,4 +421,3 @@ hr {
 </style>
 
 -->
->>>>>>> c5aef1f8e22a897e73503a3d4c3f467f0a0ddc9a

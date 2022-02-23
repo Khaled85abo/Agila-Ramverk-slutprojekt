@@ -1,11 +1,13 @@
 <template>
   <div class="home">
-    This is Home
-    <ul>
-      <li v-for="pro of products" :key="pro.id" @click="toProduct(pro.id)">
-        {{ pro.title }}
-      </li>
-    </ul>
+    <div class="products">
+      <Product
+        v-for="product in products"
+        :key="product.id"
+        :product="product"
+        @addToCart="addToCart"
+      />
+    </div>
     <div class="filter">
       <input
         type="checkbox"
@@ -38,74 +40,15 @@
 
     <h4>Filtreringens resultat</h4>
     <p>{{ productsByFilter }}</p>
-
-    <section>
-      <div class="hero-products">
-        <h3>
-          Buy our charity<br />
-          bags this Holiday!
-        </h3>
-        <img
-          src="@/assets/icons/socialMedia/twitter.svg"
-          alt="Icon"
-          width="150px"
-          height="100"
-        />
-        <img
-          src="@/assets/icons/socialMedia/twitter.svg"
-          alt="Icon"
-          width="150px"
-          height="100"
-        />
-        <img
-          src="@/assets/icons/socialMedia/twitter.svg"
-          alt="Icon"
-          width="150px"
-          height="100"
-        />
-      </div>
-    </section>
-
-    <br />
-
-    <section class="products-collection">
-      <div class="holiday-products">
-        <h2>
-          This holidays most <br />
-          radical boards!
-        </h2>
-      </div>
-
-      <div id="product1">
-        <p>1</p>
-        <hr />
-      </div>
-
-      <div id="product2">
-        <p>1</p>
-        <hr />
-      </div>
-
-      <div id="product3">
-        <p>1</p>
-        <hr />
-      </div>
-
-      <div id="product4">
-        <p>1</p>
-        <hr />
-      </div>
-    </section>
-
-    <br /><br /><br /><br />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-
+import Product from "../components/SingleProduct.vue";
 export default {
   name: "Home",
+  components: { Product },
   data() {
     return {
       categories: [],
@@ -114,6 +57,9 @@ export default {
   methods: {
     toProduct(prodId) {
       this.$router.push("/product/" + prodId);
+    },
+    addToCart(product) {
+      console.log(product.id);
     },
   },
   computed: {
@@ -136,7 +82,7 @@ export default {
 };
 </script>
 
-<style scoped="scss">
+<style lang="scss" scoped>
 .filter {
   display: flex;
 }
@@ -144,42 +90,11 @@ label {
   margin-right: 20px;
 }
 
-.hero-products {
-  background-color: gray;
-  min-width: 1100px;
-  height: 200px;
-
+.products {
+  margin: 2rem 0.5rem;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-h3 {
-  transform: rotate(-20deg);
-}
-
-.products-collection {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  justify-content: space-between;
-  /*align-items: center;*/
-}
-
-.holiday-products {
-  background-color: #434343;
-  color: rgba(47, 255, 75, 0.52);
-  width: 200px;
-  height: 230px;
-}
-
-#product1,
-#product2,
-#product3,
-#product4 {
-  background-color: red;
-  border: black solid 1px;
-  width: 200px;
-  height: 230px;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
 }
 </style>

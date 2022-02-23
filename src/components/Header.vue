@@ -11,7 +11,7 @@
           <router-link to="/">Accessories</router-link>
         </div>
         <div class="search">
-          <input type="text" v-model="searchKeyword" />
+          <input type="text" v-model="searchKeyword" @keydown="searchProduct"/>
           <img src="../assets/icons/search.svg" alt="" />
         </div>
       </div>
@@ -78,6 +78,15 @@ export default {
         this.$router.push("/profile");
       }
     },
+    searchProduct(){
+      console.log("Test")
+      if(this.searchKeyword.length > 2){
+        console.log("Keyword is: " + this.searchKeyword)
+        //console.log(Actions.GET_PRODUCT, this.searchKeyword)
+        return this.$store.dispatch('searchProducts', this.searchKeyword)
+      }
+        return null
+    },
   },
   computed: {
     cartItems() {
@@ -85,15 +94,6 @@ export default {
     },
     user() {
       return this.$store.state.userModule.user;
-    },
-
-    searchProduct(){
-      if(this.searchKeyword.length > 2){
-        console.log("Keyword is: " + this.searchKeyword)
-        //console.log(Actions.GET_PRODUCT, this.searchKeyword)
-        return this.$store.dispatch('searchProducts', this.searchKeyword)
-      }
-        return null
     },
 
     items() {
