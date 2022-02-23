@@ -6,6 +6,7 @@
         {{ pro.title }}
       </li>
     </ul>
+    
     <div class="filter">
       <input
         type="checkbox"
