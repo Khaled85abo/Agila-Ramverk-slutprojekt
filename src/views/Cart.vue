@@ -6,9 +6,13 @@
         <h4>No. of items</h4>
         <h4>Price</h4>
       </section>
+      <hr />
+
       <main class="cart-main">
-        <section>
+        <section class="products">
           <article v-for="(product, index) in products" :key="product.id">
+            <!-- products, index -->
+
             <div class="description">
               <figure>
                 <img
@@ -19,7 +23,9 @@
               </figure>
               <p>{{ product.title }}</p>
             </div>
+
             <select
+              id="proInfo"
               name="quantity"
               @change="(e) => setCount(e, index)"
               :value="product.qty"
@@ -28,6 +34,7 @@
                 {{ quantity }}
               </option>
             </select>
+
             <p>{{ product.price * product.qty }}</p>
             <img
               src="../assets/icons/Trashbin.svg"
@@ -37,8 +44,11 @@
           </article>
         </section>
       </main>
+
+      <hr />
       <section class="cart-lower-section">
         <h4>{{ totalPrice }}</h4>
+
         <button>Back to shop</button>
         <button>Next - Choose delivery</button>
       </section>
@@ -93,4 +103,62 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.cart-upper-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  justify-content: space-around;
+}
+
+hr {
+  border: 2px solid black;
+  background-color: black;
+  margin-top: 20px;
+}
+
+.products {
+  display: flex;
+  justify-content: center;
+  justify-content: space-around;
+}
+
+.description {
+}
+
+/*  
+
+#total-procuts {
+  width: 5px;
+  height: 5px;
+}
+
+#products-price {
+  display: flex;
+  flex-direction: row;
+}
+
+.total {
+  margin: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+  #totalPrice {
+    align-self: flex-end;
+  }
+
+  #confim-purchase {
+    align-self: flex-end;
+  }
+
+  #back-delivery {
+    align-self: flex-start;
+  }
+
+  button {
+    border-radius: 20px;
+    background-color: #009229;
+  }
+*/
+</style>
