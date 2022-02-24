@@ -24,6 +24,7 @@ export default {
     return {
       path: "http://localhost:5000/images/",
     };
+    
   },
 };
 </script>
