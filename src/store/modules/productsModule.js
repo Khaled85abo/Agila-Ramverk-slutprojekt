@@ -130,8 +130,10 @@ export default {
     [Mutations.SET_PRODUCT](state, pro) {
       state.allProductsObj[pro.id] = pro;
     },
-    [Mutations.SEARCH_PRODUCTS](state, payload) {
-      state.searchResponse.push(payload)
+    [Mutations.SEARCH_PRODUCTS](state, data) {
+      state.searchResponse.push(data)
+      console.log("Data är: " + data)
+      console.log("State är :" + state)
     }
 
   },

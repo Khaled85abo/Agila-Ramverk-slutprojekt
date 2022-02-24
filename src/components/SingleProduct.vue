@@ -1,6 +1,6 @@
 <template>
   <article>
-    <figure>
+    <figure @click="$router.push('/product/' + product.id)">
       <img :src="path + product.imgFile" alt="" height="150px" />
     </figure>
     <hr />
@@ -63,8 +63,11 @@ article {
     display: flex;
     justify-content: space-between;
     margin: -0.5rem 0 0.5rem 0;
-    img {
-      margin-left: 0.2rem;
+    div {
+      white-space: nowrap;
+      img {
+        margin-left: 0.2rem;
+      }
     }
   }
   button {

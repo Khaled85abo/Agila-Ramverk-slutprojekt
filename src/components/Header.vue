@@ -3,7 +3,7 @@
     <nav id="nav">
       <div class="left"></div>
       <div class="middle">
-        <img @click="$router.push('/')" src="../assets/sinus-logo.png" alt="" />
+        <img @click="goToHome" src="../assets/sinus-logo.png" alt="" />
         <div class="links">
           <router-link to="/">Men</router-link>
           <router-link to="/">Women</router-link>
@@ -11,14 +11,14 @@
           <router-link to="/">Accessories</router-link>
         </div>
         <div class="search">
-          <input type="text" v-model="searchKeyword" @keyup="searchProduct"/>
+          <input type="text" v-model="searchKeyword" @keyup="searchProduct" />
           <img src="../assets/icons/search.svg" alt="" />
         </div>
       </div>
       <div class="right">
         <div class="cart">
           <img
-            @click="$router.push('/cart')"
+            @click="goToCart"
             src="../assets/icons/cart.svg"
             alt=""
             height="20"
@@ -58,7 +58,7 @@
       <h1>Test for the new searchList</h1>
       <ul>
         <li v-for="result in searchResult" :key="result.id">
-          {{ result.title }}
+          {{ result }}
         </li>
       </ul>
     </div>
@@ -85,20 +85,26 @@ export default {
         this.$router.push("/profile");
       }
     },
-    searchProduct(){
-      console.log("Test")
-      if(this.searchKeyword.length > 2){
-        console.log("Keyword is: " + this.searchKeyword)
-        return this.$store.dispatch('searchProducts', this.searchKeyword)
+    searchProduct() {
+      console.log("Test");
+      if (this.searchKeyword.length > 2) {
+        console.log("Keyword is: " + this.searchKeyword);
+        return this.$store.dispatch("searchProducts", this.searchKeyword);
       }
-      else{
-        return null
-        }
+      return null;
+    },
+    goToCart() {
+      const path = `/cart/`;
+      if (this.$route.path !== path) this.$router.push(path);
+    },
+    goToHome() {
+      const path = `/`;
+      if (this.$route.path !== path) this.$router.push(path);
     },
   },
   computed: {
     cartItems() {
-      return this.$store.state.ordersModules.cart.length;
+      return this.$store.getters.totalItemsCount;
     },
     user() {
       return this.$store.state.userModule.user;
