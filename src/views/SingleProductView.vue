@@ -52,7 +52,7 @@ export default {
   data() {
     return {
       //imgFile: require("@/assets/skateboard-greta.jpg")
-       path: "http://localhost:5000/images/",
+      
     };
   },
   methods: {
