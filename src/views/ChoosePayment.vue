@@ -1,8 +1,6 @@
 <template>
   <div>
     <h2>Choose payment</h2>
-
-    <br />
     <hr />
 
     <article>
@@ -52,17 +50,14 @@
         </form>
       </section>
     </article>
-    <br />
 
     <hr />
 
-    <br />
     <div class="total">
       <div id="totalPrice">
         <h3>Total:</h3>
         <p>Down payment from only ? $/ month</p>
       </div>
-      <br /><br />
 
       <div id="confim-purchase">
         <button>Next - confim-purchase</button>
