@@ -58,7 +58,9 @@
       <h1>Test for the new searchList</h1>
       <ul>
         <li v-for="result in searchResult" :key="result.id">
-          {{ result }}
+          <ul>
+            <li v-for="res in result" :key="res.id"> {{ res.title }}</li>
+          </ul>
         </li>
       </ul>
     </div>
@@ -110,7 +112,10 @@ export default {
       return this.$store.state.userModule.user;
     },
     searchResult() {
-      return this.$store.state.productsModule.searchResponse;
+      if(this.searchKeyword.length > 2) {
+      return this.$store.state.productsModule.searchResponse
+      }
+      return null
     },
 
     items() {
