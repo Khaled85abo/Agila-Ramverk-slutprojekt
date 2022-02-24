@@ -110,7 +110,7 @@ export default {
 
 <style lang="scss" scoped>
 .wrapper {
-  max-width: 500px;
+  max-width: 400px;
   margin: auto;
 
   form {

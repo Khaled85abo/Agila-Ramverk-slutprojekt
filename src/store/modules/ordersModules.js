@@ -28,23 +28,31 @@ export default {
     async [Actions.ADD_PAYMENT_METHOD]({ commit }, paymentMethod) {
       commit(Mutations.ADD_PAYMENT_METHOD, paymentMethod);
     },
-    async [Actions.GET_ALL_ORDERS]({ commit }) {
+    async [Actions.GET_ALL_ORDERS]({ commit, dispatch }) {
       try {
-        const res = await API.getAllOrders({ commit });
+        const res = await API.getAllOrders();
         console.log(res);
         if (!res.error) {
           console.log("success getting order: ", res.data);
+          if (res.data.length > 0) {
+            // get all individual products res.data = [{items: [{ProductId}]}]
+            await res.data.forEach((order) => {
+              order.items.forEach((item) =>
+                dispatch(Actions.GET_PRODUCT, item.ProductId)
+              );
+            });
+          }
           commit(Mutations.SET_ORDERS, res.data);
         } else {
           throw new Error(res.error);
         }
       } catch (error) {
-        console.log("error getting order: ", error.response.data);
+        console.log("error getting order: ", error.response);
       }
     },
     async [Actions.REGISTER_ORDER]({ state, rootState }) {
       try {
-        await API.registerOrder({
+        await API.addProduct({
           userEmail: rootState.userModule.currentUserEmail,
           items: state.cart,
         });
@@ -89,6 +97,28 @@ export default {
     },
     totalItemsCount(state) {
       return state.cart.reduce((pre, curr) => pre + Number(curr.qty), 0);
+    },
+    allOrders(state, getters, rootState) {
+      console.log(getters);
+      let updatedOrders = [];
+      for (let order of state.ordersList) {
+        let items = [];
+        for (let item of order.items) {
+          const updatedItem = {
+            ...item,
+            // product: rootState.productsModule.allProductsObj[item.ProductId],
+            product: rootState.productsModule.allProductsObj[item.ProductId],
+          };
+          console.log(
+            "product id from for loop: ",
+            rootState.productsModule.allProductsObj[3]
+          );
+          items.push(updatedItem);
+        }
+        const newOrder = { ...order, items };
+        updatedOrders.push(newOrder);
+      }
+      return updatedOrders;
     },
   },
 };

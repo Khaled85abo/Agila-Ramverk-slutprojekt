@@ -38,7 +38,7 @@ export default {
       try {
         const res = await API.getSingleProduct(id);
         if (!res.error) {
-          commit(Mutations.SET_PRODUCT, res.data);
+          commit(Mutations.SET_PRODUCT, res.data.post);
         } else {
           throw new Error(res.error);
         }
@@ -47,9 +47,9 @@ export default {
       }
     },
 
-    async searchProducts(context, searchQuery){
-      const res = await API.searchProduct(searchQuery)
-      console.log(res)
+    async searchProducts(context, searchQuery) {
+      const res = await API.searchProduct(searchQuery);
+      console.log(res);
     },
     // ADD PRODUCT /Only admins
     //  newProduct =  {
