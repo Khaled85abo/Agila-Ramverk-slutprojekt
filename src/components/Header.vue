@@ -57,7 +57,7 @@
       </ul>
       <h1>Test for the new searchList</h1>
       <ul>
-        <li v-for="result in searchProduct" :key="result.id">
+        <li v-for="result in searchResult" :key="result.id">
           {{ result.title }}
         </li>
       </ul>
@@ -72,6 +72,7 @@ export default {
       searchKeyword: "",
     };
   },
+  
   methods: {
     toProduct(id) {
       this.$router.push("/product/" + id);
@@ -90,7 +91,9 @@ export default {
         console.log("Keyword is: " + this.searchKeyword)
         return this.$store.dispatch('searchProducts', this.searchKeyword)
       }
+      else{
         return null
+        }
     },
   },
   computed: {
@@ -101,7 +104,7 @@ export default {
       return this.$store.state.userModule.user;
     },
     searchResult() {
-      return this.searchProduct()
+      return this.$store.state.productsModule.searchResponse
     },
 
     items() {
