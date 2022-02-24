@@ -85,7 +85,7 @@
                   class="product-article"
                   v-for="item in order.items"
                   :key="item.id"
-                  @click="$router.push('/products/' + item.ProductId)"
+                  @click="$router.push('/product/' + item.ProductId)"
                 >
                   <img
                     :src="
