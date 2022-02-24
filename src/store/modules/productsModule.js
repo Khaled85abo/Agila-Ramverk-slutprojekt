@@ -11,11 +11,14 @@ export default {
     // updateProductError: null,
     // createProductError: null,
     productStatus: null,
+    searchResponse: [],
   }),
   actions: {
     // GET ALL PRODUCTS FROM CATEGORY
-    async [Actions.GET_ALL_PRODUCTS]({ commit }, { category }) // page = o,
-    // pageSize = 0
+    async [Actions.GET_ALL_PRODUCTS](
+      { commit },
+      { category } // page = o,
+    ) // pageSize = 0
     {
       try {
         const res = await API.getAllProducts(category);
@@ -44,10 +47,21 @@ export default {
       }
     },
 
-    async searchProducts(context, searchQuery) {
-      const res = await API.searchProduct(searchQuery);
-      console.log(res);
-      return res;
+    async searchProducts({ commit }, searchQuery) {
+      try {
+        const res = await API.searchProduct(searchQuery);
+        if (!res.error) {
+          commit(Mutations.SEARCH_PRODUCTS, res.data);
+          console.log(res);
+          console.log(res.data);
+        } else {
+          throw new Error(res.error);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+
+      //return res.data
     },
     // ADD PRODUCT /Only admins
     //  newProduct =  {
@@ -112,6 +126,12 @@ export default {
     },
     [Mutations.SET_PRODUCT](state, pro) {
       state.allProductsObj[pro.id] = pro;
+    },
+    [Mutations.SEARCH_PRODUCTS](state, data) {
+      state.searchResponse.splice(0, state.searchResponse.length);
+      state.searchResponse.push(data);
+      console.log("Data är: " + data);
+      console.log("State är :" + state);
     },
   },
   getters: {
