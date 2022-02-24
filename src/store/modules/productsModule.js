@@ -24,7 +24,7 @@ export default {
         const res = await API.getAllProducts(category, page, pageSize);
         if (!res.error) {
           console.log("success: ", res.data);
-          commit(Mutations.SET_PRODUCTS, res.data.products);
+          commit(Mutations.SET_PRODUCTS, res.data);
         } else {
           throw new Error(res.error);
         }
@@ -36,15 +36,20 @@ export default {
     // GET SINGLE PRODUCT
     async [Actions.GET_PRODUCT]({ commit }, id) {
       try {
-        const res = await API.getSingleOrder(id);
+        const res = await API.getSingleProduct(id);
         if (!res.error) {
-          commit(Mutations.SET_PRODUCT, res.data.post);
+          commit(Mutations.SET_PRODUCT, res.data);
         } else {
           throw new Error(res.error);
         }
       } catch (error) {
         console.log(error);
       }
+    },
+
+    async searchProducts(context, searchQuery){
+      const res = await API.searchProduct(searchQuery)
+      console.log(res)
     },
     // ADD PRODUCT /Only admins
     //  newProduct =  {

@@ -1,70 +1,114 @@
 <template>
-  <div>
-    <section class="title">
-      <h4>Choose payment</h4>
-      <br />
-      <h4>No.of items</h4>
-      <h4>Price</h4>
-    </section>
-    <hr />
+  <div id="cart">
+    <div class="wrapper">
+      <section class="cart-upper-section">
+        <h4>Product</h4>
+        <h4>No. of items</h4>
+        <h4>Price</h4>
+      </section>
+      <hr />
 
-    <section>
-      <div id="chosen-product">
-        <img
-          src="@/assets/skateboard-greta.jpg"
-          alt="skateboard-greta"
-          width="80px"
-          height="180"
-        />
-        <h4></h4>
-        <p></p>
-      </div>
+      <main class="cart-main">
+        <section class="products">
+          <article v-for="(product, index) in products" :key="product.id">
+            <!-- products, index -->
 
-      <div id="total-procuts">
-        <input type="number" name="number" />
-      </div>
+            <div class="description">
+              <figure>
+                <img
+                  :src="path + product.imgFile"
+                  alt="productImage"
+                  height="150px"
+                />
+              </figure>
+              <p>{{ product.title }}</p>
+            </div>
 
-      <div id="products-price">
-        <p>69 $</p>
-        <img
-          src="@/assets/icons/Trashbin.svg"
-          alt="skateboard-greta"
-          width="20px"
-          height="20"
-        />
-      </div>
-    </section>
+            <select
+              id="proInfo"
+              name="quantity"
+              @change="(e) => setCount(e, index)"
+              :value="product.qty"
+            >
+              <option v-for="quantity in items" :key="quantity">
+                {{ quantity }}
+              </option>
+            </select>
 
-    <hr>
-    <div class="total">
-      <div id="totalPrice">
-        <h3>Total:</h3>
-        <p>Down payment from only ? $/ month</p>
-      </div>
-      <br /><br />
+            <p>{{ product.price * product.qty }}</p>
+            <img
+              src="../assets/icons/Trashbin.svg"
+              alt="trash-bin"
+              @carticleck="removeItem(index)"
+            />
+          </article>
+        </section>
+      </main>
 
-      <div id="confim-purchase">
-        <button>Next - confim-purchase</button>
-      </div>
+      <hr />
+      <section class="cart-lower-section">
+        <h4>{{ totalPrice }}</h4>
 
-      <div id="back-delivery">
-        <button>Back to delivery</button>
-      </div>
+        <button>Back to shop</button>
+        <button>Next - Choose delivery</button>
+      </section>
     </div>
-
   </div>
 </template>
 
 <script>
-export default {};
+import Actions from "../store/actions.types";
+export default {
+  name: "Cart",
+  data() {
+    return {
+      path: "http://localhost:5000/images/",
+      items: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      quantity: "",
+    };
+  },
+  computed: {
+    products() {
+      return this.$store.state.ordersModules.cart;
+    },
+    // totalPrice() {
+    //   const sum = this.products.map((product) => Number(product.price));
+    //   console.log(typeof sum[0]);
+    //   const initialValue = 0;
+    //   return sum.reduce(
+    //     (previousValue, currentValue) => previousValue + currentValue,
+    //     initialValue
+    //   );
+    // },
+    totalPrice() {
+      return this.$store.getters.totalPrice;
+    },
+  },
+  methods: {
+    setCount(e, index) {
+      console.log(e.target.value, index);
+      this.$store.dispatch(Actions.UPDATE_QUANTITY, {
+        qty: e.target.value,
+        index,
+      });
+    },
+    removeItem(index) {
+      this.$store.dispatch(Actions.REMOVE_FROM_CART, index);
+      // this.products.splice(index, 1);
+    },
+    changeItemQuantity() {
+      console.log(this.quantity);
+    },
+  },
+};
 </script>
 
 <style scoped>
-.title {
+.cart-upper-section {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
 }
 
 hr {
@@ -73,21 +117,20 @@ hr {
   margin-top: 20px;
 }
 
-section {
+.products {
   display: flex;
-  flex-direction: row;
   justify-content: center;
-  justify-content: space-evenly;
-  align-items: center;
+  justify-content: space-around;
 }
 
-#chosen-product {
+.description {
 }
+
+/*  
 
 #total-procuts {
   width: 5px;
   height: 5px;
-  background-color: coral;
 }
 
 #products-price {
@@ -117,5 +160,5 @@ section {
     border-radius: 20px;
     background-color: #009229;
   }
-
+*/
 </style>

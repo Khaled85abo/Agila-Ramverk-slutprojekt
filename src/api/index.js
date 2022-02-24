@@ -30,12 +30,14 @@ export const registerUser = async (userData) =>
 
 export const getUserInfo = async () => await axios.get("/me");
 
-export const updateProfile = async (userData) =>
-  await axios.patch("/me", userData);
+export const updateProfile = async (userData) => {
+  return await axios.patch("/me", userData);
+};
 
 export const getAllProducts = async (category, page, pageSize) =>
   await axios.get(
     `/items?category=${category}&page=${page}&pageSize=${pageSize}`
+    // `/items?category=tshirt&page=1&pageSize=3`
   );
 
 // export const getAllProducts = async (category, page, pageSize) =>
@@ -62,6 +64,9 @@ export const updateProduct = async (productId, productData) =>
 
 export const deleteProduct = async (productId) =>
   await axios.delete(`/items/${productId}`);
+
+export const searchProduct = async (searchQuery) =>
+  await axios.get(`/items?search=${searchQuery}`);
 
 // response will be according to user status
 // admin -> get all orders

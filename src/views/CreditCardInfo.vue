@@ -4,7 +4,7 @@
     <h2>Choose payment</h2>
     <h2>Price</h2>
     </div>
-    <br />
+    <!--<br />-->
     <hr />
 
     <article>
@@ -49,21 +49,21 @@
           <div id="instabox-price">
             <h2>Free !</h2>
           </div>
-          <br>
+          <!-- <br> -->
       </section>
     </article>
-    <br />
+    <!-- <br /> -->
 
     <hr />
 
-    <br />
+    <!-- <br /> -->
     <div class="total">
 
       <div id="totalPrice">
         <h3>Total:</h3>
         <p>Down payment from only ? $/ month</p>
       </div>
-      <br /><br />
+      <!-- <br /> <br /> -->
 
       <div id="confim-purchase">
         <button>Next - confim-purchase</button>

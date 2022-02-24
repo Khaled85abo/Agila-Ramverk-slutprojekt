@@ -3,7 +3,7 @@
     <h1>This is single product view</h1>
     <div class="wrapper">
       <section class="image">
-        <img :src="require('@/assets/' + prod.imgFile)" />
+        <img :src="'http://localhost:5001/images/' + prod.imgFile" />
       </section>
       <section class="product-info">
         <div class="product-discription">
@@ -68,7 +68,7 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@/styles/_functions.scss";
 .single-product {
   @include flexCenter(column);
