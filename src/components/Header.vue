@@ -110,7 +110,7 @@ export default {
       return this.$store.state.userModule.user;
     },
     searchResult() {
-      return this.$store.state.productsModule.searchResponse
+      return this.$store.state.productsModule.searchResponse;
     },
 
     items() {
