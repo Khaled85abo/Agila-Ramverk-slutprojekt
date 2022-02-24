@@ -34,7 +34,7 @@ export const updateProfile = async (userData) => {
   return await axios.patch("/me", userData);
 };
 
-export const getAllProducts = async ( category) =>
+export const getAllProducts = async (category) =>
   await axios.get(
     `/items?category=${category}`
     // `/items?category=tshirt&page=1&pageSize=3`

@@ -50,6 +50,7 @@ export default {
     async searchProducts(context, searchQuery){
       const res = await API.searchProduct(searchQuery)
       console.log(res)
+      return res
     },
     // ADD PRODUCT /Only admins
     //  newProduct =  {
