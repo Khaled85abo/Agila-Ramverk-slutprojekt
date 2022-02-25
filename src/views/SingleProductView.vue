@@ -1,7 +1,8 @@
 <template>
   <div class="single-product">
     <h1>This is single product view</h1>
-    <div class="wrapper">
+    <div v-if="product" class="wrapper">
+      
       <section class="image">
         <img :src="'http://localhost:5000/images/' + product.imgFile" />
       </section>
@@ -53,7 +54,10 @@ export default {
     return {
       //imgFile: require("@/assets/skateboard-greta.jpg")
       
-    };
+    }
+  },
+  mounted(){
+    console.log("single page mounted", this.$route.params.id);
   },
   methods: {
     addToCart() {
