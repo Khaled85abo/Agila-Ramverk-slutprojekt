@@ -11,10 +11,11 @@
           <router-link to="/">Accessories</router-link>
         </div>
         <div class="search">
-          <input type="text" v-model="searchKeyword" @keyup="searchProduct" />
-           <ul>
-        <li v-for="item in searchResult" :key="item.id" @click="toProduct(item.id)">
-          <label for="">{{ item.title }}</label>
+          <input type="text" v-model="searchKeyword" @keyup="searchProduct" @focus="onFocus" @blur="onBlur" />
+           <ul >
+        <li v-for="item in searchResult" :key="item.id" @click="toProduct(item.id)" 
+       >
+          <label class="">{{ item.title }}</label>
         <lable>
           <img :src="path + item.imgFile" alt="" width="20px" height="20px">
         </lable>
@@ -79,12 +80,14 @@ export default {
     return {
       searchKeyword: "",
        path: "http://localhost:5000/images/",
+       focused: true,
     };
   },
   
   methods: {
     toProduct(id) {
       this.$router.push("/product/" + id);
+      this.searchKeyword = ""
     },
     redirect() {
       console.log("clicked");
@@ -110,6 +113,12 @@ export default {
       const path = `/`;
       if (this.$route.path !== path) this.$router.push(path);
     },
+    onBlur() {
+      this.focused = false
+    },
+    onFocus() {
+      this.focused = true
+    }
   },
   computed: {
     cartItems() {
@@ -173,7 +182,7 @@ header {
         display: grid;
         align-items: center;
         height: 50px;
-        margin-right: 1rem;
+        margin-right: 0.5rem;
         input {
           background-image: url('../assets/icons/search.svg');
           background-position: 10px ;
@@ -181,16 +190,21 @@ header {
           height: 35px;
           padding:  20px  40px;
           font-size: 16px;
-          border-radius: 8px;
+          border-radius: 16px;
           margin-top: 1px;
+          
+        }
+        .focused{
+          display: none;
         }
         ul{
           list-style-type: none;
           padding: 0;
           margin: 0;
+          position: relative;
           li{
-              border: 1px solid $pitchBlack;
-              margin-top: -1px; /* Prevent double borders */
+            border: 0.5px solid $pitchBlack;
+              //margin-top: 1px; /* Prevent double borders */
               background-color: #f6f6f6;
               padding: 5px;
               text-decoration: none;
@@ -201,13 +215,13 @@ header {
               display: flex;
               flex-direction: row;
               justify-content: space-between;
-              
           }
           li:hover{
               background-color: $monsterGreen;
               color:$pureWhite;
               }
         }
+        
       }
     }
 

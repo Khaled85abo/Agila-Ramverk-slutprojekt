@@ -80,17 +80,20 @@ label {
 }
 .home{
   display: flex;
-  max-width: 80%;
+  max-width: 100%;
   margin: 5rem ;
   justify-content: center;
-  gap: 4rem;
+  gap: 2rem;
+}
+.category{
+  width: 160px
 }
 .products {
   justify-content: space-around;
-  max-width: 75%;
+  max-width: 100%;
    display: flex;
    flex-wrap: wrap;
-   gap: 2rem;
+   gap: 1rem;
    
 }
 </style>
