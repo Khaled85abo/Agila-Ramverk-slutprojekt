@@ -129,9 +129,9 @@ export default {
     },
     [Mutations.SEARCH_PRODUCTS](state, data) {
       state.searchResponse.splice(0, state.searchResponse.length);
-      state.searchResponse.push(data);
-      console.log("Data är: " + data);
-      console.log("State är :" + state);
+      state.searchResponse = data
+      state.allProductsList.unshift(...data)
+      data.forEach((pro) => (state.allProductsObj[pro.id] = pro));
     },
   },
   getters: {
