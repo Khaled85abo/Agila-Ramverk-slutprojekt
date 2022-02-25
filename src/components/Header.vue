@@ -89,7 +89,7 @@ export default {
     },
     searchProduct() {
       console.log("Test");
-      if (this.searchKeyword.length > 2) {
+      if (this.searchKeyword.length) {
         console.log("Keyword is: " + this.searchKeyword);
         return this.$store.dispatch("searchProducts", this.searchKeyword);
       }

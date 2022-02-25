@@ -11,18 +11,17 @@ export default {
     // updateProductError: null,
     // createProductError: null,
     productStatus: null,
-    searchResponse: []
+    searchResponse: [],
   }),
   actions: {
     // GET ALL PRODUCTS FROM CATEGORY
     async [Actions.GET_ALL_PRODUCTS](
       { commit },
-      category = "skateboard",
-      page = 0,
-      pageSize = 0
-    ) {
+      { category } // page = o,
+    ) // pageSize = 0
+    {
       try {
-        const res = await API.getAllProducts(category, page, pageSize);
+        const res = await API.getAllProducts(category);
         if (!res.error) {
           console.log("success: ", res.data);
           commit(Mutations.SET_PRODUCTS, res.data);
@@ -39,7 +38,7 @@ export default {
       try {
         const res = await API.getSingleProduct(id);
         if (!res.error) {
-          commit(Mutations.SET_PRODUCT, res.data);
+          commit(Mutations.SET_PRODUCT, res.data.post);
         } else {
           throw new Error(res.error);
         }
@@ -48,22 +47,20 @@ export default {
       }
     },
 
-    async searchProducts( { commit }, searchQuery){
+    async searchProducts({ commit }, searchQuery) {
       try {
-        const res = await API.searchProduct(searchQuery)
-        if(!res.error) {
-          commit(Mutations.SEARCH_PRODUCTS, res.data)
-          console.log(res)
-          console.log(res.data)
+        const res = await API.searchProduct(searchQuery);
+        if (!res.error) {
+          commit(Mutations.SEARCH_PRODUCTS, res.data);
+          console.log(res);
+          console.log(res.data);
+        } else {
+          throw new Error(res.error);
         }
-        else {
-          throw new Error(res.error)
-        }
+      } catch (error) {
+        console.log(error);
       }
-      catch (error){
-        console.log(error)
-      }
-      
+
       //return res.data
     },
     // ADD PRODUCT /Only admins
@@ -131,12 +128,14 @@ export default {
       state.allProductsObj[pro.id] = pro;
     },
     [Mutations.SEARCH_PRODUCTS](state, data) {
-      state.searchResponse.splice(0,state.searchResponse.length);
-      state.searchResponse.push(data)
-      console.log("Data är: " + data)
-      console.log("State är :" + state)
-    }
-
+      state.searchResponse.splice(0, state.searchResponse.length);
+      state.searchResponse.push(data);
+      console.log("Data är: " + data);
+      console.log("State är :" + state);
+    },
   },
-  getters: {},
+  getters: {
+    getProductsByCategory: (state) => (category) =>
+      state.allProductsList.filter((product) => product.category == category),
+  },
 };

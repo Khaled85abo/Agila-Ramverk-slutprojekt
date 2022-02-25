@@ -39,6 +39,7 @@ export default {
         if (!res.error) {
           API.saveToken(res.data.token);
           dispatch(Actions.GET_USER);
+          dispatch(Actions.GET_ALL_ORDERS);
         } else {
           throw new Error(res.error);
         }
