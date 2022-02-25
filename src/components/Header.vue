@@ -192,10 +192,6 @@ header {
           font-size: 16px;
           border-radius: 16px;
           margin-top: 1px;
-          
-        }
-        .focused{
-          display: none;
         }
         ul{
           list-style-type: none;
