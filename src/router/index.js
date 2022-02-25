@@ -7,7 +7,6 @@ import Delivery from "../views/Delivery.vue";
 import ChoosePayment from "../views/ChoosePayment.vue";
 import CreditCardInfo from "../views/CreditCardInfo.vue";
 import Profile from "../views/Profile";
-import Dashboard from "../views/Dashboard";
 import Login from "../views/Login";
 Vue.use(VueRouter);
 
@@ -17,11 +16,7 @@ const routes = [
     name: "Home",
     component: Home,
   },
-  {
-    name: "admin dashboard",
-    path: "/admin",
-    component: Dashboard,
-  },
+
   {
     name: "Profile",
     path: "/profile",

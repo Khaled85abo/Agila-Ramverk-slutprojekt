@@ -31,9 +31,7 @@ export default {
     async [Actions.GET_ALL_ORDERS]({ commit, dispatch }) {
       try {
         const res = await API.getAllOrders();
-        console.log(res);
         if (!res.error) {
-          console.log("success getting order: ", res.data);
           if (res.data.length > 0) {
             // get all individual products res.data = [{items: [{ProductId}]}]
             await res.data.forEach((order) => {
@@ -109,10 +107,6 @@ export default {
             // product: rootState.productsModule.allProductsObj[item.ProductId],
             product: rootState.productsModule.allProductsObj[item.ProductId],
           };
-          console.log(
-            "product id from for loop: ",
-            rootState.productsModule.allProductsObj[3]
-          );
           items.push(updatedItem);
         }
         const newOrder = { ...order, items };

@@ -59,7 +59,7 @@
       <ul>
         <li v-for="result in searchResult" :key="result.id">
           <ul>
-            <li v-for="res in result" :key="res.id"> {{ res.title }}</li>
+            <li v-for="res in result" :key="res.id">{{ res.title }}</li>
           </ul>
         </li>
       </ul>
@@ -74,18 +74,13 @@ export default {
       searchKeyword: "",
     };
   },
-  
+
   methods: {
     toProduct(id) {
       this.$router.push("/product/" + id);
     },
     redirect() {
-      console.log("clicked");
-      if (this.$store.state.userModule.user.role === "admin") {
-        this.$router.push("/admin");
-      } else {
-        this.$router.push("/profile");
-      }
+      this.$router.push("/profile");
     },
     searchProduct() {
       console.log("Test");
@@ -112,10 +107,10 @@ export default {
       return this.$store.state.userModule.user;
     },
     searchResult() {
-      if(this.searchKeyword.length > 2) {
-      return this.$store.state.productsModule.searchResponse
+      if (this.searchKeyword.length > 2) {
+        return this.$store.state.productsModule.searchResponse;
       }
-      return null
+      return null;
     },
 
     items() {

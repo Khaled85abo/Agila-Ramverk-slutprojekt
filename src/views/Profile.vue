@@ -15,11 +15,27 @@
       :message="updateRes.message"
       @resetError="resetResponse"
     />
+    <Snackbar
+      v-if="addProductError"
+      type="error"
+      :message="addProductError"
+      @resetError="resetResponse"
+    />
+    <Snackbar
+      v-if="addProductSuccess"
+      type="success"
+      :message="addProductSuccess"
+      @resetError="resetResponse"
+    />
 
     <div class="menu">
       <div>
         <span @click="router = 'orders'">Order historik</span>
-        <span @click="router = 'profile'">Update profile</span>
+        <span @click="router = 'update'">Update profile</span>
+        <span @click="router = 'add'" v-if="user.role === 'admin'"
+          >Add Product</span
+        >
+
         <span @click="signout" class="signout">Sign out</span>
       </div>
     </div>
@@ -31,9 +47,10 @@
           @submitted="update"
           @error="setLocalError"
         />
-        <div class="orders" v-else-if="router === 'orders' && orders">
+        <AddProduct v-else-if="router === 'add'" @submitted="addProduct" />
+        <div class="orders" v-else>
           <h2>
-            {{ orders.length > 0 ? "Your orders" : "No orders yet" }}
+            {{ orders.length > 0 ? "Orders" : "No orders" }}
           </h2>
           <transition-group
             class="orders-wrapper"
@@ -79,7 +96,7 @@
                 </tr>
               </table>
 
-              <p>Items:</p>
+              <h4>Items:</h4>
               <div class="products">
                 <article
                   class="product-article"
@@ -109,9 +126,10 @@
 import Actions from "../store/actions.types";
 import UpdateForm from "../components/UpdateForm.vue";
 import Snackbar from "../components/SnackBar.vue";
+import AddProduct from "../components/AddProduct.vue";
 import gsap from "gsap";
 export default {
-  components: { UpdateForm, Snackbar },
+  components: { UpdateForm, Snackbar, AddProduct },
   data() {
     return {
       router: "orders",
@@ -167,6 +185,9 @@ export default {
       };
       this.$store.dispatch(Actions.UPDATE_USER, newUser);
     },
+    addProduct(data) {
+      this.$store.dispatch(Actions.UPLOAD_IMAGE, data);
+    },
     resetError() {
       this.localError = null;
       this.type = "error";
@@ -179,6 +200,8 @@ export default {
     },
     resetResponse() {
       this.$store.dispatch(Actions.RESET_RESPONSE);
+      this.$store.dispatch(Actions.RESET_ADD_PRODUCT_ERROR);
+      this.$store.dispatch(Actions.RESET_ADD_PRODUCT_SUCCESS);
     },
     status(status) {
       if (this.user.role === "customer") {
@@ -209,6 +232,12 @@ export default {
     orders() {
       console.log("orders inside profile", this.$store.getters.allOrders);
       return this.$store.getters.allOrders;
+    },
+    addProductError() {
+      return this.$store.state.productsModule.addProductError;
+    },
+    addProductSuccess() {
+      return this.$store.state.productsModule.addProductSuccess;
     },
   },
 };
