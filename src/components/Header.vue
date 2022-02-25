@@ -1,7 +1,7 @@
 <template>
   <header>
     <nav id="nav">
-      <div class="left"></div>
+      <!-- <div class="left"></div> -->
       <div class="middle">
         <img @click="goToHome" src="../assets/sinus-logo.png" alt="" />
         <div class="links">
@@ -12,8 +12,18 @@
         </div>
         <div class="search">
           <input type="text" v-model="searchKeyword" @keyup="searchProduct" />
-          <img src="../assets/icons/search.svg" alt="" />
-        </div>
+           <ul>
+        <li v-for="item in searchResult" :key="item.id" @click="toProduct(item.id)">
+          <label for="">{{ item.title }}</label>
+        <lable>
+          <img :src="path + item.imgFile" alt="" width="20px" height="20px">
+        </lable>
+        </li>
+      </ul>
+      </div>
+      <!-- <div>
+      <img src="../assets/icons/search.svg" alt="" />
+        </div> -->
       </div>
       <div class="right">
         <div class="cart">
@@ -48,22 +58,22 @@
         </div>
       </div>
     </nav>
-    <div class="for-test">
+    <!-- <div class="for-test">
       <h1>For test - searchList</h1>
-      <ul class="hiddenSearchList">
-        <li v-for="item in items" :key="item.id" @click="toProduct(item.id)">
-          {{ item.title }}
-        </li>
-      </ul>
       <h1>Test for the new searchList</h1>
       <ul>
-        <li v-for="result in searchResult" :key="result.id">
+        <li v-for="result in searcheRsult" :key="result.id">
+          {{searchResult}}
           <ul>
+<<<<<<< HEAD
             <li v-for="res in result" :key="res.id">{{ res.title }}</li>
+=======
+            <li v-for="res in result" :key="res.id" @click="toProduct(item.id)"> {{ res.title }}</li>
+>>>>>>> ce2ebaa19301690195b39491aae1cceee87bcfb5
           </ul>
         </li>
       </ul>
-    </div>
+    </div> -->
   </header>
 </template>
 
@@ -72,6 +82,7 @@ export default {
   data() {
     return {
       searchKeyword: "",
+       path: "http://localhost:5000/images/",
     };
   },
 
@@ -137,21 +148,16 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    padding: 0.5rem;
-    max-width: 1280px;
-
-    .left {
-      width: 100px;
-    }
+    max-width: 100%;
+    
     .middle {
       display: flex;
       align-items: center;
       background: $interfaceBlack;
-      border-radius: 9999px;
-      padding: 0.2rem 0.2rem;
+      border-radius: 16px;
       img {
         cursor: pointer;
-        margin-right: 0.3rem;
+        margin: 0.5rem;
       }
       .links {
         margin: 0 5rem 0 2rem;
@@ -163,16 +169,43 @@ header {
         }
       }
       .search {
-        display: flex;
+        display: grid;
         align-items: center;
-        img {
-          cursor: pointer;
-        }
+        height: 50px;
+        margin-right: 1rem;
         input {
-          margin: 0 0.3rem;
-          border-radius: 999px;
-          padding: 0.2rem 0;
-          /* height: 25px; */
+          background-image: url('../assets/icons/search.svg');
+          background-position: 10px ;
+          background-repeat: no-repeat;
+          height: 35px;
+          padding:  20px  40px;
+          font-size: 16px;
+          border-radius: 8px;
+          margin-top: 1px;
+        }
+        ul{
+          list-style-type: none;
+          padding: 0;
+          margin: 0;
+          li{
+              border: 1px solid $pitchBlack;
+              margin-top: -1px; /* Prevent double borders */
+              background-color: #f6f6f6;
+              padding: 5px;
+              text-decoration: none;
+              font-size: 18px;
+              color: $pitchBlack;
+              display: block; 
+              border-radius: 2px;
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+              
+          }
+          li:hover{
+              background-color: $monsterGreen;
+              color:$pureWhite;
+              }
         }
       }
     }
