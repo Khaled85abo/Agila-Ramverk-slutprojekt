@@ -17,12 +17,12 @@ export default {
     // GET ALL PRODUCTS FROM CATEGORY
     async [Actions.GET_ALL_PRODUCTS](
       { commit },
-      category = "skateboard",
-      page = 0,
-      pageSize = 0
+      {category}
+      // page = o,
+      // pageSize = 0
     ) {
       try {
-        const res = await API.getAllProducts(category, page, pageSize);
+        const res = await API.getAllProducts(category);
         if (!res.error) {
           console.log("success: ", res.data);
           commit(Mutations.SET_PRODUCTS, res.data);
@@ -138,5 +138,9 @@ export default {
     }
 
   },
-  getters: {},
+  getters: {
+    
+    getProductsByCategory: state => category => 
+      state.allProductsList.filter(product => product.category == category),
+  },
 };
