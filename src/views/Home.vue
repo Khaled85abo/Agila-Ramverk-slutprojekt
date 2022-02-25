@@ -13,49 +13,7 @@
         @addToCart="addToCart"
       />
       </div>
-        <!-- <div v-else
-        class="products">
-          <Product
-            v-for="product in products"
-            :key="product.id"
-            :product="product"
-            @addToCart="addToCart"
-          />
-        </div> -->
-        
-   <!--  <div class="filter">
-      <input
-        type="checkbox"
-        id="Unisex"
-        name="Unisex"
-        value="Unisex"
-        v-model="categories"
-      />
-      <label for="Unisex">Unisex</label>
-
-      <input
-        type="checkbox"
-        id="Male"
-        name="Male"
-        value="Male"
-        v-model="categories"
-      />
-      <label for="Male">Male</label>
-
-      <input
-        type="checkbox"
-        id="Female"
-        name="Female"
-        value="Female"
-        v-model="categories"
-      />
-      <label for="Female">Female</label>
-    </div>
-    {{ categories }}
-
-    <h4>Filtreringens resultat</h4>
-    <p>{{ productsByFilter }}</p> -->
-    <!-- {{filteredProductsByCategory}} -->
+       
   </div>
 </template>
 
@@ -122,19 +80,17 @@ label {
 }
 .home{
   display: flex;
-  max-width: 100%;
-  margin: 5rem 12rem;
+  max-width: 80%;
+  margin: 5rem ;
   justify-content: center;
-  gap: 15px;
-}
-.category{
-  flex: 1
+  gap: 4rem;
 }
 .products {
-   flex: 5;
+  justify-content: space-around;
+  max-width: 75%;
    display: flex;
    flex-wrap: wrap;
-   gap: 32px;
+   gap: 2rem;
    
 }
 </style>

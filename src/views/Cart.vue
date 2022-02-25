@@ -1,54 +1,58 @@
 <template>
-  <div id="cart">
+  <div id="cart" class="cart">
     <div class="wrapper">
-      <section class="cart-upper-section">
-        <h4>Product</h4>
-        <h4>No. of items</h4>
-        <h4>Price</h4>
+      <section class="order-info">
+        <h1>Product</h1>
+        <h1>No. of items</h1>
+        <h1>Price</h1>
       </section>
       <hr />
-
-      <main class="cart-main">
-        <section class="products">
-          <article v-for="(product, index) in products" :key="product.id">
-            <!-- products, index -->
-
-            <div class="description">
-              <figure>
-                <img
-                  :src="path + product.imgFile"
-                  alt="productImage"
-                  height="150px"
-                />
-              </figure>
-              <p>{{ product.title }}</p>
-            </div>
-
-            <select
+      <section class="main">
+          <article class="article"  v-for="(product, index) in products" :key="product.id">
+              <div class="product-info">
+                <figure>
+                  <img
+                    :src="path + product.imgFile"
+                    alt="productImage"
+                    height="150px"
+                    max-width="150px"
+                  />
+                </figure>
+              <div>
+                <h2>{{ product.title }}</h2>
+                <p> Colour: Green/Black</p>
+                <p>Width: 8 Inches</p>
+                <p>Length: 32 Inches</p>
+              </div>
+              </div>
+            <div 
               id="proInfo"
               name="quantity"
               @change="(e) => setCount(e, index)"
               :value="product.qty"
             >
-              <option v-for="quantity in items" :key="quantity">
-                {{ quantity }}
-              </option>
-            </select>
-
-            <p>{{ product.price * product.qty }}</p>
+              <select>
+                    <option v-for="quantity in items" :key="quantity">
+                      {{ quantity }}
+                    </option>
+              </select>
+            </div>
+            <div class="price">
+            <h1>{{ product.price * product.qty }} €</h1>
             <img
               src="../assets/icons/Trashbin.svg"
               alt="trash-bin"
-              @carticleck="removeItem(index)"
+              @click="removeItem(index)"
             />
+            </div>
           </article>
-        </section>
-      </main>
-
-      <hr />
-      <section class="cart-lower-section">
-        <h4>{{ totalPrice }}</h4>
-
+      </section>
+      <section class="total-amount">
+        <h1>Total: {{ totalPrice }} €</h1>
+        <h3>Down Ppyment from only 7€/month</h3>
+      </section>
+      
+      <section class ="stage">
         <button>Back to shop</button>
         <button>Next - Choose delivery</button>
       </section>
@@ -93,6 +97,7 @@ export default {
       });
     },
     removeItem(index) {
+      console.log(index);
       this.$store.dispatch(Actions.REMOVE_FROM_CART, index);
       // this.products.splice(index, 1);
     },
@@ -103,62 +108,94 @@ export default {
 };
 </script>
 
-<style scoped>
-.cart-upper-section {
+<style  lang="scss" scoped>
+.cart{
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  justify-content: space-around;
-}
-
-hr {
-  border: 2px solid black;
-  background-color: black;
-  margin-top: 20px;
-}
-
-.products {
-  display: flex;
-  justify-content: center;
-  justify-content: space-around;
-}
-
-.description {
-}
-
-/*  
-
-#total-procuts {
-  width: 5px;
-  height: 5px;
-}
-
-#products-price {
-  display: flex;
-  flex-direction: row;
-}
-
-.total {
-  margin: 30px;
-  display: flex;
-  flex-direction: column;
-}
-
-  #totalPrice {
-    align-self: flex-end;
+  max-width: 100%;
+    justify-content: center;
+    align-items: center;
+  .wrapper{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: 2rem;
   }
-
-  #confim-purchase {
-    align-self: flex-end;
+  .order-info{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-size: bold;
+    justify-content: space-between;
+    margin-bottom: 2rem;
   }
-
-  #back-delivery {
-    align-self: flex-start;
+  .main{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-top: 1px solid $pitchBlack;
+    align-items: center;
+    .product-info{
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+      h2{
+         margin-top: 00.5rem;
+        color:$monsterGreen;
+      }
+      p{
+        margin-top: 00.5rem;
+        font-weight: bold;
+      }
+      
+    }
   }
-
-  button {
-    border-radius: 20px;
-    background-color: #009229;
+  .article{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid $pitchBlack;
+    align-items: center;
+    select{
+      width: 100px;
+      height: 48px;
+      border-radius: 16px;
+      border: 1px solid $pitchBlack;
+      font-weight: bold;
+      font-size: 20px;
+    }
   }
-*/
+  .price{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
+  .total-amount{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1rem;
+  }
+  .stage{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    button{
+      width: 240px;
+      height: 40px;
+      border-radius: 20px;
+      background-color: $monsterGreen;
+      color:$pureWhite;
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
+}
 </style>
