@@ -12,16 +12,25 @@
         </div>
         <div class="search">
           <input type="text" v-model="searchKeyword" @keyup="searchProduct" />
-           <ul>
-        <li v-for="item in searchResult" :key="item.id" @click="toProduct(item.id)">
-          <label for="">{{ item.title }}</label>
-        <lable>
-          <img :src="path + item.imgFile" alt="" width="20px" height="20px">
-        </lable>
-        </li>
-      </ul>
-      </div>
-      <!-- <div>
+          <ul>
+            <li
+              v-for="item in searchResult"
+              :key="item.id"
+              @click="toProduct(item.id)"
+            >
+              <label for="">{{ item.title }}</label>
+              <lable>
+                <img
+                  :src="path + item.imgFile"
+                  alt=""
+                  width="20px"
+                  height="20px"
+                />
+              </lable>
+            </li>
+          </ul>
+        </div>
+        <!-- <div>
       <img src="../assets/icons/search.svg" alt="" />
         </div> -->
       </div>
@@ -65,11 +74,7 @@
         <li v-for="result in searcheRsult" :key="result.id">
           {{searchResult}}
           <ul>
-<<<<<<< HEAD
-            <li v-for="res in result" :key="res.id">{{ res.title }}</li>
-=======
             <li v-for="res in result" :key="res.id" @click="toProduct(item.id)"> {{ res.title }}</li>
->>>>>>> ce2ebaa19301690195b39491aae1cceee87bcfb5
           </ul>
         </li>
       </ul>
@@ -82,7 +87,7 @@ export default {
   data() {
     return {
       searchKeyword: "",
-       path: "http://localhost:5000/images/",
+      path: "http://localhost:5000/images/",
     };
   },
 
@@ -149,7 +154,7 @@ header {
     align-items: center;
     justify-content: space-evenly;
     max-width: 100%;
-    
+
     .middle {
       display: flex;
       align-items: center;
@@ -174,38 +179,37 @@ header {
         height: 50px;
         margin-right: 1rem;
         input {
-          background-image: url('../assets/icons/search.svg');
-          background-position: 10px ;
+          background-image: url("../assets/icons/search.svg");
+          background-position: 10px;
           background-repeat: no-repeat;
           height: 35px;
-          padding:  20px  40px;
+          padding: 20px 40px;
           font-size: 16px;
           border-radius: 8px;
           margin-top: 1px;
         }
-        ul{
+        ul {
           list-style-type: none;
           padding: 0;
           margin: 0;
-          li{
-              border: 1px solid $pitchBlack;
-              margin-top: -1px; /* Prevent double borders */
-              background-color: #f6f6f6;
-              padding: 5px;
-              text-decoration: none;
-              font-size: 18px;
-              color: $pitchBlack;
-              display: block; 
-              border-radius: 2px;
-              display: flex;
-              flex-direction: row;
-              justify-content: space-between;
-              
+          li {
+            border: 1px solid $pitchBlack;
+            margin-top: -1px; /* Prevent double borders */
+            background-color: #f6f6f6;
+            padding: 5px;
+            text-decoration: none;
+            font-size: 18px;
+            color: $pitchBlack;
+            display: block;
+            border-radius: 2px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
           }
-          li:hover{
-              background-color: $monsterGreen;
-              color:$pureWhite;
-              }
+          li:hover {
+            background-color: $monsterGreen;
+            color: $pureWhite;
+          }
         }
       }
     }
