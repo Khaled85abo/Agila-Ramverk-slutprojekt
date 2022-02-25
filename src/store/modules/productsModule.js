@@ -1,6 +1,7 @@
 import * as API from "../../api";
 import Actions from "../actions.types";
 import Mutations from "../mutations.types";
+import Vue from "vue";
 export default {
   state: () => ({
     allProductsList: [],
@@ -17,9 +18,8 @@ export default {
     // GET ALL PRODUCTS FROM CATEGORY
     async [Actions.GET_ALL_PRODUCTS](
       { commit },
-      { category } // page = o,
-    ) // pageSize = 0
-    {
+      { category } // page = o, // pageSize = 0
+    ) {
       try {
         const res = await API.getAllProducts(category);
         if (!res.error) {
@@ -125,7 +125,7 @@ export default {
       data.forEach((pro) => (state.allProductsObj[pro.id] = pro));
     },
     [Mutations.SET_PRODUCT](state, pro) {
-      state.allProductsObj[pro.id] = pro;
+      Vue.set(state.allProductsObj, pro.id, pro);
     },
     [Mutations.SEARCH_PRODUCTS](state, data) {
       state.searchResponse.splice(0, state.searchResponse.length);
