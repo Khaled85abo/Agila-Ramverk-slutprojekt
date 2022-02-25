@@ -57,8 +57,10 @@
       </ul>
       <h1>Test for the new searchList</h1>
       <ul>
-        <li v-for="result in searchProduct" :key="result.id">
-          {{ result.title }}
+        <li v-for="result in searchResult" :key="result.id">
+          <ul>
+            <li v-for="res in result" :key="res.id"> {{ res.title }}</li>
+          </ul>
         </li>
       </ul>
     </div>
@@ -72,6 +74,7 @@ export default {
       searchKeyword: "",
     };
   },
+  
   methods: {
     toProduct(id) {
       this.$router.push("/product/" + id);
@@ -109,7 +112,10 @@ export default {
       return this.$store.state.userModule.user;
     },
     searchResult() {
-      return this.searchProduct();
+      if(this.searchKeyword.length > 2) {
+      return this.$store.state.productsModule.searchResponse
+      }
+      return null
     },
 
     items() {
