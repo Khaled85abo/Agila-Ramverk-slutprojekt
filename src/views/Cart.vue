@@ -49,7 +49,7 @@
       </section>
       <section class="total-amount">
         <h1>Total: {{ totalPrice }} €</h1>
-        <h3>Down Ppyment from only 7€/month</h3>
+        <h3>Down Payment from only 7€/month</h3>
       </section>
       
       <section class ="stage">
@@ -161,8 +161,8 @@ export default {
     border-bottom: 1px solid $pitchBlack;
     align-items: center;
     select{
-      width: 100px;
-      height: 48px;
+      width: 70px;
+      height: 45px;
       border-radius: 16px;
       border: 1px solid $pitchBlack;
       font-weight: bold;
