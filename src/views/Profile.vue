@@ -32,7 +32,7 @@
       <div>
         <span @click="router = 'orders'">Order historik</span>
         <span @click="router = 'update'">Update profile</span>
-        <span @click="router = 'add'" v-if="user.role === 'admin'"
+        <span @click="addProductRouter" v-if="user.role === 'admin'"
           >Add Product</span
         >
 
@@ -185,6 +185,12 @@ export default {
       };
       this.$store.dispatch(Actions.UPDATE_USER, newUser);
     },
+    addProductRouter() {
+      this.router = "add";
+      if (this.allImages.length === 0) {
+        this.$store.dispatch(Actions.GET_ALL_IMAGES);
+      }
+    },
     addProduct(data) {
       this.$store.dispatch(Actions.UPLOAD_IMAGE, data);
     },
@@ -238,6 +244,9 @@ export default {
     },
     addProductSuccess() {
       return this.$store.state.productsModule.addProductSuccess;
+    },
+    allImages() {
+      return this.$store.state.productsModule.allImages;
     },
   },
 };

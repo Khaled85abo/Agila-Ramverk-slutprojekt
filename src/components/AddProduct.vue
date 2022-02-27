@@ -3,7 +3,10 @@
     <form @submit.prevent="submit">
       <h3>Add a Product</h3>
       <label for="image">Image</label>
-      <input ref="img" type="file" id="image" required />
+      <input ref="img" type="file" id="image" required @change="imageAdded" />
+      <transition name="warning-transition">
+        <p v-if="imageExist" class="warning">Image already exists ⚠.</p>
+      </transition>
       <label for="title">title</label>
       <input
         type="text"
@@ -58,6 +61,7 @@ export default {
         shortDesc: "short description",
         longDesc: "this is a long description",
       },
+      imageName: null,
       localError: null,
     };
   },
@@ -67,6 +71,11 @@ export default {
     }
   },
   methods: {
+    imageAdded() {
+      console.log(this.$refs.img.files[0].name);
+      this.imageName = this.$refs.img.files[0].name;
+      console.log(this.imageExist);
+    },
     submit() {
       console.log(this.$refs.img.files[0]);
       const formData = new FormData();
@@ -80,6 +89,11 @@ export default {
       this.$emit("submitted", { product, img: formData });
     },
   },
+  computed: {
+    imageExist() {
+      return this.$store.getters.checkImage(this.imageName);
+    },
+  },
 };
 </script>
 
@@ -90,6 +104,7 @@ export default {
 
   form {
     margin: 0 0.5rem;
+
     h3 {
       text-align: center;
     }
@@ -98,7 +113,8 @@ export default {
     }
     input,
     textarea,
-    select {
+    select,
+    .warning {
       display: block;
       width: 100%;
       padding: 0.3rem;
@@ -106,9 +122,29 @@ export default {
       border-radius: 8px;
       resize: none;
     }
+    .warning {
+      background: red;
+      color: $pureWhite;
+    }
+    /* [type="file"]::after {
+      content: "Image already exists ⚠";
+      position: absolute;
+      right: 0;
+      top: -1rem;
+      font-size: 1rem;
+    } */
     [type="submit"] {
       border-radius: 999px;
     }
   }
+}
+
+.warning-transition-enter,
+.warning-transition-leave-to {
+  opacity: 0;
+}
+.warning-transition-enter-active,
+.warning-transition-leave-active {
+  transition: all 0.5s ease;
 }
 </style>
