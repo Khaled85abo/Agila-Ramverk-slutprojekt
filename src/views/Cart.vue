@@ -53,8 +53,8 @@
       </section>
       
       <section class ="stage">
-        <button>Back to shop</button>
-        <button>Next - Choose delivery</button>
+        <button @click="back">Back to shop</button>
+        <button @click="goToDelivery">Next - Choose delivery</button>
       </section>
     </div>
   </div>
@@ -95,6 +95,15 @@ export default {
         qty: e.target.value,
         index,
       });
+    },
+    goToDelivery(){
+      const path = `/delivery/`;
+      if (this.$route.path !== path) this.$router.push(path);
+    },
+    back(){
+      const path = `/`;
+      if (this.$route.path !== path) this.$router.push(path);
+      
     },
     removeItem(index) {
       console.log(index);

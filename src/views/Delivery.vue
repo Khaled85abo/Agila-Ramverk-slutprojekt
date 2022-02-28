@@ -1,4 +1,4 @@
-<!-- 
+
 <template>
   <div>
     <div class="title">
@@ -62,11 +62,11 @@
       <br /><br />
 
       <div id="confim-purchase">
-        <button>Next - confim-purchase</button>
+        <button @click="shipping">Next - confim-purchase</button>
       </div>
 
       <div id="back-delivery">
-        <button>Back to delivery</button>
+        <button @click="back">Back to cart</button>
       </div>
     </div>
     <hr />
@@ -74,7 +74,24 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data(){
+    return{
+
+    }
+  },
+  methods:{
+   back(){
+      const path = `/cart/`;
+      if (this.$route.path !== path) this.$router.push(path);
+      
+    },
+    shipping(){
+      const path = `/shipping/`;
+      if (this.$route.path !== path) this.$router.push(path);
+    },
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -202,7 +219,6 @@ hr {
   }
 }
 </style>
--->
 
 <!--  ///////////////////// delivery #2
 <template>

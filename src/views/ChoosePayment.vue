@@ -60,11 +60,11 @@
       </div>
 
       <div id="confim-purchase">
-        <button>Next - confim-purchase</button>
+        <button @click="cridet">Next - confim-purchase</button>
       </div>
 
       <div id="back-delivery">
-        <button>Back to delivery</button>
+        <button @click="back">Back to delivery</button>
       </div>
     </div>
     <hr />
@@ -72,7 +72,25 @@
 </template>
 
 <script>
-export default {};
+export default {
+    data(){
+        return{
+
+        }
+    },
+    methods:{
+        back(){
+      const path = `/delivery/`;
+      if (this.$route.path !== path) this.$router.push(path);
+      
+    },
+    cridet(){
+      const path = `/credit/`;
+      if (this.$route.path !== path) this.$router.push(path);
+    },
+    }
+
+}
 </script>
 
 <style lang="scss" scoped>
