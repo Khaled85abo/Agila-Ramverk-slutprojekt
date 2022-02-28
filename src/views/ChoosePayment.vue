@@ -6,6 +6,7 @@
       cancelButtonText="Abort"
       cancelEvent='abort'
       @abort="overlay = false"
+      @shopeMore="shopeMore"
       >
         <p> This is over module </p>
       </Modal>
@@ -101,6 +102,10 @@ export default {
         }
     },
     methods:{
+      shopeMore(){
+        const path = `/`;
+      if (this.$route.path !== path) this.$router.push(path);
+      },
         back(){
       const path = `/shipping/`;
       if (this.$route.path !== path) this.$router.push(path);
@@ -236,6 +241,7 @@ hr {
   }
 
   button {
+    height: 40px;
     border-radius: 20px;
     background-color: $monsterGreen;
   }

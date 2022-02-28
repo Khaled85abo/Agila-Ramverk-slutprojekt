@@ -50,6 +50,9 @@
           </div>
         </article>
       </section>
+      <p v-if="error" class="error">
+        {{ error }}
+      </p>
       <section class="total-amount">
         <h1>Total: {{ totalPrice }} €</h1>
         <h3>Down Payment from only 7€/month</h3>
@@ -74,6 +77,7 @@ export default {
       path: "http://localhost:5000/images/",
       items: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       quantity: "",
+      error: "",
     };
   },
   computed: {
@@ -102,8 +106,13 @@ export default {
       });
     },
     goToDelivery() {
-      const path = `/delivery/`;
-      if (this.$route.path !== path) this.$router.push(path);
+      if (this.totalPrice) {
+        const path = `/delivery/`;
+        if (this.$route.path !== path) this.$router.push(path);
+      } else {
+        return (this.error =
+          "Please select atleast one product to go to checkout");
+      }
     },
     back() {
       const path = `/`;
@@ -135,6 +144,9 @@ export default {
     align-items: center;
     gap: 1rem;
     margin: 2rem;
+  }
+  .error {
+    color: $warning;
   }
   .order-info {
     width: 100%;

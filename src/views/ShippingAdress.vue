@@ -27,11 +27,12 @@
           </div>
           <div class="info"  v-else >
           <label for="">Enter your information</label>
-          <input type="text" placeholder="Name" v-model="user.name">
-          <input type="email" placeholder="Email" v-model="user.email">
+          <input type="text" placeholder="Name" v-model="user.name" >
+          <label for="" v-if="error">{{error}}</label>
+          <input type="email" placeholder="Email" v-model="user.email" >
           <input type="text" placeholder="12345 6789">
-          <input type="text" placeholder="Adress" v-model="user.address.street">
-          <input type="text" placeholder="Post code" v-model="user.address.zip">
+          <input type="text" placeholder="Adress" v-model="user.address.street" >
+          <input type="text" placeholder="Post code" v-model="user.address.zip" >
           </div>
       </section>
       <hr />
@@ -61,7 +62,8 @@ export default {
             address: {
                 street:'',
                 zip: '',
-            }
+            },
+            error:"",
         }
         }
     },
@@ -75,7 +77,7 @@ export default {
     //          this.$store.dispatch(Actions.ANONYM_USER, this.user)
     // },
     payment(){
-     const path = `/payment/`;
+        
        this.$store.dispatch(Actions.ANONYM_USER, 
        {
         name: this.user.name,
@@ -83,6 +85,7 @@ export default {
         street: this.user.address.street,
         zip: this.user.address.zip,
       });
+      const path = `/payment/`;
       if (this.$route.path !== path) this.$router.push(path);
     },
     },
