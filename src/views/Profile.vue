@@ -27,6 +27,12 @@
       :message="addProductSuccess"
       @resetError="resetResponse"
     />
+    <Snackbar
+      v-if="updateStatusRes"
+      :type="updateStatusRes.type"
+      :message="updateStatusRes.message"
+      @resetError="resetResponse"
+    />
 
     <div class="menu">
       <div>
@@ -76,7 +82,10 @@
                 </tr>
                 <tr>
                   <th>Status:</th>
-                  <td v-html="status(order.status)"></td>
+                  <td
+                    @change="(e) => updateStatus(e, order.id)"
+                    v-html="status(order.status)"
+                  ></td>
                 </tr>
                 <tr>
                   <th rowspan="3">Shipped to:</th>
@@ -185,6 +194,12 @@ export default {
       };
       this.$store.dispatch(Actions.UPDATE_USER, newUser);
     },
+    updateStatus(e, orderId) {
+      this.$store.dispatch(Actions.UPDATE_STATUS, {
+        status: e.target.value,
+        orderId,
+      });
+    },
     addProductRouter() {
       this.router = "add";
       if (this.allImages.length === 0) {
@@ -208,6 +223,7 @@ export default {
       this.$store.dispatch(Actions.RESET_RESPONSE);
       this.$store.dispatch(Actions.RESET_ADD_PRODUCT_ERROR);
       this.$store.dispatch(Actions.RESET_ADD_PRODUCT_SUCCESS);
+      this.$store.dispatch(Actions.RESET_UPDATE_STATUS_RESPONSE);
     },
     status(status) {
       if (this.user.role === "customer") {
@@ -220,8 +236,8 @@ export default {
             return `<strong>Shipped</strong>`;
         }
       } else {
-        return `<select class="select" :value="${status}">
-         <option value="inProgress"><strong>In progress</strong></option>
+        return `<select class="select"  :value="${status}">
+         <option value="inProcess"><strong>In progress</strong></option>
           <option value="shipped"><strong>Shipped</strong></option>
            <option value="canceled"><strong>Canceled</strong></option>
          </select>`;
@@ -247,6 +263,9 @@ export default {
     },
     allImages() {
       return this.$store.state.productsModule.allImages;
+    },
+    updateStatusRes() {
+      return this.$store.state.ordersModules.updateStatusResponse;
     },
   },
 };
