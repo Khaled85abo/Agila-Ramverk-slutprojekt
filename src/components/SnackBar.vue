@@ -31,7 +31,7 @@ export default {
   props: ["type", "message"],
   data() {
     return {
-      timeDelay: 2,
+      timeDelay: 5,
       killTimeout: null,
     };
   },

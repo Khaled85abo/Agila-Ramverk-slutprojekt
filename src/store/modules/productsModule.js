@@ -13,6 +13,9 @@ export default {
     // createProductError: null,
     productStatus: null,
     searchResponse: [],
+    addProductError: null,
+    addProductSuccess: null,
+    uploadImageError: null,
   }),
   actions: {
     // GET ALL PRODUCTS FROM CATEGORY
@@ -72,16 +75,40 @@ export default {
     //   "category": "...",
     //   "price": ...
     // }
-    async [Actions.ADD_PRODUCT](context, newProduct) {
+    async [Actions.ADD_PRODUCT]({ commit }, newProduct) {
       try {
         const res = await API.addProduct(newProduct);
         if (!res.error) {
-          console.log("succssufl adding new product");
+          console.log("response from adding product: ", res.data);
+          commit(
+            Mutations.SET_ADD_PRODUCT_SUCCESS,
+            "Successful creating a new product"
+          );
         } else {
           throw new Error(res.error);
         }
       } catch (error) {
-        console.log(error);
+        commit(Mutations.SET_ADD_PRODUCT_ERROR, error.response.data.error);
+      }
+    },
+    [Actions.RESET_ADD_PRODUCT_ERROR]({ commit }) {
+      commit(Mutations.RESET_ADD_PRODUCT_ERROR);
+    },
+    [Actions.RESET_ADD_PRODUCT_SUCCESS]({ commit }) {
+      commit(Mutations.RESET_ADD_PRODUCT_SUCCESS);
+    },
+    async [Actions.UPLOAD_IMAGE]({ commit, dispatch }, data) {
+      try {
+        const res = await API.addImage(data.img);
+        console.log(res);
+        if (!res.error) {
+          console.log(res.data);
+          dispatch(Actions.ADD_PRODUCT, data.product);
+        } else {
+          throw new Error(res.error);
+        }
+      } catch (error) {
+        commit(Mutations.SET_ADD_PRODUCT_ERROR, error.response.data.error);
       }
     },
     // UPDATE PRODUCT  /Only admins
@@ -106,7 +133,7 @@ export default {
       }
     },
     // DELETE PRODUCT /Only admins
-    async [Actions.UPDATE_PRODUCT](context, id) {
+    async [Actions.DELETE_PRODUCT](context, id) {
       try {
         const res = await API.deleteProduct(id);
         if (!res.error) {
@@ -129,9 +156,21 @@ export default {
     },
     [Mutations.SEARCH_PRODUCTS](state, data) {
       state.searchResponse.splice(0, state.searchResponse.length);
-      state.searchResponse = data
-      state.allProductsList.unshift(...data)
+      state.searchResponse = data;
+      state.allProductsList.unshift(...data);
       data.forEach((pro) => (state.allProductsObj[pro.id] = pro));
+    },
+    [Mutations.SET_ADD_PRODUCT_ERROR](state, error) {
+      state.addProductError = error;
+    },
+    [Mutations.RESET_ADD_PRODUCT_ERROR](state) {
+      state.addProductError = null;
+    },
+    [Mutations.SET_ADD_PRODUCT_SUCCESS](state, message) {
+      state.addProductSuccess = message;
+    },
+    [Mutations.RESET_ADD_PRODUCT_SUCCESS](state) {
+      state.addProductSuccess = null;
     },
   },
   getters: {

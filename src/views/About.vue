@@ -1,9 +1,18 @@
 <template>
-  <div></div>
+  <div>
+    <PriceRange />
+  </div>
 </template>
 
 <script>
-export default {};
+import PriceRange from "@/components/PriceRange.vue";
+
+export default {
+  components: {
+  PriceRange
+},
+
+};
 </script>
 
 <style scoped></style>

@@ -65,7 +65,7 @@ export default {
       user: {
         name: "khaled",
         password: "password",
-        email: "customer@example.com",
+        email: "admin@example.com",
         confirmPassword: "password",
         address: {
           street: "",
