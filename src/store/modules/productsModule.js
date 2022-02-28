@@ -6,6 +6,7 @@ export default {
   state: () => ({
     allProductsList: [],
     allProductsObj: {},
+    allImages: [],
     // thisProduct: {}
     // allImagesList: [],
     // allImagesObj: {},
@@ -145,6 +146,18 @@ export default {
         console.log(error);
       }
     },
+    async [Actions.GET_ALL_IMAGES]({ commit }) {
+      try {
+        const res = await API.getAllImages();
+        if (!res.error) {
+          commit(Mutations.SET_ALL_IMAGES, res.data.images);
+        } else {
+          throw new Error(res.error);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
   mutations: {
     [Mutations.SET_PRODUCTS](state, data) {
@@ -172,9 +185,18 @@ export default {
     [Mutations.RESET_ADD_PRODUCT_SUCCESS](state) {
       state.addProductSuccess = null;
     },
+    [Mutations.SET_ALL_IMAGES](state, images) {
+      state.allImages = images;
+    },
   },
   getters: {
     getProductsByCategory: (state) => (category) =>
       state.allProductsList.filter((product) => product.category == category),
+    checkImage: (state) => (name) => {
+      if (state.allImages.find((img) => img === name)) {
+        return true;
+      }
+      return false;
+    },
   },
 };

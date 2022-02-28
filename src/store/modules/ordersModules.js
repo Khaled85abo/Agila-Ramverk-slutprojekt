@@ -11,6 +11,7 @@ export default {
     cart: [],
     shippingInfo: null,
     paymentMethod: null,
+    updateStatusResponse: null,
   }),
   actions: {
     async [Actions.ADD_TO_CART](context, product) {
@@ -58,6 +59,30 @@ export default {
         console.log(error);
       }
     },
+    async [Actions.UPDATE_STATUS]({ commit }, { status, orderId }) {
+      console.log(status, orderId);
+      try {
+        const res = await API.updateOrderStatus(orderId, { status: status });
+        if (!res.error) {
+          console.log(res.data.message);
+          commit(Mutations.UPDATE_RES, {
+            message: res.data.message,
+            type: "success",
+          });
+        } else {
+          throw new Error(res.error);
+        }
+      } catch (error) {
+        console.log(error);
+        commit(Mutations.UPDATE_RES, {
+          message: error.response.data.error,
+          type: "error",
+        });
+      }
+    },
+    [Actions.RESET_UPDATE_STATUS_RESPONSE]({ commit }) {
+      commit(Mutations.RESET_UPDATE_STATUS_RESPONSE);
+    },
   },
   mutations: {
     [Mutations.ADD_TO_CART](state, product) {
@@ -87,6 +112,12 @@ export default {
     [Mutations.SET_ORDERS](state, orders) {
       state.ordersList = orders;
       orders.forEach((order) => (state.ordersObj[order.id] = order));
+    },
+    [Mutations.UPDATE_RES](state, res) {
+      state.updateStatusResponse = res;
+    },
+    [Mutations.RESET_UPDATE_STATUS_RESPONSE](state) {
+      state.updateStatusResponse = null;
     },
   },
   getters: {
