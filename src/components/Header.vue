@@ -11,14 +11,20 @@
           <router-link to="/">Accessories</router-link>
         </div>
         <div class="search">
-          <input type="text" v-model="searchKeyword" @keyup="searchProduct" />
+          <input
+            type="text"
+            v-model="searchKeyword"
+            @keyup="searchProduct"
+            @focus="onFocus"
+            @blur="onBlur"
+          />
           <ul>
             <li
               v-for="item in searchResult"
               :key="item.id"
               @click="toProduct(item.id)"
             >
-              <label for="">{{ item.title }}</label>
+              <label class="">{{ item.title }}</label>
               <lable>
                 <img
                   :src="path + item.imgFile"
@@ -88,16 +94,22 @@ export default {
     return {
       searchKeyword: "",
       path: "http://localhost:5000/images/",
+      focused: true,
     };
   },
 
   methods: {
     toProduct(id) {
       this.$router.push("/product/" + id);
-      this.searchKeyword = ""
+      this.searchKeyword = "";
     },
     redirect() {
-      this.$router.push("/profile");
+      console.log("clicked");
+      if (this.$store.state.userModule.user.role === "admin") {
+        this.$router.push("/admin");
+      } else {
+        this.$router.push("/profile");
+      }
     },
     searchProduct() {
       console.log("Test");
@@ -116,11 +128,11 @@ export default {
       if (this.$route.path !== path) this.$router.push(path);
     },
     onBlur() {
-      this.focused = false
+      this.focused = false;
     },
     onFocus() {
-      this.focused = true
-    }
+      this.focused = true;
+    },
   },
   computed: {
     cartItems() {
@@ -199,9 +211,10 @@ header {
           list-style-type: none;
           padding: 0;
           margin: 0;
+          position: relative;
           li {
-            border: 1px solid $pitchBlack;
-            margin-top: -1px; /* Prevent double borders */
+            border: 0.5px solid $pitchBlack;
+            //margin-top: 1px; /* Prevent double borders */
             background-color: #f6f6f6;
             padding: 5px;
             text-decoration: none;
@@ -218,7 +231,6 @@ header {
             color: $pureWhite;
           }
         }
-        
       }
     }
 

@@ -8,6 +8,7 @@ import ChoosePayment from "../views/ChoosePayment.vue";
 import CreditCardInfo from "../views/CreditCardInfo.vue";
 import Profile from "../views/Profile";
 import Login from "../views/Login";
+import ShippingAdress from "../views/ShippingAdress"
 Vue.use(VueRouter);
 
 const routes = [
@@ -39,7 +40,7 @@ const routes = [
   },
   {
     name: "Delivery",
-    path: "/delivery",
+    path: "/delivery/",
     component: Delivery,
   },
   {
@@ -51,6 +52,11 @@ const routes = [
     name: "Credit card",
     path: "/credit",
     component: CreditCardInfo,
+  },
+  {
+    name: "Shipping Adress",
+    path: "/shipping",
+    component: ShippingAdress,
   },
   {
     path: "/about",

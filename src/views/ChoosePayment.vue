@@ -1,5 +1,15 @@
 <template>
-  <div>
+  <div class="payment">
+    <Overlay :show="overlay">
+      <Modal
+     
+      cancelButtonText="Abort"
+      cancelEvent='abort'
+      @abort="overlay = false"
+      >
+        <p> This is over module </p>
+      </Modal>
+     </Overlay>
     <h2>Choose payment</h2>
     <hr />
 
@@ -7,7 +17,7 @@
       <section>
         <label class="container"
           >Credit card
-          <input type="radio" name="radio" />
+          <input type="radio" name="radio" checked/>
           <span class="checkmark"></span>
         </label>
         <label class="container"
@@ -25,46 +35,44 @@
       <section class="inputs">
         <form>
           <div id="name">
-            <input type="text" name="name" placeholder="your name" />
+            <input type="text" name="name" placeholder="Full name" v-model="cardInfo.fullName" requaird/>
           </div>
 
-          <div id="email">
-            <input type="text" name="email" placeholder="your email" />
-          </div>
 
           <div id="phoneNumber">
             <input
               type="number"
               name="number"
-              placeholder="your phone number"
+              placeholder="Card Number"
+              v-model="cardInfo.cardNumber"
+              requaird
             />
           </div>
 
           <div id="adress">
-            <input type="text" name="adress" placeholder="your adress" />
+            <input type="text" name="cvc" placeholder="CVC" v-model="cardInfo.cvc" requaird/>
           </div>
 
           <div id="postCode">
-            <input type="number" name="postCode" placeholder="your post code" />
+            <input type="number" name="postCode" placeholder="Valid Till" v-model="cardInfo.validTill" requaird/>
           </div>
         </form>
       </section>
     </article>
 
     <hr />
-
     <div class="total">
       <div id="totalPrice">
-        <h3>Total:</h3>
-        <p>Down payment from only ? $/ month</p>
+        <h3>Total: {{totalPrice}}</h3>
+        <p>Down payment from only ? 10 $/ month</p>
       </div>
 
       <div id="confim-purchase">
-        <button>Next - confim-purchase</button>
+        <button @click="confirmPurchase">Next - confim-purchase</button>
       </div>
 
       <div id="back-delivery">
-        <button>Back to delivery</button>
+        <button @click="back">Back to delivery</button>
       </div>
     </div>
     <hr />
@@ -72,7 +80,57 @@
 </template>
 
 <script>
-export default {};
+import Actions from '../store/actions.types'
+import Modal from '@/components/Modal.vue'
+import Overlay from '@/components/Overlay.vue'
+export default {
+  components:{
+    Modal,
+    Overlay
+  },
+    data(){
+        return{
+          cardInfo:{
+            fullName: '',
+            cardNumber:'',
+            cvc: '',
+            validTill: '',
+          },
+          overlay: false,
+
+        }
+    },
+    methods:{
+        back(){
+      const path = `/shipping/`;
+      if (this.$route.path !== path) this.$router.push(path);
+      
+    },
+    confirmPurchase(){
+      this.$store.dispatch(Actions.USER_CARD_INFO, 
+       {
+        fullName: this.cardInfo.fullName,
+        cardNumberail: this.cardInfo.cardNumber,
+        cvc: this.cardInfo.cvc,
+        validTill: this.cardInfo.validTill,
+      });
+      console.log(this.$store.state.userModule.userCardInfo)
+      this.overlay = true
+      // const path = `//`;
+      // if (this.$route.path !== path) this.$router.push(path);
+    },
+    },
+    computed:{
+      userInfo(){
+         return this.$store.state.userModule.anonymUser
+      },
+    totalPrice() {
+      
+    return this.$store.getters.totalPrice;
+    },
+    }
+
+}
 </script>
 
 <style lang="scss" scoped>
