@@ -27,12 +27,18 @@
       :message="addProductSuccess"
       @resetError="resetResponse"
     />
+    <Snackbar
+      v-if="updateStatusRes"
+      :type="updateStatusRes.type"
+      :message="updateStatusRes.message"
+      @resetError="resetResponse"
+    />
 
     <div class="menu">
       <div>
         <span @click="router = 'orders'">Order historik</span>
         <span @click="router = 'update'">Update profile</span>
-        <span @click="router = 'add'" v-if="user.role === 'admin'"
+        <span @click="addProductRouter" v-if="user.role === 'admin'"
           >Add Product</span
         >
 
@@ -76,7 +82,10 @@
                 </tr>
                 <tr>
                   <th>Status:</th>
-                  <td v-html="status(order.status)"></td>
+                  <td
+                    @change="(e) => updateStatus(e, order.id)"
+                    v-html="status(order.status)"
+                  ></td>
                 </tr>
                 <tr>
                   <th rowspan="3">Shipped to:</th>
@@ -185,6 +194,18 @@ export default {
       };
       this.$store.dispatch(Actions.UPDATE_USER, newUser);
     },
+    updateStatus(e, orderId) {
+      this.$store.dispatch(Actions.UPDATE_STATUS, {
+        status: e.target.value,
+        orderId,
+      });
+    },
+    addProductRouter() {
+      this.router = "add";
+      if (this.allImages.length === 0) {
+        this.$store.dispatch(Actions.GET_ALL_IMAGES);
+      }
+    },
     addProduct(data) {
       this.$store.dispatch(Actions.UPLOAD_IMAGE, data);
     },
@@ -202,6 +223,7 @@ export default {
       this.$store.dispatch(Actions.RESET_RESPONSE);
       this.$store.dispatch(Actions.RESET_ADD_PRODUCT_ERROR);
       this.$store.dispatch(Actions.RESET_ADD_PRODUCT_SUCCESS);
+      this.$store.dispatch(Actions.RESET_UPDATE_STATUS_RESPONSE);
     },
     status(status) {
       if (this.user.role === "customer") {
@@ -214,8 +236,8 @@ export default {
             return `<strong>Shipped</strong>`;
         }
       } else {
-        return `<select class="select" :value="${status}">
-         <option value="inProgress"><strong>In progress</strong></option>
+        return `<select class="select"  :value="${status}">
+         <option value="inProcess"><strong>In progress</strong></option>
           <option value="shipped"><strong>Shipped</strong></option>
            <option value="canceled"><strong>Canceled</strong></option>
          </select>`;
@@ -238,6 +260,12 @@ export default {
     },
     addProductSuccess() {
       return this.$store.state.productsModule.addProductSuccess;
+    },
+    allImages() {
+      return this.$store.state.productsModule.allImages;
+    },
+    updateStatusRes() {
+      return this.$store.state.ordersModules.updateStatusResponse;
     },
   },
 };
