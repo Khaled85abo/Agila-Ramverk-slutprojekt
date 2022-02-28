@@ -94,6 +94,7 @@ export default {
   methods: {
     toProduct(id) {
       this.$router.push("/product/" + id);
+      this.searchKeyword = ""
     },
     redirect() {
       this.$router.push("/profile");
@@ -114,6 +115,12 @@ export default {
       const path = `/`;
       if (this.$route.path !== path) this.$router.push(path);
     },
+    onBlur() {
+      this.focused = false
+    },
+    onFocus() {
+      this.focused = true
+    }
   },
   computed: {
     cartItems() {
@@ -177,7 +184,7 @@ header {
         display: grid;
         align-items: center;
         height: 50px;
-        margin-right: 1rem;
+        margin-right: 0.5rem;
         input {
           background-image: url("../assets/icons/search.svg");
           background-position: 10px;
@@ -185,7 +192,7 @@ header {
           height: 35px;
           padding: 20px 40px;
           font-size: 16px;
-          border-radius: 8px;
+          border-radius: 16px;
           margin-top: 1px;
         }
         ul {
@@ -211,6 +218,7 @@ header {
             color: $pureWhite;
           }
         }
+        
       }
     }
 

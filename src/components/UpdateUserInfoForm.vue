@@ -99,8 +99,8 @@ export default {
         delete userInfo.confirmPassword;
       }
 
-      console.log("user form updateForm: ", userInfo);
-      // this.$emit("submitted", userInfo);
+      console.log("user form updateUserInfoForm: ", userInfo);
+      this.$emit("submitted", userInfo);
     },
   },
 };
