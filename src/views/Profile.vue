@@ -226,18 +226,19 @@ export default {
       this.$store.dispatch(Actions.RESET_UPDATE_STATUS_RESPONSE);
     },
     status(status) {
+      console.log(status);
       if (this.user.role === "customer") {
         switch (status) {
           case "inProcess":
-            return `<strong>In Progress</strong>`;
+            return `<strong>In Process</strong>`;
           case "canceled":
             return `<strong>Canceled</strong>`;
           default:
             return `<strong>Shipped</strong>`;
         }
       } else {
-        return `<select class="select"  :value="${status}">
-         <option value="inProcess"><strong>In progress</strong></option>
+        return `<select class="select"  value="${status}">
+         <option value="inProcess"><strong>In Process</strong></option>
           <option value="shipped"><strong>Shipped</strong></option>
            <option value="canceled"><strong>Canceled</strong></option>
          </select>`;
