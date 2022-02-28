@@ -81,7 +81,7 @@
 export default {
    methods:{
         back(){
-      const path = `/payment/`;
+      const path = `/shipping/`;
       if (this.$route.path !== path) this.$router.push(path);
       
     },

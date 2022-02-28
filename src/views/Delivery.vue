@@ -2,7 +2,7 @@
 <template>
   <div>
     <div class="title">
-      <h2>Choose payment</h2>
+      <h2>Choose Delivery </h2>
       <h2>Price</h2>
     </div>
     <br />
@@ -20,7 +20,7 @@
         <label class="container"
           >Instabox
           <p>1-2 days</p>
-          <input type="radio" name="radio" />
+          <input type="radio" name="radio" checked />
           <span class="checkmark"></span>
         </label>
         <br />
@@ -56,7 +56,7 @@
     <br />
     <div class="total">
       <div id="totalPrice">
-        <h3>Total:</h3>
+        <h3>Total:{{totalPrice}}</h3>
         <p>Down payment from only ? $/ month</p>
       </div>
       <br /><br />
@@ -90,7 +90,12 @@ export default {
       const path = `/shipping/`;
       if (this.$route.path !== path) this.$router.push(path);
     },
-  }
+  },
+  computed: {
+    totalPrice() {
+      return this.$store.getters.totalPrice;
+    },
+  },
 };
 </script>
 

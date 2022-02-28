@@ -8,17 +8,31 @@
       <hr />
       <section class="main">
           <div class="radio">
-          <div class="instabox"> <input type="radio">
+              <article>
+                  <input type="radio" checked>
+          <div class="instabox">
           <h3>Instabox</h3>
-          </div>
+          <p>1-2 days</p>
+          </div></article>
+          
           <h2>Free!</h2>
           </div>
+          <div class="info" v-if="checkUser">
           <label for="">Enter your information</label>
-          <input type="text" placeholder="Name">
-          <input type="email" placeholder="Email">
-          <input type="text" placeholder="phone">
-          <input type="text" placeholder="Adress">
-          <input type="text" placeholder="Post code">
+          <input type="text" placeholder="Name" v-model="checkUser.name">
+          <input type="email" placeholder="Email" v-model="checkUser.email">
+          <input type="text" placeholder="12345 6789">
+          <input type="text" placeholder="Adress" v-model="checkUser.address.street">
+          <input type="text" placeholder="Post code" v-model="checkUser.address.zip">
+          </div>
+          <div class="info"  v-else >
+          <label for="">Enter your information</label>
+          <input type="text" placeholder="Name" v-model="user.name">
+          <input type="email" placeholder="Email" v-model="user.email">
+          <input type="text" placeholder="12345 6789">
+          <input type="text" placeholder="Adress" v-model="user.address.street">
+          <input type="text" placeholder="Post code" v-model="user.address.zip">
+          </div>
       </section>
       <hr />
       <section class="total-amount">
@@ -35,21 +49,51 @@
 </template>
 
 <script>
+import Actions from '../store/actions.types'
 export default {
+    
     data(){
         return{
-
+            user:{
+            name: '',
+            email: '',
+            phone: '',
+            address: {
+                street:'',
+                zip: '',
+            }
+        }
         }
     },
     methods:{
-        back(){
+     back(){
       const path = `/delivery/`;
       if (this.$route.path !== path) this.$router.push(path);
       
     },
+    // anonymUser(){   
+    //          this.$store.dispatch(Actions.ANONYM_USER, this.user)
+    // },
     payment(){
-      const path = `/payment/`;
+     const path = `/payment/`;
+       this.$store.dispatch(Actions.ANONYM_USER, 
+       {
+        name: this.user.name,
+        email: this.user.email,
+        street: this.user.address.street,
+        zip: this.user.address.zip,
+      });
       if (this.$route.path !== path) this.$router.push(path);
+    },
+    },
+    computed:{
+    totalPrice() {
+    return this.$store.getters.totalPrice;
+    },
+    checkUser(){
+            
+            return this.$store.state.userModule.user
+        
     },
     }
 
@@ -71,6 +115,11 @@ export default {
     align-items: center;
     gap: 1rem;
     margin: 2rem;
+    .info{
+        display: flex;
+        flex-direction: column;
+         gap: 1rem;
+    }
   }
   .order-info{
     width: 100%;
@@ -88,16 +137,25 @@ export default {
     gap: 1rem;
     border-top: 1px solid $pitchBlack;
       .radio{
-          margin-top: 1rem;
+        margin-top: 1rem;
         display: flex;
         flex-direction: row;
         width: 100%;
         justify-content: space-between;
+        article{
+            display: flex;
+            flex-direction: row;
+            gap: 15px;
+            input{
+                width: 20px
+            }
+        }
         .instabox{
             display:flex;
             gap: 5px;
-            flex-direction: row;
+            flex-direction: column;
             justify-items: center;
+           
         }
         h2{
             color:$cartCount;
@@ -110,27 +168,11 @@ export default {
         max-width: 320px;
         height:40px;
         border-radius: 50px;
-        ::placeholder{
-            margin-right: 1rem;
-        }
+        padding: 12px 20px;
+        
             }
   }
-  .article{
-    display: flex;
-    width: 100%;
-    flex-direction: row;
-    justify-content: space-between;
-    border-bottom: 1px solid $pitchBlack;
-    align-items: center;
-    select{
-      width: 100px;
-      height: 48px;
-      border-radius: 16px;
-      border: 1px solid $pitchBlack;
-      font-weight: bold;
-      font-size: 20px;
-    }
-  }
+ 
   .price{
     display: flex;
     flex-direction: row;

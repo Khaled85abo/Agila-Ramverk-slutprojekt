@@ -40,7 +40,7 @@ const routes = [
   },
   {
     name: "Delivery",
-    path: "/delivery",
+    path: "/delivery/",
     component: Delivery,
   },
   {

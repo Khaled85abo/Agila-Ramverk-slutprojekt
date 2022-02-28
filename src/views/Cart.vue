@@ -54,7 +54,7 @@
       
       <section class ="stage">
         <button @click="back">Back to shop</button>
-        <button @click="goToDelivery">Next - Choose delivery</button>
+        <button @click="goToDelivery" :totalPrice= "totalPrice">Next - Choose delivery</button>
       </section>
     </div>
   </div>
