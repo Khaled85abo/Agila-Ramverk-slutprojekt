@@ -5,7 +5,6 @@
         <h1>Shipping</h1>
         <h1>Price</h1>
       </section>
-      <hr />
       <section class="main">
         <div class="radio">
           <article>
@@ -52,7 +51,6 @@
           />
         </div>
       </section>
-      <hr />
       <section class="total-amount">
         <h1>Total: {{ totalPrice }} €</h1>
         <h3>Down Ppyment from only 7€/month</h3>
@@ -188,6 +186,7 @@ export default {
     gap: 1rem;
   }
   .total-amount {
+    border-top: 1px solid $pitchBlack;
     display: flex;
     width: 100%;
     flex-direction: column;
