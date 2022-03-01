@@ -2,15 +2,14 @@
   <div class="payment">
     <Overlay :show="overlay">
       <Modal
-     
-      cancelButtonText="Abort"
-      cancelEvent='abort'
-      @abort="overlay = false"
-      @shopeMore="shopeMore"
+        cancelButtonText="Abort"
+        cancelEvent="abort"
+        @abort="overlay = false"
+        @shopeMore="shopeMore"
       >
-        <p> This is over module </p>
+        <p>This is over module</p>
       </Modal>
-     </Overlay>
+    </Overlay>
     <h2>Choose payment</h2>
     <hr />
 
@@ -18,7 +17,7 @@
       <section>
         <label class="container"
           >Credit card
-          <input type="radio" name="radio" checked/>
+          <input type="radio" name="radio" checked />
           <span class="checkmark"></span>
         </label>
         <label class="container"
@@ -36,9 +35,14 @@
       <section class="inputs">
         <form>
           <div id="name">
-            <input type="text" name="name" placeholder="Full name" v-model="cardInfo.fullName" requaird/>
+            <input
+              type="text"
+              name="name"
+              placeholder="Full name"
+              v-model="cardInfo.fullName"
+              requaird
+            />
           </div>
-
 
           <div id="phoneNumber">
             <input
@@ -51,11 +55,23 @@
           </div>
 
           <div id="adress">
-            <input type="text" name="cvc" placeholder="CVC" v-model="cardInfo.cvc" requaird/>
+            <input
+              type="text"
+              name="cvc"
+              placeholder="CVC"
+              v-model="cardInfo.cvc"
+              requaird
+            />
           </div>
 
           <div id="postCode">
-            <input type="number" name="postCode" placeholder="Valid Till" v-model="cardInfo.validTill" requaird/>
+            <input
+              type="number"
+              name="postCode"
+              placeholder="Valid Till"
+              v-model="cardInfo.validTill"
+              requaird
+            />
           </div>
         </form>
       </section>
@@ -63,17 +79,14 @@
 
     <hr />
     <div class="total">
-      <div id="totalPrice">
-        <h3>Total: {{totalPrice}}</h3>
+      <div class="totalPrice">
+        <h3>Total: {{ totalPrice }}</h3>
         <p>Down payment from only ? 10 $/ month</p>
       </div>
 
-      <div id="confim-purchase">
-        <button @click="confirmPurchase">Next - confim-purchase</button>
-      </div>
-
-      <div id="back-delivery">
-        <button @click="back">Back to delivery</button>
+      <div class="stage">
+        <Btn @click="back">Back to shipping</Btn>
+        <Btn @click="confirmPurchase">Next - confim-purchase</Btn>
       </div>
     </div>
     <hr />
@@ -81,61 +94,58 @@
 </template>
 
 <script>
-import Actions from '../store/actions.types'
-import Modal from '@/components/Modal.vue'
-import Overlay from '@/components/Overlay.vue'
+import Actions from "../store/actions.types";
+import Modal from "@/components/Modal.vue";
+import Overlay from "@/components/Overlay.vue";
+import Btn from "../components/CheckoutBtn.vue";
 export default {
-  components:{
+  components: {
     Modal,
-    Overlay
+    Overlay,
+    Btn,
   },
-    data(){
-        return{
-          cardInfo:{
-            fullName: '',
-            cardNumber:'',
-            cvc: '',
-            validTill: '',
-          },
-          overlay: false,
-
-        }
-    },
-    methods:{
-      shopeMore(){
-        const path = `/`;
-      if (this.$route.path !== path) this.$router.push(path);
+  data() {
+    return {
+      cardInfo: {
+        fullName: "",
+        cardNumber: "",
+        cvc: "",
+        validTill: "",
       },
-        back(){
+      overlay: false,
+    };
+  },
+  methods: {
+    shopeMore() {
+      const path = `/`;
+      if (this.$route.path !== path) this.$router.push(path);
+    },
+    back() {
       const path = `/shipping/`;
       if (this.$route.path !== path) this.$router.push(path);
-      
     },
-    confirmPurchase(){
-      this.$store.dispatch(Actions.USER_CARD_INFO, 
-       {
+    confirmPurchase() {
+      this.$store.dispatch(Actions.USER_CARD_INFO, {
         fullName: this.cardInfo.fullName,
         cardNumberail: this.cardInfo.cardNumber,
         cvc: this.cardInfo.cvc,
         validTill: this.cardInfo.validTill,
       });
-      console.log(this.$store.state.userModule.userCardInfo)
-      this.overlay = true
+      console.log(this.$store.state.userModule.userCardInfo);
+      this.overlay = true;
       // const path = `//`;
       // if (this.$route.path !== path) this.$router.push(path);
     },
+  },
+  computed: {
+    userInfo() {
+      return this.$store.state.userModule.anonymUser;
     },
-    computed:{
-      userInfo(){
-         return this.$store.state.userModule.anonymUser
-      },
     totalPrice() {
-      
-    return this.$store.getters.totalPrice;
+      return this.$store.getters.totalPrice;
     },
-    }
-
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -231,19 +241,9 @@ hr {
   #totalPrice {
     align-self: flex-end;
   }
-
-  #confim-purchase {
-    align-self: flex-end;
-  }
-
-  #back-delivery {
-    align-self: flex-start;
-  }
-
-  button {
-    height: 40px;
-    border-radius: 20px;
-    background-color: $monsterGreen;
+  .stage {
+    display: flex;
+    justify-content: space-between;
   }
 }
 </style>

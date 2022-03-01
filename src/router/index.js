@@ -4,11 +4,11 @@ import Home from "../views/Home.vue";
 import Cart from "../views/Cart.vue";
 import SingleProductView from "../views/SingleProductView.vue";
 import Delivery from "../views/Delivery.vue";
-import ChoosePayment from "../views/ChoosePayment.vue";
+import Payment from "../views/Payment.vue";
 import CreditCardInfo from "../views/CreditCardInfo.vue";
 import Profile from "../views/Profile";
 import Login from "../views/Login";
-import ShippingAdress from "../views/ShippingAdress"
+import Shipping from "../views/Shipping";
 Vue.use(VueRouter);
 
 const routes = [
@@ -46,7 +46,7 @@ const routes = [
   {
     name: "Payment",
     path: "/payment",
-    component: ChoosePayment,
+    component: Payment,
   },
   {
     name: "Credit card",
@@ -56,7 +56,7 @@ const routes = [
   {
     name: "Shipping Adress",
     path: "/shipping",
-    component: ShippingAdress,
+    component: Shipping,
   },
   {
     path: "/about",
