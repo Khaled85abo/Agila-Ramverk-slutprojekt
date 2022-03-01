@@ -15,30 +15,33 @@
             type="text"
             v-model="searchKeyword"
             @keyup="searchProduct"
-            @focus="onFocus"
-            @blur="onBlur"
+             @mouseover="hover = true"
           />
-          <ul>
-            <li
-              v-for="item in searchResult"
+          <ul 
+          >
+            <li v-for="item in searchResult"
               :key="item.id"
               @click="toProduct(item.id)"
+              @mouseover="hover = true"
+              @mouseleave="hover = false"
+              v-show="hover"
             >
-              <label class="">{{ item.title }}</label>
+              <label class=""
+               
+              >{{ item.title }}</label>
               <lable>
                 <img
                   :src="path + item.imgFile"
                   alt=""
                   width="20px"
                   height="20px"
+                  @click="toProduct(item.id)"
                 />
               </lable>
             </li>
           </ul>
         </div>
-        <!-- <div>
       <img src="../assets/icons/search.svg" alt="" />
-        </div> -->
       </div>
       <div class="right">
         <div class="cart">
@@ -95,6 +98,7 @@ export default {
       searchKeyword: "",
       path: "http://localhost:5000/images/",
       focused: true,
+      hover: true,
     };
   },
 
@@ -112,7 +116,6 @@ export default {
       }
     },
     searchProduct() {
-      console.log("Test");
       if (this.searchKeyword.length) {
         console.log("Keyword is: " + this.searchKeyword);
         return this.$store.dispatch("searchProducts", this.searchKeyword);
@@ -195,33 +198,25 @@ header {
       .search {
         display: grid;
         align-items: center;
-        height: 50px;
-        margin-right: 0.5rem;
+        height: 30px;
         input {
-          background-image: url("../assets/icons/search.svg");
-          background-position: 10px;
-          background-repeat: no-repeat;
-          height: 35px;
-          padding: 20px 40px;
+          height: 30px;
+          padding-left: 10px;
           font-size: 16px;
           border-radius: 16px;
-          margin-top: 1px;
         }
         ul {
-          list-style-type: none;
           padding: 0;
           margin: 0;
           position: relative;
           li {
-            border: 0.5px solid $pitchBlack;
-            //margin-top: 1px; /* Prevent double borders */
-            background-color: #f6f6f6;
+           // border: 0.5px solid $pitchBlack;
+            background-color: $pureWhite;
             padding: 5px;
             text-decoration: none;
-            font-size: 18px;
+            font-size: 16px;
             color: $pitchBlack;
             display: block;
-            border-radius: 2px;
             display: flex;
             flex-direction: row;
             justify-content: space-between;
@@ -229,6 +224,7 @@ header {
           li:hover {
             background-color: $monsterGreen;
             color: $pureWhite;
+            transition: all 0.3s ease;
           }
         }
       }
