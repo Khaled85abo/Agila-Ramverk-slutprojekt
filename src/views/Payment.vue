@@ -10,9 +10,8 @@
         <p>This is over module</p>
       </Modal>
     </Overlay>
+    <div class="wrapper">
     <h2>Choose payment</h2>
-    <hr />
-
     <article>
       <section>
         <label class="container"
@@ -76,20 +75,17 @@
         </form>
       </section>
     </article>
-
-    <hr />
-    <div class="total">
-      <div class="totalPrice">
+     <article  class ="price">
+      <div class="t-price">
         <h3>Total: {{ totalPrice }}</h3>
         <p>Down payment from only ? 10 $/ month</p>
       </div>
-
-      <div class="stage">
+      <div class="button">
         <Btn @click="back">Back to shipping</Btn>
         <Btn @click="confirmPurchase">Next - confim-purchase</Btn>
       </div>
-    </div>
-    <hr />
+     </article>
+  </div>
   </div>
 </template>
 
@@ -149,13 +145,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.payment{
+  display: flex;
+  max-width: 100%;
+  justify-content: center;
+}
+.wrapper{
+   width: 80%;
+    display: flex;
+    flex-direction: column;
+    margin: 2rem;
+}
 article {
   margin-top: 10px;
   margin: 20px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-direction: row;
-
+  border-top: 1px solid $pitchBlack;
+  
   section {
     margin-top: 30px;
     margin-right: 30px;
@@ -218,7 +226,7 @@ article {
   }
 
   input {
-    border: solid 1px black;
+    border: solid 1px $pitchBlack;
     border-radius: 20px;
     width: 300px;
     height: 30px;
@@ -228,22 +236,22 @@ article {
   }
 }
 
-hr {
-  display: block;
-  border-top: 2px solid black;
-}
 
-.total {
-  margin: 30px;
+.price {
   display: flex;
   flex-direction: column;
-
-  #totalPrice {
-    align-self: flex-end;
-  }
-  .stage {
-    display: flex;
-    justify-content: space-between;
-  }
+  border-top: 1px solid $pitchBlack;
+  margin: 1rem;
 }
+.t-price{
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.5rem;
+      margin: 1rem;
+}
+.button {
+  display: flex;
+  justify-content: space-between;
+  }
 </style>
