@@ -29,7 +29,7 @@
               <label class=""
                
               >{{ item.title }}</label>
-              <lable>
+              <label>
                 <img
                   :src="path + item.imgFile"
                   alt=""
@@ -37,7 +37,7 @@
                   height="20px"
                   @click="toProduct(item.id)"
                 />
-              </lable>
+              </label>
             </li>
           </ul>
         </div>
@@ -92,6 +92,7 @@
 </template>
 
 <script>
+import Actions from "../store/actions.types"
 export default {
   data() {
     return {
@@ -118,7 +119,7 @@ export default {
     searchProduct() {
       if (this.searchKeyword.length) {
         console.log("Keyword is: " + this.searchKeyword);
-        return this.$store.dispatch("searchProducts", this.searchKeyword);
+        return this.$store.dispatch(Actions.SEARCH_PRODUCTS, this.searchKeyword);
       }
       return null;
     },
