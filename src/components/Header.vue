@@ -1,7 +1,6 @@
 <template>
   <header>
     <nav id="nav">
-      <!-- <div class="left"></div> -->
       <div class="middle">
         <img @click="goToHome" src="../assets/sinus-logo.png" alt="" />
         <div class="links">
@@ -76,18 +75,6 @@
         </div>
       </div>
     </nav>
-    <!-- <div class="for-test">
-      <h1>For test - searchList</h1>
-      <h1>Test for the new searchList</h1>
-      <ul>
-        <li v-for="result in searcheRsult" :key="result.id">
-          {{searchResult}}
-          <ul>
-            <li v-for="res in result" :key="res.id" @click="toProduct(item.id)"> {{ res.title }}</li>
-          </ul>
-        </li>
-      </ul>
-    </div> -->
   </header>
 </template>
 
@@ -151,19 +138,7 @@ export default {
       }
       return null;
     },
-
-    items() {
-      //Behövs bygga om
-      //Det ksa inte gå att söka på bara de första 10 resultaten
-      //Utan man ska söka igenom ALLA istället
-      if (this.searchKeyword.length > 0) {
-        return this.$store.state.productsModule.allProductsList.filter((str) =>
-          str.title.toLowerCase().includes(this.searchKeyword.toLowerCase())
-        );
-      }
-      return null;
-    },
-  },
+  }
 };
 </script>
 
