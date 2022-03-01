@@ -59,10 +59,8 @@
       </section>
 
       <section class="stage">
-        <button @click="back">Back to shop</button>
-        <button @click="goToDelivery" :totalPrice="totalPrice">
-          Next - Choose delivery
-        </button>
+        <Btn @click="back">Back to shop</Btn>
+        <Btn @click="goToDelivery"> Next - Choose delivery </Btn>
       </section>
     </div>
   </div>
@@ -70,7 +68,9 @@
 
 <script>
 import Actions from "../store/actions.types";
+import Btn from "../components/CheckoutBtn.vue";
 export default {
+  components: { Btn },
   name: "Cart",
   data() {
     return {
@@ -209,17 +209,7 @@ export default {
   .stage {
     display: flex;
     width: 100%;
-    flex-direction: row;
     justify-content: space-between;
-    button {
-      width: 240px;
-      height: 40px;
-      border-radius: 20px;
-      background-color: $monsterGreen;
-      color: $pureWhite;
-      font-size: 16px;
-      font-weight: bold;
-    }
   }
 }
 </style>
