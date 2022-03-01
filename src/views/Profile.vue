@@ -84,6 +84,7 @@
                   <th>Status:</th>
                   <td
                     @change="(e) => updateStatus(e, order.id)"
+                    :value="order.id"
                     v-html="status(order.status)"
                   ></td>
                 </tr>
@@ -133,7 +134,7 @@
 
 <script>
 import Actions from "../store/actions.types";
-import UpdateForm from "../components/UpdateForm.vue";
+import UpdateForm from "../components/UpdateUserInfoForm.vue";
 import Snackbar from "../components/SnackBar.vue";
 import AddProduct from "../components/AddProduct.vue";
 import gsap from "gsap";
@@ -226,18 +227,19 @@ export default {
       this.$store.dispatch(Actions.RESET_UPDATE_STATUS_RESPONSE);
     },
     status(status) {
+      console.log(status);
       if (this.user.role === "customer") {
         switch (status) {
           case "inProcess":
-            return `<strong>In Progress</strong>`;
+            return `<strong>In Process</strong>`;
           case "canceled":
             return `<strong>Canceled</strong>`;
           default:
             return `<strong>Shipped</strong>`;
         }
       } else {
-        return `<select class="select"  :value="${status}">
-         <option value="inProcess"><strong>In progress</strong></option>
+        return `<select class="select" :value=${status} >
+         <option value="inProcess"><strong>In Process</strong></option>
           <option value="shipped"><strong>Shipped</strong></option>
            <option value="canceled"><strong>Canceled</strong></option>
          </select>`;
@@ -341,6 +343,7 @@ export default {
             text-align: left;
             padding: 8px;
           }
+
           .products {
             display: flex;
             flex-wrap: wrap;

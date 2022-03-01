@@ -70,7 +70,7 @@
       </div>
 
       <div id="back-delivery">
-        <button>Back to delivery</button>
+        <button @click="back">Back to payment</button>
       </div>
     </div>
     <hr />
@@ -78,7 +78,15 @@
 </template>
 
 <script>
-export default {};
+export default {
+   methods:{
+        back(){
+      const path = `/shipping/`;
+      if (this.$route.path !== path) this.$router.push(path);
+      
+    },
+   }
+};
 </script>
 
 <style lang="scss" scoped>
