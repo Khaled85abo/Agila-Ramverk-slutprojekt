@@ -7,8 +7,8 @@
         <div class="links">
           <router-link to="/">Men</router-link>
           <router-link to="/">Women</router-link>
-          <router-link to="/">Skateboards</router-link>
-          <router-link to="/">Accessories</router-link>
+          <router-link to="/skateboards">Skateboards</router-link>
+          <router-link to="/accessories">Accessories</router-link>
         </div>
         <div class="search">
           <input

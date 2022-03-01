@@ -9,6 +9,9 @@ import CreditCardInfo from "../views/CreditCardInfo.vue";
 import Profile from "../views/Profile";
 import Login from "../views/Login";
 import Shipping from "../views/Shipping";
+import SkateboardsCategoryView from "../views/SkateboardsCategoryView";
+import AccessoriesCategoryView from "../views/AccessoriesCategoryView";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -57,6 +60,16 @@ const routes = [
     name: "Shipping Adress",
     path: "/shipping",
     component: Shipping,
+  },
+  {
+    name: "Skateboards Category View",
+    path: "/skateboards",
+    component: SkateboardsCategoryView,
+  },
+  {
+    name: "Accessories Category View",
+    path: "/accessories",
+    component: AccessoriesCategoryView,
   },
   {
     path: "/about",
