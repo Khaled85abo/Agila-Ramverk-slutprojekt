@@ -181,7 +181,7 @@ header {
       display: flex;
       align-items: center;
       background: $interfaceBlack;
-      border-radius: 16px;
+      border-radius: 999px;
       img {
         cursor: pointer;
         margin: 0.5rem;

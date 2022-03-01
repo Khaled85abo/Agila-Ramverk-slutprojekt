@@ -62,7 +62,7 @@
 
       <div class="stage">
         <Btn @click="back">Back to cart</Btn>
-        <Btn @click="shipping">Next - confim-purchase</Btn>
+        <Btn @click="shipping">Next - Shipping</Btn>
       </div>
     </div>
     <hr />
