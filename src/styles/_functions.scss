@@ -1,0 +1,25 @@
+@mixin flexCenter($direction ){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: $direction;
+    flex-wrap:wrap;
+}
+@mixin twoColumnView($color, $direction){
+   display: flex;
+   flex-direction: $direction;
+   justify-content: center;
+   width: 520px;
+   height: 580px;
+   background-color: $color;
+   border-radius: 16px;
+   margin: 5px;
+}
+@mixin twoRowView($color, $direction) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: center;
+    background-color: $color;
+    border-radius: 8px;
+    margin: 5px;
+}
