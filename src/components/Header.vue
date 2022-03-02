@@ -1,44 +1,44 @@
 <template>
   <header>
     <nav id="nav">
-      <!-- <div class="left"></div> -->
       <div class="middle">
         <img @click="goToHome" src="../assets/sinus-logo.png" alt="" />
         <div class="links">
           <router-link to="/">Men</router-link>
           <router-link to="/">Women</router-link>
-          <router-link to="/">Skateboards</router-link>
-          <router-link to="/">Accessories</router-link>
+          <router-link to="/skateboards">Skateboards</router-link>
+          <router-link to="/accessories">Accessories</router-link>
         </div>
         <div class="search">
           <input
             type="text"
             v-model="searchKeyword"
             @keyup="searchProduct"
-            @focus="onFocus"
-            @blur="onBlur"
+            @mouseover="hover = true"
           />
           <ul>
             <li
               v-for="item in searchResult"
               :key="item.id"
               @click="toProduct(item.id)"
+              @mouseover="hover = true"
+              @mouseleave="hover = false"
+              v-show="hover"
             >
               <label class="">{{ item.title }}</label>
-              <lable>
+              <label>
                 <img
                   :src="path + item.imgFile"
                   alt=""
                   width="20px"
                   height="20px"
+                  @click="toProduct(item.id)"
                 />
-              </lable>
+              </label>
             </li>
           </ul>
         </div>
-        <!-- <div>
-      <img src="../assets/icons/search.svg" alt="" />
-        </div> -->
+        <img src="../assets/icons/search.svg" alt="" />
       </div>
       <div class="right">
         <div class="cart">
@@ -73,28 +73,18 @@
         </div>
       </div>
     </nav>
-    <!-- <div class="for-test">
-      <h1>For test - searchList</h1>
-      <h1>Test for the new searchList</h1>
-      <ul>
-        <li v-for="result in searcheRsult" :key="result.id">
-          {{searchResult}}
-          <ul>
-            <li v-for="res in result" :key="res.id" @click="toProduct(item.id)"> {{ res.title }}</li>
-          </ul>
-        </li>
-      </ul>
-    </div> -->
   </header>
 </template>
 
 <script>
+import Actions from "../store/actions.types";
 export default {
   data() {
     return {
       searchKeyword: "",
       path: "http://localhost:5000/images/",
       focused: true,
+      hover: true,
     };
   },
 
@@ -112,10 +102,12 @@ export default {
       }
     },
     searchProduct() {
-      console.log("Test");
       if (this.searchKeyword.length) {
         console.log("Keyword is: " + this.searchKeyword);
-        return this.$store.dispatch("searchProducts", this.searchKeyword);
+        return this.$store.dispatch(
+          Actions.SEARCH_PRODUCTS,
+          this.searchKeyword
+        );
       }
       return null;
     },
@@ -147,18 +139,6 @@ export default {
       }
       return null;
     },
-
-    items() {
-      //Behövs bygga om
-      //Det ksa inte gå att söka på bara de första 10 resultaten
-      //Utan man ska söka igenom ALLA istället
-      if (this.searchKeyword.length > 0) {
-        return this.$store.state.productsModule.allProductsList.filter((str) =>
-          str.title.toLowerCase().includes(this.searchKeyword.toLowerCase())
-        );
-      }
-      return null;
-    },
   },
 };
 </script>
@@ -178,7 +158,7 @@ header {
       display: flex;
       align-items: center;
       background: $interfaceBlack;
-      border-radius: 16px;
+      border-radius: 999px;
       img {
         cursor: pointer;
         margin: 0.5rem;
@@ -192,36 +172,29 @@ header {
           color: $pureWhite;
         }
       }
+
       .search {
         display: grid;
         align-items: center;
-        height: 50px;
-        margin-right: 0.5rem;
+        height: 30px;
         input {
-          background-image: url("../assets/icons/search.svg");
-          background-position: 10px;
-          background-repeat: no-repeat;
-          height: 35px;
-          padding: 20px 40px;
+          height: 30px;
+          padding-left: 10px;
           font-size: 16px;
           border-radius: 16px;
-          margin-top: 1px;
         }
         ul {
-          list-style-type: none;
           padding: 0;
           margin: 0;
           position: relative;
           li {
-            border: 0.5px solid $pitchBlack;
-            //margin-top: 1px; /* Prevent double borders */
-            background-color: #f6f6f6;
+            // border: 0.5px solid $pitchBlack;
+            background-color: $pureWhite;
             padding: 5px;
             text-decoration: none;
-            font-size: 18px;
+            font-size: 16px;
             color: $pitchBlack;
             display: block;
-            border-radius: 2px;
             display: flex;
             flex-direction: row;
             justify-content: space-between;
@@ -229,6 +202,7 @@ header {
           li:hover {
             background-color: $monsterGreen;
             color: $pureWhite;
+            transition: all 0.3s ease;
           }
         }
       }
