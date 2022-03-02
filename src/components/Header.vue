@@ -14,20 +14,18 @@
             type="text"
             v-model="searchKeyword"
             @keyup="searchProduct"
-             @mouseover="hover = true"
+            @mouseover="hover = true"
           />
-          <ul 
-          >
-            <li v-for="item in searchResult"
+          <ul>
+            <li
+              v-for="item in searchResult"
               :key="item.id"
               @click="toProduct(item.id)"
               @mouseover="hover = true"
               @mouseleave="hover = false"
               v-show="hover"
             >
-              <label class=""
-               
-              >{{ item.title }}</label>
+              <label class="">{{ item.title }}</label>
               <label>
                 <img
                   :src="path + item.imgFile"
@@ -40,7 +38,7 @@
             </li>
           </ul>
         </div>
-      <img src="../assets/icons/search.svg" alt="" />
+        <img src="../assets/icons/search.svg" alt="" />
       </div>
       <div class="right">
         <div class="cart">
@@ -79,7 +77,7 @@
 </template>
 
 <script>
-import Actions from "../store/actions.types"
+import Actions from "../store/actions.types";
 export default {
   data() {
     return {
@@ -106,7 +104,10 @@ export default {
     searchProduct() {
       if (this.searchKeyword.length) {
         console.log("Keyword is: " + this.searchKeyword);
-        return this.$store.dispatch(Actions.SEARCH_PRODUCTS, this.searchKeyword);
+        return this.$store.dispatch(
+          Actions.SEARCH_PRODUCTS,
+          this.searchKeyword
+        );
       }
       return null;
     },
@@ -138,7 +139,7 @@ export default {
       }
       return null;
     },
-  }
+  },
 };
 </script>
 
@@ -171,6 +172,7 @@ header {
           color: $pureWhite;
         }
       }
+
       .search {
         display: grid;
         align-items: center;
@@ -186,7 +188,7 @@ header {
           margin: 0;
           position: relative;
           li {
-           // border: 0.5px solid $pitchBlack;
+            // border: 0.5px solid $pitchBlack;
             background-color: $pureWhite;
             padding: 5px;
             text-decoration: none;
