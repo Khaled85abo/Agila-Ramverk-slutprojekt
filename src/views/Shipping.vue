@@ -20,7 +20,7 @@
        
         <div class="info" v-if="checkUser">
           <label for="">Enter your information</label>
-          <input type="text" placeholder="Name" v-model="checkUser.name" />
+          <input type="text" placeholder="Name" v-model="user.name" />
           <input type="email" placeholder="Email" v-model="checkUser.email" />
           <input type="text" placeholder="12345 6789" />
           <input
@@ -37,22 +37,22 @@
         <div class="info" v-else>
           <label for="">Enter your information</label>
           <input type="text" placeholder="Name" v-model="user.name" />
-          <label v-if="error && !user.name" class= "error">{{errorMessage("name")}}</label>
+          <!-- <label v-if="!user.name" class= "error">{{errorMessage("name")}}</label> -->
           <input type="email" placeholder="Email" v-model="user.email" />
-          <label v-if="error && !user.email" class= "error">{{errorMessage("eamil")}}</label>
+          <!-- <label v-if="!user.email" class= "error">{{errorMessage("eamil")}}</label> -->
           <input type="text" placeholder="12345 6789" />
           <input
             type="text"
             placeholder="Adress"
             v-model="user.address.street"
           />
-          <label v-if="error && !user.address.street" class= "error">{{errorMessage("street")}}</label>
+          
           <input
             type="text"
             placeholder="Post code"
             v-model="user.address.zip"
           />
-          <label v-if="error && !user.address.zip" class= "error">{{errorMessage("zip")}}</label>
+          <!-- <label v-if="!user.address.zip" class= "error">{{errorMessage("zip")}}</label> -->
         </div>
       </section>
       <section class="total-amount">
@@ -73,6 +73,7 @@ import Actions from "../store/actions.types";
 export default {
   data() {
     return {
+      error: false,
       user: {
         name: "",
         email: "",
@@ -82,32 +83,21 @@ export default {
           zip: "",
         },
       },
-      error: false
     };
   },
   methods: {
     back() {
       this.$router.push("/delivery");
     },
-    // anonymUser(){
-    //          this.$store.dispatch(Actions.ANONYM_USER, this.user)
-    // },
     payment() {
-     if(!this.user.name.length || !this.user.email.length ||
-     !this.user.address.street.length || !this.user.address.zip.length ){
-        this.error = true
-        this.errorMessage()
-        console.log(this.error);
-      }
-      else{
-      this.$store.dispatch(Actions.ANONYM_USER, {
-        name: this.user.name,
-        email: this.user.email,
-        street: this.user.address.street,
-        zip: this.user.address.zip,
+          this.$store.dispatch(Actions.ANONYM_USER, {
+          name: this.user.name,
+          email: this.user.email,
+          street: this.user.address.street,
+          zip: this.user.address.zip,
       });
       this.$router.push("/payment");
-      }
+      
     },
     errorMessage(message){
       return this.error = "you need to put " + message
@@ -117,9 +107,10 @@ export default {
     totalPrice() {
       return this.$store.getters.totalPrice;
     },
-    checkUser() {
-      return this.$store.state.userModule.user;
-    },
+    //  function() {
+    //   return this.user = this.$store.state.userModule.user;
+      
+    // },
   },
 };
 </script>

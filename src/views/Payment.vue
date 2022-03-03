@@ -41,8 +41,8 @@
               v-model="cardInfo.fullName"
               requaird
             />
+             <label v-if="error && !cardInfo.fullName" class= "error">{{errorMessage("Your Full Name")}}</label>
           </div>
-
           <div id="phoneNumber">
             <input
               type="number"
@@ -52,7 +52,7 @@
               requaird
             />
           </div>
-
+<label v-if="error && !cardInfo.cardNumber" class= "error">{{errorMessage("Your card Number")}}</label>
           <div id="adress">
             <input
               type="text"
@@ -62,7 +62,7 @@
               requaird
             />
           </div>
-
+<label v-if="error && !cardInfo.cvc" class= "error">{{errorMessage("Your card CVC Number")}}</label>
           <div id="postCode">
             <input
               type="number"
@@ -71,6 +71,7 @@
               v-model="cardInfo.validTill"
               requaird
             />
+<label v-if="error && !cardInfo.validTill" class= "error">{{errorMessage("Valid Till")}}</label>
           </div>
         </form>
       </section>
