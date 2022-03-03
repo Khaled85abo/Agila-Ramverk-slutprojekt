@@ -46,7 +46,7 @@
             placeholder="Adress"
             v-model="user.address.street"
           />
-          <label v-if="!user.address.street && error" class= "error">{{errorMessage("street")}}</label>
+          
           <input
             type="text"
             placeholder="Post code"
@@ -90,11 +90,6 @@ export default {
       this.$router.push("/delivery");
     },
     payment() {
-      if (!this.user.address.street.length || !this.checkUser.address.street.length ){
-            this.error= true
-          this.errorMessage()
-      }
-      else{
           this.$store.dispatch(Actions.ANONYM_USER, {
           name: this.user.name,
           email: this.user.email,
@@ -102,7 +97,7 @@ export default {
           zip: this.user.address.zip,
       });
       this.$router.push("/payment");
-      }
+      
     },
     errorMessage(message){
       return this.error = "you need to put " + message

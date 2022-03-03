@@ -44,7 +44,7 @@ export default {
 <style lang="scss" scoped>
 .category{
     display: flex;
-    max-width: 170px;
+  width: 170px;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
