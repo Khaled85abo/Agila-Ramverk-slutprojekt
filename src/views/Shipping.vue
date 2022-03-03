@@ -14,46 +14,38 @@
               <p>1-2 days</p>
             </div>
           </article>
-          
+
           <h2>Free!</h2>
         </div>
-       
-        <div class="info" v-if="checkUser">
+
+        <form class="info" id="shipping" @submit.prevent="payment">
           <label for="">Enter your information</label>
-          <input type="text" placeholder="Name" v-model="user.name" />
-          <input type="email" placeholder="Email" v-model="checkUser.email" />
-          <input type="text" placeholder="12345 6789" />
+          <input type="text" placeholder="Name" v-model="user.name" required />
           <input
-            type="text"
-            placeholder="Adress"
-            v-model="checkUser.address.street"
+            type="email"
+            placeholder="Email"
+            v-model="user.email"
+            required
           />
           <input
             type="text"
-            placeholder="Post code"
-            v-model="checkUser.address.zip"
+            placeholder="12345 6789"
+            v-model="user.address.city"
+            required
           />
-        </div>
-        <div class="info" v-else>
-          <label for="">Enter your information</label>
-          <input type="text" placeholder="Name" v-model="user.name" />
-          <!-- <label v-if="!user.name" class= "error">{{errorMessage("name")}}</label> -->
-          <input type="email" placeholder="Email" v-model="user.email" />
-          <!-- <label v-if="!user.email" class= "error">{{errorMessage("eamil")}}</label> -->
-          <input type="text" placeholder="12345 6789" />
           <input
             type="text"
             placeholder="Adress"
             v-model="user.address.street"
+            required
           />
-          
           <input
             type="text"
             placeholder="Post code"
             v-model="user.address.zip"
+            required
           />
-          <!-- <label v-if="!user.address.zip" class= "error">{{errorMessage("zip")}}</label> -->
-        </div>
+        </form>
       </section>
       <section class="total-amount">
         <h1>Total: {{ totalPrice }} €</h1>
@@ -62,7 +54,7 @@
 
       <section class="stage">
         <button @click="back">Back to delivery</button>
-        <button @click="payment">Next - Choose Payment</button>
+        <button type="submit" form="shipping">Next - Choose Payment</button>
       </section>
     </div>
   </div>
@@ -77,8 +69,8 @@ export default {
       user: {
         name: "",
         email: "",
-        phone: "",
         address: {
+          city: "",
           street: "",
           zip: "",
         },
@@ -90,17 +82,16 @@ export default {
       this.$router.push("/delivery");
     },
     payment() {
-          this.$store.dispatch(Actions.ANONYM_USER, {
-          name: this.user.name,
-          email: this.user.email,
-          street: this.user.address.street,
-          zip: this.user.address.zip,
+      this.$store.dispatch(Actions.ANONYM_USER, {
+        name: this.user.name,
+        email: this.user.email,
+        street: this.user.address.street,
+        zip: this.user.address.zip,
       });
       this.$router.push("/payment");
-      
     },
-    errorMessage(message){
-      return this.error = "you need to put " + message
+    errorMessage(message) {
+      return (this.error = "you need to put " + message);
     },
   },
   computed: {
@@ -109,8 +100,13 @@ export default {
     },
     //  function() {
     //   return this.user = this.$store.state.userModule.user;
-      
+
     // },
+  },
+  mounted() {
+    if (this.$store.state.userModule.user) {
+      this.user = this.$store.state.userModule.user;
+    }
   },
 };
 </script>
@@ -135,8 +131,8 @@ export default {
       gap: 1rem;
     }
   }
-  .error{
-    color:$warning;
+  .error {
+    color: $warning;
   }
   .order-info {
     width: 100%;

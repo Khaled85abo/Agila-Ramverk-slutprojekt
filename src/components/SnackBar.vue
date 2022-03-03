@@ -27,11 +27,12 @@
 </template>
 
 <script>
+import Actions from "../store/actions.types";
 export default {
   props: ["type", "message"],
   data() {
     return {
-      timeDelay: 5,
+      timeDelay: 2.5,
       killTimeout: null,
     };
   },
@@ -40,6 +41,7 @@ export default {
       this.killTimeout = setTimeout(() => {
         // this.$store.dispatch(Actions.RESET_LOGIN_ERROR);
         this.$emit("resetError");
+        this.$store.dispatch(Actions.RESET_RESPONSE);
       }, this.timeDelay * 1000);
     },
     stopTimeOut() {

@@ -1,27 +1,7 @@
 <template>
   <div class="wrapper">
-    <transition name="toast">
-      <Snackbar
-        v-if="loginError"
-        type="error"
-        :message="loginError"
-        @resetError="resetError"
-      />
-      <Snackbar
-        v-if="signupError"
-        type="error"
-        :message="signupError"
-        @resetError="resetError"
-      />
-      <Snackbar
-        v-if="localError"
-        type="error"
-        :message="localError"
-        @resetError="resetError"
-      />
-    </transition>
     <transition name="form" mode="out-in">
-      <Signup v-if="show" @submitted="signup" @error="setLocalError" />
+      <Signup v-if="show" @submitted="signup" />
       <form v-else @submit.prevent="login">
         <h3>Login</h3>
         <label for="email">E-mail</label>
@@ -30,6 +10,7 @@
           id="email"
           placeholder="Your E-mail"
           v-model="user.email"
+          required
         />
         <label for="password">Password</label>
         <input
@@ -37,6 +18,7 @@
           id="password"
           placeholder="Your password"
           v-model="user.password"
+          required
         />
         <input type="submit" />
       </form>
@@ -55,10 +37,9 @@
 
 <script>
 import Actions from "../store/actions.types";
-import Snackbar from "../components/SnackBar.vue";
 import Signup from "../components/SignupForm.vue";
 export default {
-  components: { Snackbar, Signup },
+  components: { Signup },
   data() {
     return {
       show: false,
@@ -73,33 +54,17 @@ export default {
           zip: "",
         },
       },
-      localError: null,
     };
   },
-  computed: {
-    loginError() {
-      return this.$store.state.userModule.loginError;
-    },
-    signupError() {
-      return this.$store.state.userModule.signupError;
-    },
-  },
+
   methods: {
-    resetError() {
-      this.localError = null;
-      this.$store.dispatch(Actions.RESET_LOGIN_ERROR);
-      this.$store.dispatch(Actions.RESET_REGISTER_ERROR);
-    },
     login() {
       this.$store.dispatch(Actions.LOGIN, {
         email: this.user.email,
         password: this.user.password,
       });
     },
-    setLocalError(error) {
-      console.log(error);
-      this.localError = error;
-    },
+
     signup(user) {
       // if (
       //   this.user.name == "" ||
@@ -150,73 +115,14 @@ export default {
     }
   }
 }
-/* .snackbar-enter-active,
-.snackbar-enter-active {
-  transition: all 1s ease;
-}
-.snackbar-enter,
-.snackbar-leave-to {
-  opacity: 0;
-  transform: translateY(10px);
-}
-.snackbar-enter-to,
-.snackbar-leave {
-  opacity: 1;
-  transform: translateY(0);
-} */
-
-/* .toast-enter-active {
-  animation: bounce 0.5s;
-} */
-@keyframes bounce {
-  0% {
-    transform: translateY(-10%);
-    opacity: 0;
-  }
-  50% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  60% {
-    transform: translateX(-1%);
-  }
-  70% {
-    transform: translateX(1%);
-  }
-  80% {
-    transform: translateX(-1%);
-  }
-  90% {
-    transform: translateX(1%);
-  }
-  100% {
-    transform: translateX(0%);
-  }
-}
-.toast-enter-to,
-.toast-leave {
-  opacity: 1;
-}
-.toast-enter,
-.toast-leave-to {
-  opacity: 0;
-  /* transform: translateY(-10%); */
-}
-.toast-enter-active,
-.toast-leave-active {
-  transition: all 0.5s ease;
-}
 
 .form-enter-active {
-  // animation: fade 1s;
   transition: all 1s ease;
 }
 .form-enter {
   opacity: 0;
   transform: translateY(10px);
 }
-// .form-enter-to
-// .form-leave
 
 .form-leave-to {
   opacity: 0;
@@ -224,7 +130,6 @@ export default {
 }
 
 .form-leave-active {
-  // animation: fade 1s reverse;
   transition: all 1s ease;
 }
 
