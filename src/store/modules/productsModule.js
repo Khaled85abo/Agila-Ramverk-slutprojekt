@@ -51,7 +51,7 @@ export default {
       }
     },
 
-    async searchProducts({ commit }, searchQuery) {
+    async [Actions.SEARCH_PRODUCTS]({ commit }, searchQuery) {
       try {
         const res = await API.searchProduct(searchQuery);
         if (!res.error) {
