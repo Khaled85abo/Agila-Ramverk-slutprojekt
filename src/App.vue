@@ -23,7 +23,10 @@ export default {
   components: { Header, Footer, SnackBar },
   computed: {
     response() {
-      return this.$store.state.userModule.response;
+      return (
+        this.$store.state.userModule.response ??
+        this.$store.state.ordersModules.response
+      );
     },
   },
 };

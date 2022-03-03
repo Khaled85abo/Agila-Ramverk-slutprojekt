@@ -3,15 +3,12 @@ import Mutations from "../mutations.types";
 import * as API from "../../api";
 export default {
   state: () => ({
-    // allOrdersList: [],
-    // allOrdersObj: {},
-    // updateOrderStatusError: null
     ordersList: [],
     ordersObj: {},
     cart: [],
     shippingInfo: null,
     paymentMethod: null,
-    updateStatusResponse: null,
+    response: null,
   }),
   actions: {
     async [Actions.ADD_TO_CART](context, product) {
@@ -80,7 +77,7 @@ export default {
         });
       }
     },
-    [Actions.RESET_UPDATE_STATUS_RESPONSE]({ commit }) {
+    [Actions.RESET_RESPONSE]({ commit }) {
       commit(Mutations.RESET_UPDATE_STATUS_RESPONSE);
     },
   },
@@ -114,10 +111,10 @@ export default {
       orders.forEach((order) => (state.ordersObj[order.id] = order));
     },
     [Mutations.UPDATE_RES](state, res) {
-      state.updateStatusResponse = res;
+      state.response = res;
     },
     [Mutations.RESET_UPDATE_STATUS_RESPONSE](state) {
-      state.updateStatusResponse = null;
+      state.response = null;
     },
   },
   getters: {
