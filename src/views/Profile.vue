@@ -53,7 +53,7 @@
                   <th>Status:</th>
                   <td
                     @change="(e) => updateStatus(e, order.id)"
-                    :value="order.id"
+                    :value="order.status"
                     v-html="status(order.status)"
                   ></td>
                 </tr>
@@ -202,10 +202,10 @@ export default {
         }
       } else {
         return `<select class="select" :value=${status} >
-         <option value="inProcess"><strong>In Process</strong></option>
-          <option value="shipped"><strong>Shipped</strong></option>
-           <option value="canceled"><strong>Canceled</strong></option>
-         </select>`;
+                  <option value="inProcess"><strong>In Process</strong></option>
+                  <option value="shipped"><strong>Shipped</strong></option>
+                  <option value="canceled"><strong>Canceled</strong></option>
+                </select>`;
       }
     },
   },
