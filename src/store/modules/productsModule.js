@@ -25,6 +25,7 @@ export default {
       { category } // page = o, // pageSize = 0
     ) {
       try {
+        // $FEEDBACK: Check if products are already fetched in the store to prevent unecessary requests
         const res = await API.getAllProducts(category);
         if (!res.error) {
           console.log("success: ", res.data);
@@ -160,24 +161,19 @@ export default {
     },
   },
   mutations: {
-    
     [Mutations.SET_PRODUCTS](state, data) {
       state.allProductsList = data;
       data.forEach((pro) => (state.allProductsObj[pro.id] = pro));
     },
-    
     [Mutations.SET_PRODUCT](state, pro) {
       Vue.set(state.allProductsObj, pro.id, pro);
     },
-    
     [Mutations.SEARCH_PRODUCTS](state, data) {
-      state.searchResponse.splice(0, state.searchResponse.length - 1);
+      state.searchResponse.splice(0, state.searchResponse.length);
       state.searchResponse = data;
-      state.allProductsList.splice(0, state.allProductsList - 1);
       state.allProductsList.unshift(...data);
       data.forEach((pro) => (state.allProductsObj[pro.id] = pro));
     },
-    
     [Mutations.SET_ADD_PRODUCT_ERROR](state, error) {
       state.addProductError = error;
     },

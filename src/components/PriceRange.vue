@@ -15,8 +15,7 @@
 
 <script>
 export default{
-    mounted(){
-    
+    mounted(){    
     var rangeOne = document.getElementsByName('input[name="rangeOne"]')[0],
     rangeTwo = document.getElementsByName('input[name="rangeTwo"]')[0],
     outputOne = document.getElementsByClassName('.outputOne')[0],

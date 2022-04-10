@@ -14,38 +14,47 @@
               <p>1-2 days</p>
             </div>
           </article>
-
+          
           <h2>Free!</h2>
         </div>
-
-        <form class="info" id="shipping" @submit.prevent="payment">
+       
+        <div class="info" v-if="checkUser">
           <label for="">Enter your information</label>
-          <input type="text" placeholder="Name" v-model="user.name" required />
-          <input
-            type="email"
-            placeholder="Email"
-            v-model="user.email"
-            required
-          />
-          <input
-            type="text"
-            placeholder="12345 6789"
-            v-model="user.address.city"
-            required
-          />
+          <!-- $FEEDBACK: You cannot use v-model on computed props, they are read only unless you use a setter -->
+          <input type="text" placeholder="Name" v-model="checkUser.name" />
+          <input type="email" placeholder="Email" v-model="checkUser.email" />
+          <input type="text" placeholder="12345 6789" />
           <input
             type="text"
             placeholder="Adress"
-            v-model="user.address.street"
-            required
+            v-model="checkUser.address.street"
           />
           <input
             type="text"
             placeholder="Post code"
-            v-model="user.address.zip"
-            required
+            v-model="checkUser.address.zip"
           />
-        </form>
+        </div>
+        <div class="info" v-else>
+          <label for="">Enter your information</label>
+          <input type="text" placeholder="Name" v-model="user.name" />
+          <label v-if="error && !user.name" class= "error">{{errorMessage("name")}}</label>
+          <input type="email" placeholder="Email" v-model="user.email" />
+          <label v-if="error && !user.email" class= "error">{{errorMessage("eamil")}}</label>
+          <input type="text" placeholder="12345 6789" />
+          <input
+            type="text"
+            placeholder="Adress"
+            v-model="user.address.street"
+          />
+          <label v-if="error && !user.address.street" class= "error">{{errorMessage("street")}}</label>
+          <input
+            type="text"
+            placeholder="Post code"
+            v-model="user.address.zip"
+          />
+          <label v-if="error && !user.address.zip" class= "error">{{errorMessage("zip")}}</label>
+        </div>
       </section>
       <section class="total-amount">
         <h1>Total: {{ totalPrice }} €</h1>
@@ -54,7 +63,7 @@
 
       <section class="stage">
         <button @click="back">Back to delivery</button>
-        <button type="submit" form="shipping">Next - Choose Payment</button>
+        <button @click="payment">Next - Choose Payment</button>
       </section>
     </div>
   </div>
@@ -65,23 +74,33 @@ import Actions from "../store/actions.types";
 export default {
   data() {
     return {
-      error: false,
       user: {
         name: "",
         email: "",
+        phone: "",
         address: {
-          city: "",
           street: "",
           zip: "",
         },
       },
+      error: false
     };
   },
   methods: {
     back() {
       this.$router.push("/delivery");
     },
+    // anonymUser(){
+    //          this.$store.dispatch(Actions.ANONYM_USER, this.user)
+    // },
     payment() {
+     if(!this.user.name.length || !this.user.email.length ||
+     !this.user.address.street.length || !this.user.address.zip.length ){
+        this.error = true
+        this.errorMessage()
+        console.log(this.error);
+      }
+      else{
       this.$store.dispatch(Actions.ANONYM_USER, {
         name: this.user.name,
         email: this.user.email,
@@ -89,24 +108,19 @@ export default {
         zip: this.user.address.zip,
       });
       this.$router.push("/payment");
+      }
     },
-    errorMessage(message) {
-      return (this.error = "you need to put " + message);
+    errorMessage(message){
+      return this.error = "you need to put " + message
     },
   },
   computed: {
     totalPrice() {
       return this.$store.getters.totalPrice;
     },
-    //  function() {
-    //   return this.user = this.$store.state.userModule.user;
-
-    // },
-  },
-  mounted() {
-    if (this.$store.state.userModule.user) {
-      this.user = this.$store.state.userModule.user;
-    }
+    checkUser() {
+      return this.$store.state.userModule.user;
+    },
   },
 };
 </script>
@@ -131,8 +145,8 @@ export default {
       gap: 1rem;
     }
   }
-  .error {
-    color: $warning;
+  .error{
+    color:$warning;
   }
   .order-info {
     width: 100%;
