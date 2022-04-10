@@ -28,7 +28,7 @@ export default {
   data() {
     return {
       categories: [],
-      showCategory: 'skateboard'
+      showCategory: 'wheel',
     };
   },
    mounted() {

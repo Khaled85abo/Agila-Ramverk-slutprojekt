@@ -4,11 +4,14 @@ import Home from "../views/Home.vue";
 import Cart from "../views/Cart.vue";
 import SingleProductView from "../views/SingleProductView.vue";
 import Delivery from "../views/Delivery.vue";
-import ChoosePayment from "../views/ChoosePayment.vue";
+import Payment from "../views/Payment.vue";
 import CreditCardInfo from "../views/CreditCardInfo.vue";
 import Profile from "../views/Profile";
-import Dashboard from "../views/Dashboard";
 import Login from "../views/Login";
+import Shipping from "../views/Shipping";
+import SkateboardsCategoryView from "../views/SkateboardsCategoryView";
+import AccessoriesCategoryView from "../views/AccessoriesCategoryView";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -17,11 +20,7 @@ const routes = [
     name: "Home",
     component: Home,
   },
-  {
-    name: "admin dashboard",
-    path: "/admin",
-    component: Dashboard,
-  },
+
   {
     name: "Profile",
     path: "/profile",
@@ -44,18 +43,33 @@ const routes = [
   },
   {
     name: "Delivery",
-    path: "/delivery",
+    path: "/delivery/",
     component: Delivery,
   },
   {
     name: "Payment",
     path: "/payment",
-    component: ChoosePayment,
+    component: Payment,
   },
   {
     name: "Credit card",
     path: "/credit",
     component: CreditCardInfo,
+  },
+  {
+    name: "Shipping Adress",
+    path: "/shipping",
+    component: Shipping,
+  },
+  {
+    name: "Skateboards Category View",
+    path: "/skateboards",
+    component: SkateboardsCategoryView,
+  },
+  {
+    name: "Accessories Category View",
+    path: "/accessories",
+    component: AccessoriesCategoryView,
   },
   {
     path: "/about",

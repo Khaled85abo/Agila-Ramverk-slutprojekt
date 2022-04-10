@@ -15,6 +15,8 @@ export default {
     loginError: null,
     signupError: null,
     updateRes: null,
+    anonymUser: [],
+    userCardInfo: [],
   }),
   actions: {
     async [Actions.GET_USER]({ commit }) {
@@ -39,6 +41,7 @@ export default {
         if (!res.error) {
           API.saveToken(res.data.token);
           dispatch(Actions.GET_USER);
+          dispatch(Actions.GET_ALL_ORDERS);
         } else {
           throw new Error(res.error);
         }
@@ -113,8 +116,21 @@ export default {
     [Actions.RESET_RESPONSE]({ commit }) {
       commit(Mutations.RESET_RESPONSE);
     },
+    [Actions.ANONYM_USER]({commit}, payload){
+      commit(Mutations.ANONYM_USER, payload)
+    },
+    [Actions.USER_CARD_INFO]({commit}, payload){
+      commit(Mutations.USER_CARD_INFO, payload)
+    },
+
   },
   mutations: {
+    [Mutations.USER_CARD_INFO](state, payload){
+      state.userCardInfo.push(payload)
+    },
+    [Mutations.ANONYM_USER](state, payload){
+      state.anonymUser.push(payload)
+    },
     [Mutations.SET_USER](state, user) {
       console.log("commit set user: ", user);
       state.user = user;

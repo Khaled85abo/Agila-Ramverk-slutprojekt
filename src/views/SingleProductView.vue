@@ -1,13 +1,15 @@
 <template>
   <div class="single-product">
     <h1>This is single product view</h1>
-    <div class="wrapper">
+    <div v-if="product" class="wrapper">
+      
       <section class="image">
-        <img :src="require('@/assets/' + prod.imgFile)" />
+        <!-- $TIPS: Move 'http://localhost:5000/images/' to a en environment variable  -->
+        <img :src="'http://localhost:5000/images/' + product.imgFile" />
       </section>
       <section class="product-info">
         <div class="product-discription">
-          <h1>{{ prod.title }}</h1>
+          <h1>{{ product.title }}</h1>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. At quasi
             quidem repudiandae delectus dolorem. Magni fugiat, laboriosam id
@@ -19,7 +21,7 @@
           <h3>Color: Green/Black</h3>
           <h3>Width: 8 Inches</h3>
           <h3>Length: 32 Inches</h3>
-          <h3>{{ prod.price }}€/ {{ prod.price }} $/ {{ prod.price }} sek</h3>
+          <h3>{{ product.price }}€/ {{ product.price }} $/ {{ product.price }} sek</h3>
         </div>
         <div class="add-card">
           <select name="" id="">
@@ -52,15 +54,20 @@ export default {
   data() {
     return {
       //imgFile: require("@/assets/skateboard-greta.jpg")
-    };
+      
+    }
+  },
+  mounted(){
+    console.log("single page mounted", this.$route.params.id);
   },
   methods: {
     addToCart() {
-      this.$store.dispatch(Actions.ADD_PRODUCT, this.prod);
+     //this.$store.dispatch(Actions.ADD_PRODUCT, this.prod);
+      this.$store.dispatch(Actions.ADD_TO_CART, this.product)
     },
   },
   computed: {
-    prod() {
+    product() {
       return this.$store.state.productsModule.allProductsObj[
         this.$route.params.id
       ];

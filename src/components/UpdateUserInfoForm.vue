@@ -18,13 +18,6 @@
         v-model="user.email"
         required
       />
-      <label for="password">Old Password</label>
-      <input
-        type="password"
-        id="password"
-        placeholder="Your old password"
-        v-model="user.oldPassword"
-      />
       <label for="password">New Password</label>
       <input
         type="password"
@@ -76,7 +69,6 @@ export default {
     return {
       user: {
         name: "",
-        oldPassword: "",
         password: "",
         email: "",
         confirmPassword: "",
@@ -85,8 +77,8 @@ export default {
           city: "",
           zip: "",
         },
-        localError: null,
       },
+      localError: null,
     };
   },
   mounted() {
@@ -101,8 +93,14 @@ export default {
         this.$emit("error", this.localError);
         return;
       }
-      console.log("user form updateForm: ", this.user);
-      this.$emit("submitted", this.user);
+      const userInfo = { ...this.user };
+      if (this.user.password === "") {
+        delete userInfo.password;
+        delete userInfo.confirmPassword;
+      }
+
+      console.log("user form updateUserInfoForm: ", userInfo);
+      this.$emit("submitted", userInfo);
     },
   },
 };
@@ -110,7 +108,7 @@ export default {
 
 <style lang="scss" scoped>
 .wrapper {
-  max-width: 500px;
+  max-width: 400px;
   margin: auto;
 
   form {
