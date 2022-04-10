@@ -94,7 +94,8 @@ export default {
       this.searchKeyword = "";
     },
     searchProduct() {
-      if (this.searchKeyword.length) {
+      this.$store.state.productsModule.searchResponse.length = 0
+      if (this.searchKeyword.length > 2) {
         console.log("Keyword is: " + this.searchKeyword);
         return this.$store.dispatch(
           Actions.SEARCH_PRODUCTS,

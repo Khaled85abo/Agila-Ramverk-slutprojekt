@@ -160,19 +160,24 @@ export default {
     },
   },
   mutations: {
+    
     [Mutations.SET_PRODUCTS](state, data) {
       state.allProductsList = data;
       data.forEach((pro) => (state.allProductsObj[pro.id] = pro));
     },
+    
     [Mutations.SET_PRODUCT](state, pro) {
       Vue.set(state.allProductsObj, pro.id, pro);
     },
+    
     [Mutations.SEARCH_PRODUCTS](state, data) {
-      state.searchResponse.splice(0, state.searchResponse.length);
+      state.searchResponse.splice(0, state.searchResponse.length - 1);
       state.searchResponse = data;
+      state.allProductsList.splice(0, state.allProductsList - 1);
       state.allProductsList.unshift(...data);
       data.forEach((pro) => (state.allProductsObj[pro.id] = pro));
     },
+    
     [Mutations.SET_ADD_PRODUCT_ERROR](state, error) {
       state.addProductError = error;
     },
