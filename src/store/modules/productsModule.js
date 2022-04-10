@@ -25,6 +25,7 @@ export default {
       { category } // page = o, // pageSize = 0
     ) {
       try {
+        // $FEEDBACK: Check if products are already fetched in the store to prevent unecessary requests
         const res = await API.getAllProducts(category);
         if (!res.error) {
           console.log("success: ", res.data);

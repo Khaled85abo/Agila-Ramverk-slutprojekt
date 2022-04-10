@@ -20,6 +20,7 @@
        
         <div class="info" v-if="checkUser">
           <label for="">Enter your information</label>
+          <!-- $FEEDBACK: You cannot use v-model on computed props, they are read only unless you use a setter -->
           <input type="text" placeholder="Name" v-model="checkUser.name" />
           <input type="email" placeholder="Email" v-model="checkUser.email" />
           <input type="text" placeholder="12345 6789" />

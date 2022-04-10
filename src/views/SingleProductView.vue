@@ -4,6 +4,7 @@
     <div v-if="product" class="wrapper">
       
       <section class="image">
+        <!-- $TIPS: Move 'http://localhost:5000/images/' to a en environment variable  -->
         <img :src="'http://localhost:5000/images/' + product.imgFile" />
       </section>
       <section class="product-info">
