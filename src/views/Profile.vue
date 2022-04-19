@@ -3,37 +3,6 @@
     <hr />
     <h1>{{ user.role === "admin" ? "Dashboard" : "Your Profile" }}</h1>
     <hr />
-    <Snackbar
-      v-if="localError"
-      :type="type"
-      :message="localError"
-      @resetError="resetError"
-    />
-    <Snackbar
-      v-if="updateRes"
-      :type="updateRes.status"
-      :message="updateRes.message"
-      @resetError="resetResponse"
-    />
-    <Snackbar
-      v-if="addProductError"
-      type="error"
-      :message="addProductError"
-      @resetError="resetResponse"
-    />
-    <Snackbar
-      v-if="addProductSuccess"
-      type="success"
-      :message="addProductSuccess"
-      @resetError="resetResponse"
-    />
-    <Snackbar
-      v-if="updateStatusRes"
-      :type="updateStatusRes.type"
-      :message="updateStatusRes.message"
-      @resetError="resetResponse"
-    />
-
     <div class="menu">
       <div>
         <span @click="router = 'orders'">Order historik</span>
@@ -135,11 +104,10 @@
 <script>
 import Actions from "../store/actions.types";
 import UpdateForm from "../components/UpdateUserInfoForm.vue";
-import Snackbar from "../components/SnackBar.vue";
 import AddProduct from "../components/AddProduct.vue";
 import gsap from "gsap";
 export default {
-  components: { UpdateForm, Snackbar, AddProduct },
+  components: { UpdateForm, AddProduct },
   data() {
     return {
       router: "orders",
@@ -220,12 +188,7 @@ export default {
     signout() {
       this.$store.dispatch(Actions.SIGN_OUT);
     },
-    resetResponse() {
-      this.$store.dispatch(Actions.RESET_RESPONSE);
-      this.$store.dispatch(Actions.RESET_ADD_PRODUCT_ERROR);
-      this.$store.dispatch(Actions.RESET_ADD_PRODUCT_SUCCESS);
-      this.$store.dispatch(Actions.RESET_UPDATE_STATUS_RESPONSE);
-    },
+
     status(status) {
       console.log(status);
       if (this.user.role === "customer") {
@@ -250,24 +213,14 @@ export default {
     user() {
       return this.$store.state.userModule.user;
     },
-    updateRes() {
-      return this.$store.state.userModule.updateRes;
-    },
+
     orders() {
       console.log("orders inside profile", this.$store.getters.allOrders);
       return this.$store.getters.allOrders;
     },
-    addProductError() {
-      return this.$store.state.productsModule.addProductError;
-    },
-    addProductSuccess() {
-      return this.$store.state.productsModule.addProductSuccess;
-    },
+
     allImages() {
       return this.$store.state.productsModule.allImages;
-    },
-    updateStatusRes() {
-      return this.$store.state.ordersModules.updateStatusResponse;
     },
   },
 };

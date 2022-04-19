@@ -4,8 +4,10 @@
     <div v-if="product" class="wrapper">
       
       <section class="image">
-        <!-- $TIPS: Move 'http://localhost:5000/images/' to a en environment variable  -->
-        <img :src="'http://localhost:5000/images/' + product.imgFile" />
+        <!-- $TIPS: Move 'http://localhost:5000/images/' to a en environment variable 
+        <img :src="'http://localhost:5000/images/' + product.imgFile" /> //This is the one we used, it is now changed to the one below
+         -->
+        <img :src='process.env.LOCALHOST_ADDRESS + product.imgFile' />
       </section>
       <section class="product-info">
         <div class="product-discription">
@@ -50,6 +52,11 @@
 
 <script>
 import Actions from "../store/actions.types";
+
+//Needed to run npm install dotenv first
+import * as dotenv from 'dotenv';
+dotenv.config()
+
 export default {
   data() {
     return {

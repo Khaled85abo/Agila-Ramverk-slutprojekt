@@ -58,7 +58,7 @@
           </div>
           <div v-else>
             <img
-              @click="redirect"
+              @click="$router.push('/profile')"
               src="../assets/icons/profile.svg"
               alt=""
               height="20"
@@ -93,16 +93,9 @@ export default {
       this.$router.push("/product/" + id);
       this.searchKeyword = "";
     },
-    redirect() {
-      console.log("clicked");
-      if (this.$store.state.userModule.user.role === "admin") {
-        this.$router.push("/admin");
-      } else {
-        this.$router.push("/profile");
-      }
-    },
     searchProduct() {
-      if (this.searchKeyword.length) {
+      this.$store.state.productsModule.searchResponse.length = 0
+      if (this.searchKeyword.length > 2) {
         console.log("Keyword is: " + this.searchKeyword);
         return this.$store.dispatch(
           Actions.SEARCH_PRODUCTS,

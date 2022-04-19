@@ -1,4 +1,6 @@
 module.exports = {
+  outputDir: "docs",
+  publicPath: "/Agila-Ramverk-slutprojekt/",
   css: {
     loaderOptions: {
       sass: {

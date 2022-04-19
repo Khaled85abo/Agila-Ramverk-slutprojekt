@@ -104,8 +104,8 @@ export default {
 .total-price{
     display: flex;
     flex-direction: column;
-    // $FEEDBACK: use 'flex-end' instead of 'end'
-    align-items: end;
+    /* $FEEDBACK: use 'flex-end' instead of 'end' */
+    align-items: flex-end;
     align-self: stretch;
   }
   .main{

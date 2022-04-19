@@ -63,6 +63,7 @@
 </template>
 
 <script>
+import Actions from "../store/actions.types";
 export default {
   props: ["inloggedUser"],
   data() {
@@ -78,7 +79,6 @@ export default {
           zip: "",
         },
       },
-      localError: null,
     };
   },
   mounted() {
@@ -89,8 +89,11 @@ export default {
   methods: {
     submit() {
       if (this.user.password !== this.user.confirmPassword) {
-        this.localError = "passwords don't match";
-        this.$emit("error", this.localError);
+        this.$store.dispatch(Actions.SET_RESPONSE, {
+          type: "error",
+          message: "passwords don't match",
+        });
+
         return;
       }
       const userInfo = { ...this.user };

@@ -32,7 +32,7 @@ export default {
 <style lang="scss" scoped>
 article {
   /* height: 230px; */
-  width: 170px;
+  width: 159px;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
